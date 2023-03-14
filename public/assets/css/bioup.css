@@ -1,0 +1,61 @@
+.bioup-btn-radius {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 2;
+  color: #000000;
+  text-align: center;
+  /* text-decoration: none; */
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: 2px solid #3bb77e;
+  border-radius: 100px;
+  min-width: 100px;
+  margin-inline: 10px;
+}
+.bioup-btn-radius:hover{
+    border-radius: 5px;
+    background-color: #3bb77e;
+    color: #ffffff;
+}
+
+.bioup-btn-default{
+    display: inline-block;
+    font-weight: 400;
+    line-height: 2;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #3bb77e;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    border: 2px solid #3bb77e;
+    min-width: 100px;
+    margin-inline: 10px;
+}
+
+/* navbar design */
+.bioup-sticky-navbar{
+    position: sticky;
+    top: 0; 
+    background-color:#ffffff; 
+    z-index:999;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
