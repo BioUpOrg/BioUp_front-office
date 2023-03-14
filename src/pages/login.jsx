@@ -53,7 +53,7 @@ export default function Login() {
                       src="assets/imgs/theme/icons/logo-facebook.svg"
                       alt=""
                     />
-                    <span>                    <button  onClick={handleButtonClick} >login fb</button>
+                    <span>                    <a  onClick={handleButtonClick} >login fb</a>
 </span>
 
                   </a>
