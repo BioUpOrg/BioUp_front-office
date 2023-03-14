@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
-import axios from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+
 //import moment from "moment";
 
 const slice = createSlice({
@@ -65,7 +64,7 @@ export const loadUsers = () => (dispatch, getState) => {
 };
 */
 
-export const addUser = user =>
+export const addUser = user => 
   apiCallBegan({
     url,
     method: "post",
@@ -73,3 +72,21 @@ export const addUser = user =>
     onSuccess: userAdded.type,
     onError: usersRequestFailed.type
   });
+;
+
+
+
+
+
+
+/*
+export const addUser = user =>
+console.log(user);
+  apiCallBegan({
+    url,
+    method: "post",
+    data: user,
+    onSuccess: userAdded.type,
+    onError: usersRequestFailed.type
+  });
+*/
