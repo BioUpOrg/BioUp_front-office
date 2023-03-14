@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import axios, * as others from 'axios';
@@ -13,22 +14,60 @@ async function ConnectFb(Code){
     console.error(error);
   }
 };
+async function ConnectGoogle(Code){
+  try {
+    const response = await axios.get('http://localhost:3000/google/test', {
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+setTimeout(function() { //Start the timer
+  ConnectFb().then(response =>{
+ //   console.log("response "+JSON.stringify(response) );
+  //  console.log("data",JSON.stringify(response.data))  ;
+    localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+      console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+
+  }
+  )}.bind(this), 1000)
 
 
 
 const handleButtonClick = () => {
   window.open("http://localhost:3000/fb/auth/facebook");
-  ConnectFb().then(response =>{
-    console.log("response "+JSON.stringify(response) );
-    console.log("data",JSON.stringify(response.data))  ;
-    localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
-      console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  /*setTimeout(function() { //Start the timer
+    ConnectFb().then(response =>{
+      console.log("response "+JSON.stringify(response) );
+      console.log("data",JSON.stringify(response.data))  ;
+      localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+        console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  
+    }
+    )}.bind(this), 1000)
+ 
+*/
 
-  }
-  )
+}
+const handleButtonClick2 = () => {
+  window.open("http://localhost:3000/google/auth");
+  setTimeout(function() { //Start the timer
+    ConnectGoogle().then(response =>{
+      console.log("response "+response );
+    console.log("data",response.data)  ;
+      console.log("response "+JSON.stringify(response) );
+      console.log("data",JSON.stringify(response.data))  ;
+      localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+        console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  
+    }
+    )}.bind(this), 1000)
+
 
 
 }
+
 
 
 
@@ -59,8 +98,8 @@ export default function Login() {
                   </a>
                   <a href="#" class="social-login apple-login">
                     <img src="assets/imgs/theme/icons/logo-apple.svg" alt="" />
-                    <span>Continue with Google</span>
-                  </a>
+                    <span>                    <a  onClick={handleButtonClick2} >login google</a>
+</span>                  </a>
                 </div>
               </div>
               <div class="col-lg-6 col-md-8">
@@ -145,5 +184,4 @@ export default function Login() {
     </div>
   );
 }
-
 
