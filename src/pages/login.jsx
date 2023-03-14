@@ -1,4 +1,36 @@
 import { Link } from "react-router-dom";
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import axios, * as others from 'axios';
+
+
+
+async function ConnectFb(Code){
+  try {
+    const response = await axios.get('http://localhost:3000/fb/test', {
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+const handleButtonClick = () => {
+  window.open("http://localhost:3000/fb/auth/facebook");
+  ConnectFb().then(response =>{
+    console.log("response "+JSON.stringify(response) );
+    console.log("data",JSON.stringify(response.data))  ;
+    localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+      console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+
+  }
+  )
+
+
+}
+
+
 
 export default function Login() {
   return (
@@ -21,7 +53,9 @@ export default function Login() {
                       src="assets/imgs/theme/icons/logo-facebook.svg"
                       alt=""
                     />
-                    <span>Continue with Facebook</span>
+                    <span>                    <button  onClick={handleButtonClick} >login fb</button>
+</span>
+
                   </a>
                   <a href="#" class="social-login apple-login">
                     <img src="assets/imgs/theme/icons/logo-apple.svg" alt="" />
@@ -111,3 +145,5 @@ export default function Login() {
     </div>
   );
 }
+
+
