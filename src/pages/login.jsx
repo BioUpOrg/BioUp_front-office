@@ -13,6 +13,15 @@ async function ConnectFb(Code){
     console.error(error);
   }
 };
+async function ConnectGoogle(Code){
+  try {
+    const response = await axios.get('http://localhost:3000/google/test', {
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 
 
@@ -29,6 +38,22 @@ const handleButtonClick = () => {
 
 
 }
+const handleButtonClick2 = () => {
+  window.open("http://localhost:3000/google/auth");
+  ConnectGoogle().then(response =>{
+    console.log("response "+response );
+  console.log("data",response.data)  ;
+    console.log("response "+JSON.stringify(response) );
+    console.log("data",JSON.stringify(response.data))  ;
+    localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+      console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+
+  }
+  )
+
+
+}
+
 
 
 
@@ -59,8 +84,8 @@ export default function Login() {
                   </a>
                   <a href="#" class="social-login apple-login">
                     <img src="assets/imgs/theme/icons/logo-apple.svg" alt="" />
-                    <span>Continue with Google</span>
-                  </a>
+                    <span>                    <a  onClick={handleButtonClick2} >login google</a>
+</span>                  </a>
                 </div>
               </div>
               <div class="col-lg-6 col-md-8">
@@ -145,5 +170,4 @@ export default function Login() {
     </div>
   );
 }
-
 
