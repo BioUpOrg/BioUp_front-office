@@ -24,6 +24,7 @@ async function ConnectGoogle(Code){
 };
 
 
+
 const handleButtonClick = () => {
   window.open("http://localhost:3000/fb/auth/facebook");
   ConnectFb().then(response =>{
@@ -52,6 +53,7 @@ const handleButtonClick2 = () => {
 
 
 }
+
 
 
 
