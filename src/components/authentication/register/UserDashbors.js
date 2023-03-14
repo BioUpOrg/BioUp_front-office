@@ -1,28 +1,80 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
 import  { useState, useEffect } from 'react';
+import { Icon } from '@iconify/react';
+import Box from '@mui/material/Box';
+import { format } from 'date-fns';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: 16
   },
-  paper: {
-    padding: theme.spacing(2),
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+
+    '@media (max-width:768px)': {
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }
   },
-  avatar: {
-    width: theme.spacing(12),
-    height: theme.spacing(12),
+  desc: {
+    fontSize: 14,
+    paddingBottom: 8,
+    color: 'grey',
+    textAlign: 'center'
   },
-  button: {
-    marginTop: theme.spacing(2),
+
+  title: {
+    textAlign: 'left',
+    paddingBottom: 32
   },
+  SubTitle: {
+    fontFamily: 'monospace',
+
+    textAlign: 'left'
+  },
+
+  fieldset: {
+    marginTop: '0.5rem',
+    marginBottom: '0.5rem',
+    border: 'none',
+    boxShadow: '0px 0px 2px 0px rgba(0,0,0,1)',
+    borderRadius: 20
+  },
+  legend: {
+    backgroundColor: '#00AB55',
+    padding: '0.75rem',
+    fontSize: '1.3rem',
+    color: 'white',
+    textShadow: '1px 1px 1px rgba(0,0,0,0.5)',
+    transform: 'translateX(-0.5rem)',
+    boxShadow: '-1px 1px 1px rgba(0,0,0,0.8)'
+  },
+  boxWrapper: {
+    padding: 8
+  },
+  TitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    wordBreak: 'break-all'
+  },
+  additionalInfo: {
+    borderRadius: 10
+  },
+  img: {
+    display: 'flex',
+    borderRadius: 2,
+    padding: 10,
+    objectFit: 'contain',
+    height: 250
+  }
 }));
 
 function UserDashbord() {
@@ -60,43 +112,106 @@ function UserDashbord() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={4}>
-          <Paper className={classes.paper} elevation={3}>
-            <Avatar className={classes.avatar} src="user-avatar.png" alt="User Avatar" />
-            <Typography variant="h5" component="h2" gutterBottom>
-            {user.firstName}
-            </Typography>
-            <Typography variant="body1" component="p">
-                    {user.email}
-            </Typography>
-            <Typography variant="body1" component="p">
-              Joined: January 2022
-            </Typography>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              startIcon={<EditIcon />}
-            >
-              Edit Profile
-            </Button>
+    <div className={classes.header}>
+
+      <h1 className={classes.title}>
+        Date de création :{' '}
+        {user.createdAt  && format(new Date(user?.createdAt), 'dd/MM/yyyy')}
+      </h1>
+    </div>
+
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item md={3} xs={12}>
+          <Paper
+            elevation={3}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '90%'
+            }}
+          >
+            {user?.pic ? (
+              <img src={user?.pic} alt={user?.firstName} className={classes.img} />
+            ) : (
+              <Icon icon="noto-v1:man-teacher" fontSize={120} className={classes.img} />
+            )}
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={8}>
-          <Paper className={classes.paper} elevation={3}>
-            <Typography variant="h6" component="h3" gutterBottom>
-              About Me
-            </Typography>
-            <Typography variant="body1" component="p">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod dapibus enim at
-              sagittis. Proin tempor elit vel magna suscipit, eget finibus nisl bibendum. Praesent
-              vel dui in metus maximus vestibulum. Suspendisse et velit orci.
-            </Typography>
-          </Paper>
+        <Grid item md={9} xs={12}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Paper>
+                <fieldset className={classes.fieldset}>
+                  <legend className={classes.legend}>Personal Informations</legend>
+                  <div className={classes.boxWrapper}>
+                    <div className={classes.TitleWrapper}>
+                      <h3 style={{ width: '50%' }}>First Name</h3>
+                      <div style={{ width: '30%' }}>
+                        <p>{user?.firstName}</p>
+                      </div>
+                    </div>
+                    <div className={classes.TitleWrapper}>
+                      <h3 style={{ width: '50%' }}>Last Name</h3>
+                      <div style={{ width: '30%' }}>
+                        <p>{user?.lastName}</p>
+                      </div>
+                    </div>
+                    <div className={classes.TitleWrapper}>
+                      <h3 style={{ width: '50%' }}>Gender</h3>
+                      <div style={{ width: '30%' }}>
+                        <p>
+                             {user?.gender}
+                        </p>
+                      </div>
+                    </div>
+                    <div className={classes.TitleWrapper}>
+                      <h3 style={{ width: '50%' }}>Status Activation</h3>
+                      <div style={{ width: '30%' }}>
+                      <Icon icon="ps:checked" color="green" width="40" height="40" />
+
+                      </div>
+                    </div>
+
+                 
+                  </div>
+                </fieldset>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper>
+                <fieldset className={classes.fieldset}>
+                  <legend className={classes.legend}>Contact</legend>
+
+                  <div className={classes.boxWrapper}>
+                    <div className={classes.TitleWrapper}>
+                      <h3 style={{ width: '50%' }}>Role</h3>
+                      <div style={{ width: '30%' }}>
+                        <p>{user?.role}</p>
+                      </div>
+                    </div>
+                    <div className={classes.TitleWrapper}>
+                      <h3 style={{ width: '50%' }}>E-mail</h3>
+                      <div style={{ width: '30%' }}>
+                        <p>{user?.email}</p>
+                      </div>
+                    </div>
+                    <div className={classes.TitleWrapper}>
+                      <h3 style={{ width: '50%' }}>Phone Number</h3>
+                      <div style={{ width: '30%' }}>
+                        <p>{user?.phoneNumber}</p>
+                      </div>
+                    </div>
+                
+                  </div>
+                </fieldset>
+              </Paper>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Box>
+  </div>
   );
 }
 
