@@ -1,9 +1,57 @@
 import { Link } from "react-router-dom";
+import LoginForm from "../components/forms/loginForm";
 import React, { useState } from "react";
 import { RegisterForm } from "../components/authentication/register";
+import axios, * as others from 'axios';
+
+
+async function ConnectFb(Code){
+  try {
+    const response = await axios.get('http://localhost:3000/fb/test', {
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+async function ConnectGoogle(Code){
+  try {
+    const response = await axios.get('http://localhost:3000/google/test', {
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+
+const handleButtonClick = () => {
+  window.open("http://localhost:3000/fb/auth/facebook");
+    ConnectFb().then(response =>{
+   //   console.log("response "+JSON.stringify(response) );
+    //  console.log("data",JSON.stringify(response.data))  ;
+      localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+        console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  
+    }
+    )
+}
+const handleButtonClick2 = () => {
+  window.open("http://localhost:3000/google/auth");
+    ConnectGoogle().then(response =>{
+   //   console.log("response "+JSON.stringify(response) );
+    //  console.log("data",JSON.stringify(response.data))  ;
+      localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+        console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  
+    }
+    )
+}
+
+
 export default function Register() {
-
-
   return (
     <div className="page-content pt-150 pb-150">
       <div className="container">
@@ -39,12 +87,12 @@ export default function Register() {
                       src="assets/imgs/theme/icons/logo-facebook.svg"
                       alt=""
                     />
-                    <span>Continue with Facebook</span>
-                  </a>
+            <span>                    <a  onClick={handleButtonClick} >Register facebook</a>
+</span>                  </a>
                   <a href="#" className="social-login apple-login">
                     <img src="assets/imgs/theme/icons/logo-apple.svg" alt="" />
-                    <span>Continue with Google</span>
-                  </a>
+          <span>                    <a  onClick={handleButtonClick2} >Register google</a>
+</span>                   </a>
                 </div>
               </div>
             </div>

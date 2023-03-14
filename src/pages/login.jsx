@@ -70,13 +70,13 @@ export default function Login() {
                       src="assets/imgs/theme/icons/logo-facebook.svg"
                       alt=""
                     />
-                    <span>                    <a  onClick={handleButtonClick} >login fb</a>
+                    <span>                    <a  onClick={handleButtonClick} >Login facebook</a>
 </span>
 
                   </a>
                   <a href="#" className="social-login apple-login">
                     <img src="assets/imgs/theme/icons/logo-apple.svg" alt="" />
-                    <span>                    <a  onClick={handleButtonClick2} >login google</a>
+                    <span>                    <a  onClick={handleButtonClick2} >Login google</a>
 </span>                  </a>
                 </div>
               </div>
