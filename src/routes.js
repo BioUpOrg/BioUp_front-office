@@ -11,7 +11,6 @@ import Services from './pages/services';
 import Register from './pages/register';
 import Login from './pages/login';
 import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
-
 const MyAppRoutes = () => {
   return (
     <BrowserRouter>
