@@ -24,19 +24,47 @@ async function ConnectGoogle(Code){
     console.error(error);
   }
 };
+setTimeout(function() { //Start the timer
+  ConnectFb().then(response =>{
+ //   console.log("response "+JSON.stringify(response) );
+  //  console.log("data",JSON.stringify(response.data))  ;
+    localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+      console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+
+  }
+  )}.bind(this), 1000)
 
 
 
 const handleButtonClick = () => {
   window.open("http://localhost:3000/fb/auth/facebook");
-  ConnectFb().then(response =>{
-    console.log("response "+JSON.stringify(response) );
-    console.log("data",JSON.stringify(response.data))  ;
-    localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
-      console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  /*setTimeout(function() { //Start the timer
+    ConnectFb().then(response =>{
+      console.log("response "+JSON.stringify(response) );
+      console.log("data",JSON.stringify(response.data))  ;
+      localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+        console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  
+    }
+    )}.bind(this), 1000)
+ 
+*/
 
-  }
-  )
+}
+const handleButtonClick2 = () => {
+  window.open("http://localhost:3000/google/auth");
+  setTimeout(function() { //Start the timer
+    ConnectGoogle().then(response =>{
+      console.log("response "+response );
+    console.log("data",response.data)  ;
+      console.log("response "+JSON.stringify(response) );
+      console.log("data",JSON.stringify(response.data))  ;
+      localStorage.setItem("TOKEN_KEY", JSON.stringify(response.data));
+        console.log("TOKEN_KEY from localStorage: ",localStorage.getItem("TOKEN_KEY"))
+  
+    }
+    )}.bind(this), 1000)
+
 
 
 }
@@ -55,6 +83,7 @@ const handleButtonClick2 = () => {
 
 
 }
+
 
 
 
