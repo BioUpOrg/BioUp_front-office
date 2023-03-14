@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.13",
     "@iconify/icons-eva": "^1.2.6",
     "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.122",
@@ -19,6 +20,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-phone-number-input": "^3.2.19",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
