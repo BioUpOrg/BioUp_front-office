@@ -15,6 +15,11 @@ import Page401 from "./pages/errorsPages/401";
 import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard";
 
+import OTPVerification from './pages/verifyAccount';
+import RecoverPassSms from './pages/RecupererPasswordPhone';
+import UserVerificationWithMail from './pages/UserVerificationWithMail';
+import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
+
 const MyAppRoutes = () => {
 
   const PrivateRoute = ({ children }) => {
@@ -34,6 +39,10 @@ const MyAppRoutes = () => {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
+        <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
+        <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
+        <Route path="/RecoverPassEmail" element={<RecoverPassEmail/>} />
         <Route
           path="/dashboard"
           element={<PrivateRoute>

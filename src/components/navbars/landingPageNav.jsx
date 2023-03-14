@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { BiUser } from "react-icons/bi";
+import React from 'react'
 
 export default function LandingPageNav() {
   let registerBtn;
