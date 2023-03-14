@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 
-const url = "http://localhost:3000/users/check/activate/accountsms/";
-const urlupdate="http://localhost:3000/users/updateactivationcodesms/";
-const urlverifphoneexist="http://localhost:3000/users/existphone/";
+const url = "http://localhost:5000/users/check/activate/accountsms/";
+const urlupdate="http://localhost:5000/users/updateactivationcodesms/";
+const urlverifphoneexist="http://localhost:5000/users/existphone/";
 
 export const verifyAccountSms = (smscode) => {
     smscode = smscode || '';
