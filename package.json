@@ -16,7 +16,9 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.4",
     "formik": "^2.2.9",
+    "i": "^0.3.7",
     "mdb-ui-kit": "^6.2.0",
+    "npm": "^9.6.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
@@ -26,6 +28,7 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
+    "use-history": "^1.4.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.0.2"
   },

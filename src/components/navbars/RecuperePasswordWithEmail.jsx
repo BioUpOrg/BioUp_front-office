@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button,Alert, Col, Container, Form, Row } from 'react-bootstrap'
+import { useNavigate } from "react-router-dom";
+
 import axios from 'axios'
 
 const RecuperePasswordWithEmail = () => {
   const [showInput, setShowInput] = useState('input1');
   const [buttonName, SetButtonName] = useState('Send');
   const [mm, setmm] = useState('');
+  const [visible2,setVisible2]=useState(false)
+  const [visible1,setVisible1]=useState(false)
+  const [visible3,setVisible3]=useState(false)
 
   const sendResetCode = async (email) => {
      return axios.put('http://localhost:3000/forget/', { email }).then
@@ -17,6 +22,7 @@ const RecuperePasswordWithEmail = () => {
       )
 
   };
+  
   const ConfirmCode = async (email,codeRecuperation) => {
     return axios.put('http://localhost:3000/forget/verif', { email,codeRecuperation }).then
      (res => {
@@ -39,9 +45,10 @@ const RecuperePasswordWithEmail = () => {
 };
 
 
+const navigate = useNavigate();
 
   const handleButtonClick = () => {
-   
+
     if (showInput === 'input1') {
       const mail = document.getElementById('inputEmail').value;
       setmm(mail);
@@ -49,15 +56,20 @@ const RecuperePasswordWithEmail = () => {
         console.log("response "+response);
 
         if(response === "err"){
-    //      console.log("no");
+          console.log("no");
+          setVisible1(true);
+          setTimeout(()=>{setVisible1(false)},3000)
+          return () => {
+            console.log("I m unmounting")
+          }
         }else{
-    //      console.log("yes")
+          setShowInput('input2');
+          SetButtonName("Next");
         }
       }
         )
 
-      setShowInput('input2');
-      SetButtonName("Next");
+     
      
 
       
@@ -75,14 +87,19 @@ const RecuperePasswordWithEmail = () => {
 
         if(response === "err"){
           console.log("no");
+          setVisible3(true);
+          setTimeout(()=>{setVisible3(false)},3000)
+          return () => {
+            console.log("I m unmounting")
+          }
         }else{
-          console.log("yes")
+          setShowInput('input3');
+          SetButtonName("Submit");
         }
       }
         )
-      setShowInput('input3');
-      SetButtonName("Submit");
-    } else {
+     
+    } else if (showInput === 'input3'){
       
       const password = document.getElementById('inputPass1').value;
       const password2 = document.getElementById('inputPass2').value;
@@ -98,8 +115,16 @@ const RecuperePasswordWithEmail = () => {
           }
         }
           )
+          navigate("/Login");
+
       }else{
         console.log("password not similar");
+          setVisible2(true);
+          setTimeout(()=>{setVisible2(false)},3000)
+          return () => {
+            console.log("I m unmounting")
+          }
+    
       }
       
 
@@ -111,7 +136,25 @@ const RecuperePasswordWithEmail = () => {
 
 
   return (
+  
     <Container style={{marginBottom :'13%'}}>  
+      {visible2 &&   <Alert style={{ marginTop: "30px" }} variant="danger">
+    <p>
+      Passwords are not similar
+    </p>
+     </Alert>}
+     {visible1 &&   <Alert style={{ marginTop: "30px" }} variant="danger">
+    <p>
+      the mail is not found
+    </p>
+     </Alert>}
+     {visible3 &&   <Alert style={{ marginTop: "30px" }} variant="danger">
+    <p>
+      the verification code is not correct
+    </p>
+     </Alert>}
+
+
         <Row className='justify-content-center'>
       <Col md={6}>
 
