@@ -28,7 +28,6 @@
     "yup": "^1.0.2"
   },
   "scripts": {
-    
     "start": "set PORT=4000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
