@@ -15,7 +15,10 @@ import { Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 // hooks
-import { createUser } from '../../../redux/reducers/auth/UserReducer';
+//import { createUser } from '../../../redux/reducers/auth/UserReducer';
+
+import { addUser } from '../../..//store/users';
+
 import { useDispatch } from 'react-redux';
 import Alert from '@mui/material/Alert';
 
@@ -70,11 +73,12 @@ export default function RegisterForm() {
 
 
 
-          const result = dispatch(createUser(data));
+          const result = dispatch(addUser(data));
           
           Promise.resolve(result).then(data => {
-            if (data.payload.field == 'phone' || data.payload.field == 'email') {
-              setErrorMessage("A User with this " +data.payload.field+ " already exists");
+            console.log("debug data",data);
+            if (data === 'phone' || data === 'email') {
+              setErrorMessage("A User with this " +data+ " already exists");
 
               setTimeout(() => {
                 setErrorMessage(null);
@@ -84,25 +88,6 @@ export default function RegisterForm() {
               navigate('/login')
             }
           });
-
-          /*const result = dispatch(createUser(data));*/
-          
-        /*  Promise.resolve(result).then(data => {
-            const { error, field } = data;
-            console.error(error); // Log the error message
-            console.log(field); // Log the field name
-          });*/
-
-
-
-
-      /*   signUp(userData)
-          .then((res) => {
-            setIsLoading(false);
-            console.log(res)
-          .catch((e) => console.log('Error:', e));
-            });*/
-
         }
 
       });
