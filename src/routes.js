@@ -10,9 +10,12 @@ import Products from './pages/products';
 import Services from './pages/services';
 import Register from './pages/register';
 import Login from './pages/login';
+
 import OTPVerification from './pages/verifyAccount';
 import RecoverPassSms from './pages/RecupererPasswordPhone';
 import UserVerificationWithMail from './pages/UserVerificationWithMail';
+import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
+
 const MyAppRoutes = () => {
   return (
     <BrowserRouter>
@@ -29,6 +32,7 @@ const MyAppRoutes = () => {
           <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
           <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
           <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
+          <Route path="/RecoverPassEmail" element={<RecoverPassEmail/>} />
         </Routes>
         <MainFooter/>
     </BrowserRouter>
