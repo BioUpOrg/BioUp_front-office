@@ -10,7 +10,6 @@ import Products from './pages/products';
 import Services from './pages/services';
 import Register from './pages/register';
 import Login from './pages/login';
-
 const MyAppRoutes = () => {
   return (
     <BrowserRouter>

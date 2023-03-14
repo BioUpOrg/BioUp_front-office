@@ -22,7 +22,8 @@ export default function Register() {
                     </div>
 
 
-
+                      <br/>
+                     
 
                     <RegisterForm />
 
