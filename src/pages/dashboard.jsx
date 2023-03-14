@@ -199,9 +199,7 @@ export default function Dashboard() {
                 </div>
                 <div class="tab-pane fade active show">
                   <div class="card">
-                    <div class="card-header">
-                      <h5>Account Details</h5>
-                    </div>
+                   
                     <UserDashbord/>
                   </div>
                 </div>
