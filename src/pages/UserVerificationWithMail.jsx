@@ -5,7 +5,7 @@ import axios from 'axios';
 const UserVerificationWithMail = () => {
 const [msg,setMsg]=useState('');
 const {token}= useParams();
-const urlverifMail ="http://localhost:5000/users/check/activate/account/";
+const urlverifMail ="http://localhost:3000/users/check/activate/account/";
  const verifyToken= async (token)=>{
     token = token || ''
     return axios.get(`${urlverifMail}${token}`)

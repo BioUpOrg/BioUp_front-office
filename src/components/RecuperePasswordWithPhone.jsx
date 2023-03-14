@@ -9,10 +9,10 @@ const RecuperePasswordWithPhone = () => {
   const [p,setP]=useState('');
   const [cc,setcc]=useState('');
 
-  const urlverifphoneexist="http://localhost:5000/users/existphone/";
-  const urlcheckcode="http://localhost:5000/users/check/activate/codeRecupPassBySms/";
-  const urlsendCode="http://localhost:5000/users/updateCodeRecupPassBySms/"
-  const urlchangepass="http://localhost:5000/users/changepassword/"
+  const urlverifphoneexist="http://localhost:3000/users/existphone/";
+  const urlcheckcode="http://localhost:3000/users/check/activate/codeRecupPassBySms/";
+  const urlsendCode="http://localhost:3000/users/updateCodeRecupPassBySms/"
+  const urlchangepass="http://localhost:3000/users/changepassword/"
   const verifUserExistByPhone = async(phone) =>{
     phone = phone || '';
     return axios.get(`${urlverifphoneexist}${phone}`)
