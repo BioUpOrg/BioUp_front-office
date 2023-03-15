@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 const RecuperePasswordWithPhone = () => {
   const [showInput, setShowInput] = useState('input1');
@@ -8,7 +9,7 @@ const RecuperePasswordWithPhone = () => {
   const [msg ,setMsg] =useState(''); 
   const [p,setP]=useState('');
   const [cc,setcc]=useState('');
-
+  const navigate =useNavigate();
   const urlverifphoneexist="http://localhost:3000/users/existphone/";
   const urlcheckcode="http://localhost:3000/users/check/activate/codeRecupPassBySms/";
   const urlsendCode="http://localhost:3000/users/updateCodeRecupPassBySms/"
@@ -107,10 +108,12 @@ const RecuperePasswordWithPhone = () => {
         console.log('pass:',pass)
         changePass(p,pass).then(response=>{
           console.log(response);
+          navigate('/Login')
         })
       }else{
         setMsg('The Two field must be identique')
       }
+     
     }
   };
 
