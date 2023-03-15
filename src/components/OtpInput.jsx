@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
+import { Label } from '@mui/icons-material';
 
 const url = "http://localhost:3000/users/check/activate/accountsms/";
 const urlupdate="http://localhost:3000/users/updateactivationcodesms/";
@@ -42,6 +43,31 @@ const VerifyAccount = () => {
   const [col,setColor] =useState('#000000');
   const [phoneInput,setphoneInput]=useState(true);
   const [sendbtn,showsendbtn] =useState(true) ;
+  const [Msgphone,setMsgphone]=useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
+
+  function handlePhoneNumberChange(event) {
+    const { value } = event.target.value;
+    setPhoneNumber(value);
+    setMsgphone('Dont forget To PUT Your Country Code '); 
+
+    if(!isValidPhoneNumber){
+      setMsgphone('Phone Number is not valid');
+      setTimeout(() => {
+        setMsgphone('');
+      }, 10000);
+      
+
+    }
+
+    // Regular expression to validate phone number
+    
+    const phoneRegex = /^\+216\d{8}$/;
+
+    setIsValidPhoneNumber(phoneRegex.test(value));
+  }
+
   const handleOtpChange = (event) => {
     setOtp(event.target.value);
     setMsg(event.target.value);
@@ -58,9 +84,16 @@ const VerifyAccount = () => {
             setMsg(`Resending code to .... ${phoneInputValue}`);
              updateCodeSms(phoneInputValue);
              setMsg('sending code successfully');
+             setColor('green')
+             setTimeout(() => {
+              setMsg('')
+             }, 3000);
         
         }else{
-          setMsg('you dont have an account !! create one');
+          setMsg('Canot Found An Account With This Number');
+          setTimeout(() => {
+            setMsg('');
+          }, 3000);
           setColor('#cf0000');
         }
       
@@ -81,7 +114,7 @@ const VerifyAccount = () => {
       if (response) {
         // Code SMS valide, activer le compte
         console.log('Compte activé !'+ JSON.stringify(response));
-        setMsg( JSON.stringify(response));
+        setMsg(response);
         if(JSON.stringify(response)===JSON.stringify('activation avec succées')){
           setColor('#00920f');
         }
@@ -107,7 +140,9 @@ const VerifyAccount = () => {
              <Form.Label style={{ color: col }}>
                 <h5 className="mb-2 text-center">
                   <span style={{ color: col }}>{msg}</span>
+                  <p style={{color:col}}>{Msgphone} </p>
                 </h5>
+                
               </Form.Label>    
               <Container>
                 <Row>
@@ -116,6 +151,7 @@ const VerifyAccount = () => {
                     type="text"
                     maxLength={10}
                     value={otp}
+                    placeholder='Recuperation code'
                     onChange={handleOtpChange}
                     required
                   />
@@ -123,8 +159,12 @@ const VerifyAccount = () => {
                      <Col md="9">
                      <Form.Control style={{marginTop:'5%'}}
                     type="text"
-                    placeholder='please put your phone number here ! '
+                    placeholder='phone number '
                     id='phone-input'
+                    maxLength={12}
+                    minLength={12}
+                    value={phoneNumber}
+                    onChange={handlePhoneNumberChange}
                     hidden={phoneInput}
                     
                   /></Col>
