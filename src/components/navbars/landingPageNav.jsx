@@ -1,12 +1,22 @@
 import { Link } from "react-router-dom";
 import { BiUser } from "react-icons/bi";
 import React from 'react'
+import { useNavigate } from "react-router-dom";
+import { Logout } from "../../services/authService";
 
 export default function LandingPageNav() {
+  const navigate= useNavigate();
   let registerBtn;
   let loginBtn;
   let signout;
   const isAuthenticated = localStorage.getItem("TOKEN_KEY") ? true : false;
+  
+  const logout = async () => {
+    await Logout(navigate);
+    // navigate('/');
+  }
+
+
   if (!isAuthenticated) {
     registerBtn = (
       <div className="header-action-icon-2">
@@ -27,9 +37,9 @@ export default function LandingPageNav() {
   }
   if(isAuthenticated){
     signout=<li>
-    <a href="page-login">
+    <Link to={"/"} onClick={() => logout()}>
       <i className="fi fi-rs-sign-out mr-10"></i>Sign out
-    </a>
+    </Link>
   </li>
   }
   return (
