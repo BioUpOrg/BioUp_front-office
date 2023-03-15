@@ -1,4 +1,5 @@
 import axios from "axios";
+import Instance from "../utils/auth.interceptor"
 import { BASE_URL } from "../endpoints";
 
 export const Login = (data, navigate) => {
@@ -45,6 +46,22 @@ export const existPhone = (phone) => {
     .then((response) => {
       console.log(response.data);
       return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const Logout = (navigate) => {
+  console.log("token", localStorage.getItem('TOKEN_KEY'))
+  Instance
+  .post("/users/logout")
+  .then((response) => {
+    console.log("response: ",response);
+    localStorage.removeItem("TOKEN_KEY");
+    console.log("token 2: ", localStorage.getItem('TOKEN_KEY'))
+    navigate('/');
+    return response.data;
     })
     .catch((err) => {
       console.log(err);
