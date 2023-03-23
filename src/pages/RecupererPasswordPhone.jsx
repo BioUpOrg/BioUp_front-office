@@ -1,5 +1,5 @@
 import React from 'react'
-import RecupererPasswordWithPhone from '../components/RecuperePasswordWithPhone'
+import RecupererPasswordWithPhone from '../components/inputs/RecuperePasswordWithPhone'
 const RecupererPassword = () => {
   return (
     
