@@ -14,6 +14,7 @@ import Page404 from "./pages/errorsPages/404";
 import Page401 from "./pages/errorsPages/401";
 import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard";
+import Farm from "./pages/farm";
 
 import OTPVerification from './pages/verifyAccount';
 import RecoverPassSms from './pages/RecupererPasswordPhone';
@@ -34,11 +35,13 @@ const MyAppRoutes = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/About" element={<About />} />
         <Route path="/Products" element={<Products />} />
+        <Route path="/Farm" element={<Farm />} />
         <Route path="/Composts" element={<Composts />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+      
         <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
         <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
         <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
