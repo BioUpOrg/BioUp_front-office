@@ -15,6 +15,11 @@ import Page401 from "./pages/errorsPages/401";
 import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard";
 import Farm from "./pages/farm";
+import FarmMangment from "./pages/ManageFarm/farmMangment";
+
+import AddFarm from './pages/ManageFarm/AddFarm';
+
+import FarmDetails from './pages/ManageFarm/FarmDetails';
 
 import OTPVerification from './pages/verifyAccount';
 import RecoverPassSms from './pages/RecupererPasswordPhone';
@@ -28,6 +33,9 @@ const MyAppRoutes = () => {
     return isAuthenticated ? children : <Navigate to="/login" />;
   }
 
+
+  
+
   return (
     <BrowserRouter>
       <LandingPageNav />
@@ -36,6 +44,10 @@ const MyAppRoutes = () => {
         <Route path="/About" element={<About />} />
         <Route path="/Products" element={<Products />} />
         <Route path="/Farm" element={<Farm />} />
+        <Route path="/ManageMyFarm" element={<FarmMangment />} />
+        <Route path="/addFarm" element={<AddFarm />} />
+        <Route path="/ManageMyFarm/FarmsDetail" element={<FarmDetails />} />
+
         <Route path="/Composts" element={<Composts />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
