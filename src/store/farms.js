@@ -16,7 +16,11 @@ const slice = createSlice({
     },
 
     farmsReceived: (farms, action) => {
-      farms.list = action.payload;
+      if (Array.isArray(action.payload)) {
+        farms.list = action.payload;
+      } else {
+        farms.list = [];
+      }
       farms.loading = false;
       farms.lastFetch = Date.now();
     },
@@ -32,6 +36,17 @@ const slice = createSlice({
       farms.list.push(action.payload);
     },
 
+
+      farmUpdated: (farms, action) => {
+        const index = farms.list.findIndex((farm) => farm._id === action.payload._id);
+        if (index !== -1) {
+          farms.list[index] = action.payload;
+        }
+      },
+    farmDeleted: (farms, action) => {
+      farms.list = farms.list.filter((farm) => farm._id !== action.payload);
+    },
+
   }
 });
 
@@ -39,7 +54,9 @@ export const {
  farmAdded,
  farmResolved,
   farmsReceived,
+  farmUpdated,
   farmsRequested,
+  farmDeleted,
   farmsRequestFailed
 } = slice.actions;
 export default slice.reducer;
@@ -65,4 +82,24 @@ export const getFarms = () =>
     onStart: farmsRequested.type,
     onSuccess: farmsReceived.type,
     onError: farmsRequestFailed.type
+  });
+
+  export const updateFarm = (data, id) =>
+  apiCallBegan({
+    url: `/farms/${id}`,
+    method: "patch",
+    data,
+    onSuccess: farmUpdated.type,
+    onError: farmsRequestFailed.type,
+  });
+ 
+
+
+
+  export const deleteFarm = (id) =>
+  apiCallBegan({
+    url: `/farms/${id}`,
+    method: "delete",
+    onSuccess: farmDeleted.type,
+    onError: farmsRequestFailed.type,
   });
