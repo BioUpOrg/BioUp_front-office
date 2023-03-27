@@ -8,7 +8,9 @@ const slice = createSlice({
   initialState: {
     list: [],
     loading: false,
-    lastFetch: null
+    lastFetch: null,
+    userId: null
+
   },
   reducers: {
     usersRequested: (users, action) => {
@@ -31,6 +33,9 @@ const slice = createSlice({
     userAdded: (users, action) => {
       users.list.push(action.payload);
     },
+    setUserId: (state, action) => {
+      state.userId = action.payload;
+    }
 
   }
 });
@@ -40,12 +45,14 @@ export const {
   userResolved,
   usersReceived,
   usersRequested,
+  setUserId,
+  currentUserReceived,
   usersRequestFailed
 } = slice.actions;
 export default slice.reducer;
 
 // Action Creators
-const url = "/auth/";
+const url = "/users/auth/";
 /*
 export const loadUsers = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.users;
@@ -73,7 +80,6 @@ export const addUser = user =>
     onError: usersRequestFailed.type
   });
 ;
-
 
 
 
