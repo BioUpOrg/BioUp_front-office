@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { Card, Nav } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import UserDashbord from "../components/authentication/register/UserDashbors";
+import Contract from "../pages/MyContract";
 export default function Dashboard() {
   const location = useLocation();
   const message = new URLSearchParams(location.search).get("message");
+  const [activeItem,setActiveItem]=useState('account-item');
+  
+   const handleClick = (item) => {
+  console.log(item);
+  setActiveItem(item);
+
+  };
   return (
-    <div class="container" style={{marginBlock:"200px"}}>
+    <div class="container" style={{marginBlock:"100px"}}>
       <div class="row">
-        <div class="col-lg-10 m-auto">
+        <div class="col-lg-12 m-auto">
           <div class="row">
             <div class="col-md-3">
               <div class="dashboard-menu">
                 <ul class="nav flex-column" role="tablist">
+
                   <li class="nav-item">
-                    <a class="nav-link">
-                      <i class="fi-rs-settings-sliders mr-10"></i>Dashboard
-                    </a>
+                    <a
+                      className={`nav-link ${
+                        activeItem === "dashboard-item" ? "active" : ""
+                      }`}
+                      onClick={() => handleClick("dashboard-item")}
+                    >
+                        <i className="fi-rs-settings-sliders mr-10">Dashboard</i>
+                        </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link">
@@ -34,10 +49,28 @@ export default function Dashboard() {
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active">
-                      <i class="fi-rs-user mr-10"></i>Account details
+                  <a name="account-item"
+                      className={`nav-link ${
+                        activeItem === "account-item" ? "active" : ""
+                      }`}
+                      onClick={(e) => handleClick(e.target.name)}
+                    >
+                      <i className="fi-rs-user mr-10"></i>Account details
                     </a>
                   </li>
+                  <li class="nav-item" >
+                  <a
+                  name="contract-item" 
+                      className={`nav-link ${
+                        activeItem === "contract-item" ? "active" : ""
+                      }`}
+                      onClick={(e) => handleClick(e.target.name)}
+                    >
+                      <i className="fi-rs-marker mr-10"></i>Contract
+                    </a>
+                  </li>
+                  
+                   
                   <li class="nav-item">
                     <a class="nav-link" href="/page-login">
                       <i class="fi-rs-sign-out mr-10"></i>Logout
@@ -198,10 +231,24 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div class="tab-pane fade active show">
-                  <div class="card">
-                   
-                    <UserDashbord/>
-                  </div>
+                 <Card>
+                              
+                  {activeItem ==="account-item" ?  (
+                    <UserDashbord />
+                  ) : (
+                    <>
+                      {/* Placeholder content */}
+                    </>
+                  )}
+
+                  {activeItem === "contract-item" ? (
+                    <Contract />
+                  ) : (
+                    <>
+                      {/* Placeholder content */}
+                    </>
+                  )}
+                 </Card>
                 </div>
               </div>
             </div>

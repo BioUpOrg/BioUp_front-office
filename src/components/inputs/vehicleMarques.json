@@ -1,0 +1,55 @@
+{
+    "carBrands": [
+      { "label": "Toyota", "value": "Toyota" },
+      { "label": "Honda", "value": "Honda" },
+      { "label": "Ford", "value": "Ford" },
+      { "label": "Chevrolet", "value": "Chevrolet" },
+      { "label": "Nissan", "value": "Nissan" },
+      { "label": "Hyundai", "value": "Hyundai" },
+      { "label": "Kia", "value": "Kia" },
+      { "label": "BMW", "value": "BMW" },
+      { "label": "Mercedes-Benz", "value": "Mercedes-Benz" },
+      { "label": "Audi", "value": "Audi" }
+    ],
+    "truckBrands": [
+      { "label": "Ford", "value": "Ford" },
+      { "label": "Chevrolet", "value": "Chevrolet" },
+      { "label": "Dodge", "value": "Dodge" },
+      { "label": "GMC", "value": "GMC" },
+      { "label": "Nissan", "value": "Nissan" },
+      { "label": "Ram", "value": "Ram" },
+      { "label": "Jeep", "value": "Jeep" },
+      { "label": "Land Rover", "value": "Land Rover" },
+      { "label": "Mercedes-Benz", "value": "Mercedes-Benz" }
+    ],
+     "vanBrands": [
+      { "label": "Ford", "value": "Ford"},
+      { "label": "Mercedes-Benz", "value": "Mercedes-Benz" },
+      { "label": "Fiat", "value": "Fiat" },
+      { "label": "Renault", "value": "Renault" },
+      { "label": "Volkswagen", "value": "Volkswagen" },
+      { "label": "Peugeot", "value": "Peugeot" },
+      { "label": "Citroen", "value": "Citroen" },
+      { "label": "Nissan", "value": "Nissan" },
+      { "label": "Hyundai", "value": "Hyundai" },
+      { "label": "Kia", "value": "Kia" },
+      { "label": "Chevrolet", "value": "Chevrolet" },
+      { "label": "Dodge", "value": "Dodge" },
+      { "label": "GMC", "value": "GMC" },
+      { "label": "Ram", "value": "Ram" },
+      { "label": "Jeep", "value": "Jeep" },
+      { "label": "Fiat Professional", "value": "Fiat Professional" },
+      { "label": "Iveco", "value": "Iveco" },
+      { "label": "MAN", "value": "MAN" },
+      { "label": "Scania", "value": "Scania" },
+      { "label": "Volvo", "value": "Volvo" },
+      { "label": "DAF", "value": "DAF" },
+      { "label": "Isuzu", "value": "Isuzu" },
+      { "label": "Mitsubishi", "value": "Mitsubishi" },
+      { "label": "Suzuki", "value": "Suzuki" },
+      { "label": "Opel", "value": "Opel" }
+
+    ]
+  
+    
+}
