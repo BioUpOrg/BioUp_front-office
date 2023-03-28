@@ -14,6 +14,13 @@ import Page404 from "./pages/errorsPages/404";
 import Page401 from "./pages/errorsPages/401";
 import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard";
+import Farm from "./pages/farm";
+import FarmMangment from "./pages/ManageFarm/farmMangment";
+
+import AddFarm from './pages/ManageFarm/AddFarm';
+
+import FarmDetails from './pages/ManageFarm/FarmDetails';
+import PlantDetails from './pages/ManageFarm/PlantDetails';
 
 import OTPVerification from './pages/verifyAccount';
 import RecoverPassSms from './pages/RecupererPasswordPhone';
@@ -27,6 +34,9 @@ const MyAppRoutes = () => {
     return isAuthenticated ? children : <Navigate to="/login" />;
   }
 
+
+  
+
   return (
     <BrowserRouter>
       <LandingPageNav />
@@ -34,11 +44,18 @@ const MyAppRoutes = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/About" element={<About />} />
         <Route path="/Products" element={<Products />} />
+        <Route path="/Farm" element={<Farm />} />
+        <Route path="/ManageMyFarm" element={<FarmMangment />} />
+        <Route path="/addFarm" element={<AddFarm />} />
+        <Route path="/ManageMyFarm/FarmsDetail" element={<FarmDetails />} />
+        <Route path="/ManageMyFarm/PlantsDetail" element={<PlantDetails />} />
+
         <Route path="/Composts" element={<Composts />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+      
         <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
         <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
         <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
