@@ -20,6 +20,7 @@ import FarmMangment from "./pages/ManageFarm/farmMangment";
 import AddFarm from './pages/ManageFarm/AddFarm';
 
 import FarmDetails from './pages/ManageFarm/FarmDetails';
+import PlantDetails from './pages/ManageFarm/PlantDetails';
 
 import OTPVerification from './pages/verifyAccount';
 import RecoverPassSms from './pages/RecupererPasswordPhone';
@@ -47,6 +48,7 @@ const MyAppRoutes = () => {
         <Route path="/ManageMyFarm" element={<FarmMangment />} />
         <Route path="/addFarm" element={<AddFarm />} />
         <Route path="/ManageMyFarm/FarmsDetail" element={<FarmDetails />} />
+        <Route path="/ManageMyFarm/PlantsDetail" element={<PlantDetails />} />
 
         <Route path="/Composts" element={<Composts />} />
         <Route path="/Services" element={<Services />} />
