@@ -19,7 +19,7 @@ import OTPVerification from './pages/verifyAccount';
 import RecoverPassSms from './pages/RecupererPasswordPhone';
 import UserVerificationWithMail from './pages/UserVerificationWithMail';
 import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
-
+import ContractForm from './components/forms/contractForm'
 const MyAppRoutes = () => {
 
   const PrivateRoute = ({ children }) => {
@@ -43,6 +43,7 @@ const MyAppRoutes = () => {
         <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
         <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
         <Route path="/RecoverPassEmail" element={<RecoverPassEmail/>} />
+        <Route path="delivery-agent-contract-form" element={<><PrivateRoute><ContractForm/></PrivateRoute></>}/>
         <Route
           path="/dashboard"
           element={<PrivateRoute>

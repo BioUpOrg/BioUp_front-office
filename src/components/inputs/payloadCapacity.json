@@ -1,0 +1,19 @@
+{
+    "payload_capacities": {
+      "trucks": [ 
+        "small_trucks: 2000",
+        "medium_trucks: 5000",
+        "large_trucks: 10000"
+      ],
+      "vans": [
+        "small_vans: 1000",
+        "medium_vans: 2000",
+        "large_vans: 3500"
+      ],
+      "cars": [
+        "small_cars : 500",
+        "medium_cars: 1000",
+        "large_cars: 1500"
+      ]
+    }
+  }
