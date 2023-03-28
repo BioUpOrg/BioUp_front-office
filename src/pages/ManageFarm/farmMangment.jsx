@@ -13,7 +13,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import AddFarm from '../ManageFarm/AddFarm'
+import AddPlant from '../ManageFarm/AddPlant'
+
 import { getFarms } from "../..//store/farms";
+import { getPlants } from "../..//store/plants";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useCallback, useEffect } from "react";
 import Image from 'react-bootstrap/Image'; // Import Image component
@@ -46,18 +50,36 @@ export default function FarmMangment() {
     setOpen(false);
   };
 
+  const [openPlant, setOpenPlant] = React.useState(false);
+
+  const handleClickOpenPlant = () => {
+    setOpenPlant(true);
+  };
+
+  const handleClosePlant = () => {
+    setOpenPlant(false);
+  };
+
+
+
+
+
+
   const userId = useSelector((state) => state.entities.users.userId);
 
   useEffect(() => {
     dispatch(getFarms());
+    dispatch(getPlants());
+
   }, [dispatch]);
   const farms = useSelector(state => state.entities.farms.list);
+  const plants = useSelector(state => state.entities.plants.list);
 
   const userFarms = farms.filter((farm) => farm.user === userId);
 
 
 
-  const plants = 20;
+  //const plants = 20;
   const animals = 30;
     return (
         <div>
@@ -97,9 +119,23 @@ export default function FarmMangment() {
                 <Grid xs>
                    <Item> 
                    <Image src="https://treedefi.com/images/seed.png" style={{width:"200px",height:"250px"}}></Image>
-                   <Button variant="outlined" onClick={handleClickOpen}>
+                   <Button variant="outlined" onClick={handleClickOpenPlant}>
                         Add Plant
                       </Button>
+                      <Dialog
+                        open={openPlant}
+                        onClose={handleClosePlant}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          {"Add Plant"}
+                        </DialogTitle>
+                        <DialogContent>
+                          <AddPlant/>
+                        </DialogContent>
+
+                      </Dialog>
 
             </Item>
                 </Grid>
@@ -128,13 +164,13 @@ export default function FarmMangment() {
                             </Card>
                         </Grid>
                         <Grid item xs>
-                            <Card>
+                            <Card onClick={() => navigate("PlantsDetail")}>
                             <CardContent>
                                 <Typography color="textSecondary" gutterBottom>
                                 Plants
                                 </Typography>
                                 <Typography variant="h5" component="h2">
-                                {plants}
+                                {plants.length}
                                 </Typography>
                             </CardContent>
                             </Card>
