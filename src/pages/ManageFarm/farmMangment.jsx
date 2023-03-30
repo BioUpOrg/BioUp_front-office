@@ -105,6 +105,7 @@ export default function FarmMangment() {
                         onClose={handleClose}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
+                        style={{ zIndex: 20 }}
                       >
                         <DialogTitle id="alert-dialog-title">
                           {"Add Farm"}
@@ -127,6 +128,7 @@ export default function FarmMangment() {
                         onClose={handleClosePlant}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
+                        style={{ zIndex: 20 }}
                       >
                         <DialogTitle id="alert-dialog-title">
                           {"Add Plant"}

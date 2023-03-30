@@ -9,6 +9,13 @@ import { addFarm } from "../../..//store/farms";
 import useStyles from "./style";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import AffectPlantToFarmModal from '../../../components/modals/AffterPlantToFarmModal';
+
+
 
 export default function AddFarm() {
   const classes = useStyles();
@@ -34,12 +41,16 @@ export default function AddFarm() {
       latitude: "",
       longitude: "",
       type: "",
+      plants: [],
+
     },
     validationSchema: EventSchema,
     onSubmit: async (data) => {
       const farmData = {
         ...data,
         user: userId,
+        plants: selectedPlants.map((plantId) => ({ plant: plantId })),
+
       };
       dispatch(addFarm(farmData))
         .then(() => {
@@ -47,6 +58,7 @@ export default function AddFarm() {
         })
         .then(() => {
           formik.resetForm();
+          setSelectedPlants([]);
         })
         .then(() => {
           setTimeout(() => {
@@ -57,6 +69,47 @@ export default function AddFarm() {
   });
 
   const { errors, touched, handleSubmit, getFieldProps, setValues } = formik;
+
+  
+
+  const [selectedPlants, setSelectedPlants] = useState([]);
+
+  const handleSelectedPlantsChange = (plants) => {
+    setSelectedPlants(plants);
+  };
+
+
+
+
+  const [state, setState] = React.useState({
+
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+     <AffectPlantToFarmModal onSelectedPlantsChange={handleSelectedPlantsChange}/>
+    </Box>
+  );
+
+
 
   return (
     <div>
@@ -116,6 +169,21 @@ export default function AddFarm() {
                   helperText={touched.latitude && errors.latitude}
                 />
               </Grid>
+
+              <Stack direction="row" spacing={2} style={{paddingTop:"50px", paddingLeft:"50px"}}>
+                  <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Plants</Button>
+                  <SwipeableDrawer
+                      anchor={"right"}
+                      open={state["right"]}
+                      onClose={toggleDrawer("right", false)}
+                      onOpen={toggleDrawer("right", true)}
+                      style={{ zIndex: 30 }}
+                    >
+                      {list("right")}
+                    </SwipeableDrawer>
+                </Stack>
+
+                <p>{selectedPlants}</p>
 
               <Grid item xs={12} className={classes.grid}>
                 <Grid item sm={3} xs={12}>
