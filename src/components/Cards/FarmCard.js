@@ -26,11 +26,13 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import UpdateFarmModal from '../modals/EditFarmModal';
+import { useNavigate } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 export default function FarmCard({ farm }) {
     const [expanded, setExpanded] = useState(false);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
   
     const handleExpandClick = () => {
@@ -88,7 +90,9 @@ const handleCloseForm = () => {
   setOpenForm(false);
 };
 
-
+function handleDesignClick(farm) {
+  navigate('/farm', { state: { farm } });
+}
 
 
 
@@ -132,7 +136,7 @@ const handleCloseForm = () => {
                               id="composition-menu"
                               aria-labelledby="composition-button"
                             >
-                              <MenuItem onClick={handleClose}>Design</MenuItem>
+                              <MenuItem onClick={() => handleDesignClick(farm)}>Design</MenuItem>
                               <MenuItem onClick={handleClickOpenForm}>Update</MenuItem>
 
                               <Dialog
