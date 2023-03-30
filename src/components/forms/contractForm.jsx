@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import addContract from '../../services/contractService';
+import {addContract} from '../../services/contractService';
 import vt from '../inputs/vehicleTypes.json';
 import vehicleBrands from '../inputs/vehicleMarques.json';
 import vm from '../inputs/vehicleModels.json';
