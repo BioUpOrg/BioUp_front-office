@@ -16,17 +16,17 @@ import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard";
 import Farm from "./pages/farm";
 import FarmMangment from "./pages/ManageFarm/farmMangment";
-
+import MyContract from "./pages/MyContract";
 import AddFarm from './pages/ManageFarm/AddFarm';
 
 import FarmDetails from './pages/ManageFarm/FarmDetails';
 import PlantDetails from './pages/ManageFarm/PlantDetails';
-
 import OTPVerification from './pages/verifyAccount';
 import RecoverPassSms from './pages/RecupererPasswordPhone';
 import UserVerificationWithMail from './pages/UserVerificationWithMail';
 import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
 import ContractForm from './components/forms/contractForm'
+import UserDashbord from "./components/authentication/register/UserDashbors";
 const MyAppRoutes = () => {
 
   const PrivateRoute = ({ children }) => {
@@ -66,7 +66,10 @@ const MyAppRoutes = () => {
           element={<PrivateRoute>
             <Dashboard />
           </PrivateRoute>}
-        />
+        >
+         <Route path="user-dashboard" element={<UserDashbord/>}/>
+         <Route path="mycontract" element={<MyContract/>}/>
+         </Route>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />
         <Route path="/*" element={<Page404 />} />
@@ -77,3 +80,4 @@ const MyAppRoutes = () => {
 };
 
 export default MyAppRoutes;
+
