@@ -20,11 +20,11 @@ export default function AffectPlantToFarmModal({onSelectedPlantsChange}) {
 
     
     const [selectedPlants, setSelectedPlants] = React.useState([]);
-    const handleCardClick = (plantId) => {
-      const index = selectedPlants.indexOf(plantId);
+    const handleCardClick = (plant) => {
+      const index = selectedPlants.indexOf(plant._id);
       if (index === -1) {
         // Plant is not selected, add it to the array
-        setSelectedPlants([...selectedPlants, plantId]);
+        setSelectedPlants([...selectedPlants, plant]);
       } else {
         // Plant is already selected, remove it from the array
         const newSelectedPlants = [...selectedPlants];
@@ -37,7 +37,7 @@ export default function AffectPlantToFarmModal({onSelectedPlantsChange}) {
   return (
     <div>
       {plants.map((plant) => (
-        <Card key={plant._id} sx={{ display: 'flex' }} style={{paddingTop:"20px"}} onClick={() => handleCardClick(plant._id)}>
+        <Card key={plant._id} sx={{ display: 'flex' }} style={{paddingTop:"20px"}} onClick={() => handleCardClick(plant)}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <CardContent sx={{ flex: '1 0 auto' }}>
               <Typography component="div" variant="h5">

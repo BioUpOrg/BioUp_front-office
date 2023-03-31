@@ -46,10 +46,18 @@ export default function AddFarm() {
     },
     validationSchema: EventSchema,
     onSubmit: async (data) => {
+
+      const plantData = selectedPlants.reduce((plants, plant) => {
+        for (let i = 0; i < plant.quantity; i++) {
+          plants.push({ plant: plant._id });
+        }
+        return plants;
+      }, []);
+
       const farmData = {
         ...data,
         user: userId,
-        plants: selectedPlants.map((plantId) => ({ plant: plantId })),
+        plants: plantData,
 
       };
       dispatch(addFarm(farmData))
@@ -183,7 +191,7 @@ export default function AddFarm() {
                     </SwipeableDrawer>
                 </Stack>
 
-                <p>{selectedPlants}</p>
+                <p>{selectedPlants._id}</p>
 
               <Grid item xs={12} className={classes.grid}>
                 <Grid item sm={3} xs={12}>
