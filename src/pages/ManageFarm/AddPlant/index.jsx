@@ -10,6 +10,7 @@ import useStyles from "./style";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { createApi } from "unsplash-js";
+import { plants } from './plants.js';
 
 export default function AddPlant() {
   const classes = useStyles();
@@ -23,31 +24,6 @@ export default function AddPlant() {
 
   });
 
-  const unsplash = createApi({
-    accessKey: "CCQ83P0tst9xrKwo0aKC2EyyY0-2tEOgK1Yjy8WGbcE",
-  });
-
-
-  const searchPhotos = async (query) => {
-    try {
-      const response = await unsplash.search.getPhotos({
-        query: query,
-      });
-      if (response.errors) {
-        // Handle errors
-        console.log("Error occurred: ", response.errors[0]);
-        return null;
-      } else {
-        // Get the URL of the first image returned by the search
-        const firstImage = response.response.results[0];
-        const imageUrl = firstImage.urls.small;
-        return imageUrl;
-      }
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -67,7 +43,8 @@ export default function AddPlant() {
     },
     validationSchema: EventSchema,
     onSubmit: async (data) => {
-    const imageUrl = await searchPhotos(data.scientificName);
+    //const imageUrl = await searchPhotos(data.scientificName);
+        const imageUrl = getImageUrl(data.scientificName);
         data.image = imageUrl;
       dispatch(addPlant(data))
         .then(() => {
@@ -85,6 +62,13 @@ export default function AddPlant() {
   });
 
   const { errors, touched, handleSubmit, getFieldProps, setValues } = formik;
+
+
+  function getImageUrl(plantName) {
+    const plant = plants.plants.find(p => p.name.toLowerCase() === plantName.toLowerCase());
+    return plant ? plant.image : '';
+  }
+
 
   return (
     <div>
