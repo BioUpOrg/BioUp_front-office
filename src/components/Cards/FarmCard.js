@@ -167,7 +167,7 @@ function handleDesignClick(farm) {
         }
 
           title={farm.name}
-          subheader={`Location: ${farm.latitude}, Longitude: ${farm.longitude}`}
+          /*subheader={`Attribut1: ${farm.description}, Attribut2: ${farm.description}`}  */
         />
         <CardMedia
           component="img"
@@ -198,8 +198,8 @@ function handleDesignClick(farm) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Details:</Typography>
-            <Typography paragraph>Size: {farm.size}</Typography>
-            <Typography paragraph>Yield: {farm.yield}</Typography>
+            <Typography paragraph>Latitude: {farm.latitude}</Typography>
+            <Typography paragraph>Longitude: {farm.longitude}</Typography>
             <Typography paragraph>Price: {farm.price}</Typography>
           </CardContent>
         </Collapse>

@@ -1,45 +1,46 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 
-export default function AffectPlantToFarmModal({onSelectedPlantsChange}) {
+export default function AffectPlantToFarmModal({ onSelectedPlantsChange }) {
+  const plants = useSelector((state) => state.entities.plants.list);
+  const [selectedPlants, setSelectedPlants] = React.useState([]);
 
-    const plants = useSelector(state => state.entities.plants.list);
-  
-    console.log(plants);
+  const handleCardClick = (plant) => {
+    const index = selectedPlants.findIndex((p) => p._id === plant._id);
 
-    
-    const [selectedPlants, setSelectedPlants] = React.useState([]);
-    const handleCardClick = (plant) => {
-      const index = selectedPlants.indexOf(plant._id);
-      if (index === -1) {
-        // Plant is not selected, add it to the array
-        setSelectedPlants([...selectedPlants, plant]);
-      } else {
-        // Plant is already selected, remove it from the array
-        const newSelectedPlants = [...selectedPlants];
-        newSelectedPlants.splice(index, 1);
-        setSelectedPlants(newSelectedPlants);
-      }
-      onSelectedPlantsChange(selectedPlants);
-    };
+    if (index === -1) {
+      // Plant is not selected, add it to the array
+      setSelectedPlants([...selectedPlants, plant]);
+    } else {
+      // Plant is already selected, remove it from the array
+      const newSelectedPlants = [...selectedPlants];
+      newSelectedPlants.splice(index, 1);
+      setSelectedPlants(newSelectedPlants);
+    }
+    //onSelectedPlantsChange(selectedPlants);
+  };
+
+  React.useEffect(() => {
+    onSelectedPlantsChange(selectedPlants);
+  }, [selectedPlants, onSelectedPlantsChange]);
 
   return (
     <div>
       {plants.map((plant) => (
-        <Card key={plant._id} sx={{ display: 'flex' }} style={{paddingTop:"20px"}} onClick={() => handleCardClick(plant)}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flex: '1 0 auto' }}>
+        <Card
+          key={plant._id}
+          sx={{ display: "flex" }}
+          style={{ marginTop: "3px" }}
+          onClick={() => handleCardClick(plant)}
+        >
+         <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardContent sx={{ flex: "1 0 auto" }}>
               <Typography component="div" variant="h5">
                 {plant.name}
               </Typography>
@@ -47,7 +48,7 @@ export default function AffectPlantToFarmModal({onSelectedPlantsChange}) {
           </Box>
           <CardMedia
             component="img"
-            sx={{ width: 151 }}
+            sx={{ width: 80, marginLeft: "auto" }}
             image={plant.image}
             alt={plant.name}
           />
