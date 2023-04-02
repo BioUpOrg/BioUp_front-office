@@ -14,6 +14,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import AffectPlantToFarmModal from '../../../components/modals/AffterPlantToFarmModal';
+import AffectAnimalToFarmModal from '../../../components/modals/AffectAnimalToFarmModal';
 import { Icon } from '@iconify/react';
 import MapPage from "./Map";
 import Dialog from '@mui/material/Dialog';
@@ -37,12 +38,6 @@ export default function AddFarm(){
   const [showAlert, setShowAlert] = useState(false);
 
   const userId = useSelector((state) => state.entities.users.userId);
-
-
-
-
-
-
 
 
   const EventSchema = Yup.object().shape({
@@ -71,10 +66,20 @@ export default function AddFarm(){
         return plants;
       }, []);
 
+      const animalData = selectedAnimals.reduce((animals, animal) => {
+        for (let i = 0; i < animal.quantity; i++) {
+          animals.push({ animal: animal._id });
+        }
+        return animals;
+      }, []);
+console.log("plantData", plantData);
+console.log("animalData", animalData);
+
       const farmData = {
         ...data,
         user: userId,
         plants: plantData,
+        animals: animalData,
 
       };
       dispatch(addFarm(farmData))
@@ -84,12 +89,13 @@ export default function AddFarm(){
         .then(() => {
           formik.resetForm();
           setSelectedPlants([]);
+          setSelectedAnimals([]);
         })
         .then(() => {
           setTimeout(() => {
             setShowAlert(false);
           }, 5000);
-        });
+        }); 
     },
   });
 
@@ -105,7 +111,13 @@ export default function AddFarm(){
 
   };
 
+  const [selectedAnimals, setSelectedAnimals] = useState([]);
+  
 
+  const handleSelectedAnimalsChange =  (animals) => {
+    setSelectedAnimals(animals);
+
+  };
 
 
   const [state, setState] = React.useState({
@@ -133,6 +145,8 @@ export default function AddFarm(){
       onKeyDown={toggleDrawer(anchor, false)}
     >
      <AffectPlantToFarmModal onSelectedPlantsChange={handleSelectedPlantsChange}/>
+     <AffectAnimalToFarmModal onSelectedAnimalsChange={handleSelectedAnimalsChange}/>
+
     </Box>
   );
 
@@ -163,6 +177,25 @@ export default function AddFarm(){
 
     </div>
   ));
+
+
+  const selectedAnimalsJSX = selectedAnimals.map((animal) => (
+    <div key={animal._id} style={{ display: 'flex', alignItems: 'center' }}>
+      <Card sx={{ display: 'flex' }} style={{paddingTop:"20px", marginRight:"10px"}}>
+        <CardMedia
+          component="img"
+          sx={{ width: 70 }}
+          image={animal.image}
+          alt={animal.name}
+        />
+      </Card>
+
+    </div>
+  ));
+
+
+
+
 
 
   return (
@@ -275,9 +308,12 @@ export default function AddFarm(){
               <div style={{ display: 'flex', flexDirection: 'column-reverse' }}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px', paddingLeft: '50px' }}>
                   {selectedPlantsJSX}
+                  {selectedAnimalsJSX}
                   </div>
                   <Stack direction="row" spacing={2} style={{paddingTop:"50px", paddingLeft:"50px"}}>
                     <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Plants</Button>
+                    <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Animals</Button>
+
                     <SwipeableDrawer
                       anchor={"right"}
                       open={state["right"]}
