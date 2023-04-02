@@ -27,6 +27,7 @@ import UserVerificationWithMail from './pages/UserVerificationWithMail';
 import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
 import ContractForm from './components/forms/contractForm'
 import UserDashbord from "./components/authentication/register/UserDashbors";
+import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
 const MyAppRoutes = () => {
 
   const PrivateRoute = ({ children }) => {
@@ -49,7 +50,7 @@ const MyAppRoutes = () => {
         <Route path="/addFarm" element={<AddFarm />} />
         <Route path="/ManageMyFarm/FarmsDetail" element={<FarmDetails />} />
         <Route path="/ManageMyFarm/PlantsDetail" element={<PlantDetails />} />
-
+        <Route path="/ManageMyFarm/AnimalsDetail" element={<AnimalDetails />} />
         <Route path="/Composts" element={<Composts />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
