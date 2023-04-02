@@ -123,7 +123,7 @@ export default function UpdatePlantModal({ element }) {
         {showAlert && (
           <Alert severity="success">
             <AlertTitle>Success</AlertTitle>
-            Farm Updated successfully
+            Plant Updated successfully
           </Alert>
         )}
         <FormikProvider value={formik}>
