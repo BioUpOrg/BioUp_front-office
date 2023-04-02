@@ -7,9 +7,10 @@ import Typography from '@mui/material/Typography';
 import {  useSelector } from "react-redux";
 
 
-export default function AffectPlantToFarmModal({ onSelectedPlantsChange }) {
+export default function AffectPlantToFarmModal({ onSelectedPlantsChange , element}) {
   const plants = useSelector((state) => state.entities.plants.list);
-  const [selectedPlants, setSelectedPlants] = React.useState([]);
+  const [selectedPlants, setSelectedPlants] = React.useState(element || [] );
+  console.log("selectedPlants", selectedPlants);
 
   const handleCardClick = (plant) => {
     const index = selectedPlants.findIndex((p) => p._id === plant._id);
@@ -23,7 +24,6 @@ export default function AffectPlantToFarmModal({ onSelectedPlantsChange }) {
       newSelectedPlants.splice(index, 1);
       setSelectedPlants(newSelectedPlants);
     }
-    //onSelectedPlantsChange(selectedPlants);
   };
 
   React.useEffect(() => {

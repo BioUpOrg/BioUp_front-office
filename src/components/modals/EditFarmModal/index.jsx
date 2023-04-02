@@ -13,13 +13,51 @@ import MapPage from "../../../pages/ManageFarm/AddFarm/Map";
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Box from '@mui/material/Box';
+import AffectPlantToFarmModal from "../AffterPlantToFarmModal";
+import { Card, CardContent, CardMedia } from '@mui/material';
 
 export default function UpdateFarmModal({ element }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [selectedPlants, setSelectedPlants] = useState([]);
+
+  const [state, setState] = React.useState({right: false,});
+  const [open, setOpen] = React.useState(false);
 
   const [latLng, setLatLng] = useState(null);
+
+  console.log("e1",element.plants);
+
+  function getSelectedPlants(plantData) {
+    const selectedPlants = {};
+    plantData.forEach((data) => {
+      const plantId = data.plant._id; // Access the plant ID from the plant object
+      if (!selectedPlants[plantId]) {
+        // Create a new plant object if it doesn't exist
+        selectedPlants[plantId] = { ...data.plant };
+        selectedPlants[plantId].quantity = 1;
+      } else {
+        // Increment the quantity of an existing plant object
+        selectedPlants[plantId].quantity += 1;
+      }
+    });
+    // Return an array of plants with the total quantity
+    return Object.values(selectedPlants);
+  }
+  
+  const ExistingPlant = getSelectedPlants(element.plants);
+
+  console.log("e2",ExistingPlant);
+
+  const removePlants = () => {
+    setSelectedPlants([]);
+  };
+
+
 
 
   function handleMapClick(latLng) {
@@ -44,9 +82,21 @@ export default function UpdateFarmModal({ element }) {
       latitude: "",
       longitude: "",
       type: "",
+      plants: [],
     },
     validationSchema: EventSchema,
     onSubmit: async (data) => {
+
+      const plantData = selectedPlants.reduce((plants, plant) => {
+        for (let i = 0; i < plant.quantity; i++) {
+          plants.push({ plant: plant._id });
+        }
+        return plants;
+      }, []);
+      data.plants = plantData;
+
+
+
       dispatch(updateFarm(data, element._id))
         .then(() => {
           setShowAlert(true);
@@ -68,6 +118,7 @@ export default function UpdateFarmModal({ element }) {
       type: element?.type,
       longitude: element?.longitude,
       latitude: element?.latitude,
+      plants: element?.plants,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element]);
@@ -97,7 +148,43 @@ export default function UpdateFarmModal({ element }) {
   };
 
 
-  const [open, setOpen] = React.useState(false);
+
+
+  const handleSelectedPlantsChange =  (plants) => {
+    setSelectedPlants(plants);
+
+ };
+
+
+
+
+
+
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+     <AffectPlantToFarmModal onSelectedPlantsChange={handleSelectedPlantsChange} element={ExistingPlant} />
+    </Box>
+  );
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -106,6 +193,25 @@ export default function UpdateFarmModal({ element }) {
   const handleClose = () => {
     setOpen(false);
   };
+
+
+
+
+
+  const selectedPlantsJSX = selectedPlants.map((plant) => (
+    <div key={plant._id} style={{ display: 'flex', alignItems: 'center' }}>
+      <Card sx={{ display: 'flex' }} style={{paddingTop:"20px", marginRight:"10px"}}>
+        <CardMedia
+          component="img"
+          sx={{ width: 70 }}
+          image={plant.image}
+          alt={plant.name}
+        />
+      </Card>
+
+    </div>
+  ));
+
 
 
   return (
@@ -162,7 +268,7 @@ export default function UpdateFarmModal({ element }) {
                         onClose={handleClose}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
-                        style={{ zIndex: 20 }}
+                        style={{ zindex: 20 }}
                       >
                         <DialogTitle id="alert-dialog-title">
                           {"Farm Location"}
@@ -211,6 +317,30 @@ export default function UpdateFarmModal({ element }) {
                 <Icon icon="mdi:latitude" color="green" width="50" height="50" />
                 </div>
               </Grid>
+
+
+
+
+
+              <div style={{ display: 'flex', flexDirection: 'column-reverse' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px', paddingLeft: '50px' }}>
+                    {selectedPlantsJSX}
+                  </div>
+                  <Stack direction="row" spacing={2} style={{paddingTop:"50px", paddingLeft:"50px"}}>
+                    <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Plants</Button>
+                    <SwipeableDrawer
+                      anchor={"right"}
+                      open={state["right"]}
+                      onClose={toggleDrawer("right", false)}
+                      onOpen={toggleDrawer("right", true)}
+                      style={{ zIndex: 30 }}
+                    >
+                      {list("right")}
+                    </SwipeableDrawer>
+                  </Stack>
+                </div>
+
+
 
               <Grid item xs={12} className={classes.grid}>
                 <Grid item sm={3} xs={12}>

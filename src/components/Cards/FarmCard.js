@@ -144,6 +144,7 @@ function handleDesignClick(farm) {
                               onClose={handleCloseForm}
                               aria-labelledby="alert-dialog-title"
                               aria-describedby="alert-dialog-description"
+                              style={{ zIndex: 10 }}
                             >
                               <DialogTitle id="alert-dialog-title">
                                 {"Update Farm"}

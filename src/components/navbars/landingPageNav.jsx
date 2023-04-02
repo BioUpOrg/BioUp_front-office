@@ -97,9 +97,6 @@ export default function LandingPageNav() {
                         <li>
                           <Link to={"/ManageMyFarm"}>Manage My Farm</Link>
                         </li>
-                        <li>
-                          <Link to={"/farm"}>Design My Farm</Link>
-                        </li>
                       </ul>
                     )}
                   </li>
