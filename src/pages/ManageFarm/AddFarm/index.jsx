@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { TextField, Grid, Paper } from "@mui/material";
+import { TextField, Grid, Paper , Typography} from "@mui/material";
 import { useFormik, Form, FormikProvider } from "formik";
 import * as Yup from "yup";
 import { LoadingButton } from "@mui/lab";
@@ -14,19 +14,35 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import AffectPlantToFarmModal from '../../../components/modals/AffterPlantToFarmModal';
+import { Icon } from '@iconify/react';
+import MapPage from "./Map";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { async } from "q";
+import { Card, CardContent, CardMedia } from '@mui/material';
 
-
-
-export default function AddFarm() {
+export default function AddFarm(){
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [latLng, setLatLng] = useState(null);
+
+  function handleMapClick(latLng) {
+    setLatLng(latLng);
+    formik.setFieldValue("latitude", latLng.lat);
+    formik.setFieldValue("longitude", latLng.lng);
+  }
 
   const [showAlert, setShowAlert] = useState(false);
 
   const userId = useSelector((state) => state.entities.users.userId);
 
 
-  
+
+
+
+
 
 
   const EventSchema = Yup.object().shape({
@@ -46,6 +62,7 @@ export default function AddFarm() {
     },
     validationSchema: EventSchema,
     onSubmit: async (data) => {
+      console.log("data", data);
 
       const plantData = selectedPlants.reduce((plants, plant) => {
         for (let i = 0; i < plant.quantity; i++) {
@@ -81,9 +98,11 @@ export default function AddFarm() {
   
 
   const [selectedPlants, setSelectedPlants] = useState([]);
+  
 
-  const handleSelectedPlantsChange = (plants) => {
-    setSelectedPlants(plants);
+  const handleSelectedPlantsChange =  (plants) => {
+     setSelectedPlants(plants);
+
   };
 
 
@@ -118,6 +137,33 @@ export default function AddFarm() {
   );
 
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+
+  
+  const selectedPlantsJSX = selectedPlants.map((plant) => (
+    <div key={plant._id} style={{ display: 'flex', alignItems: 'center' }}>
+      <Card sx={{ display: 'flex' }} style={{paddingTop:"20px", marginRight:"10px"}}>
+        <CardMedia
+          component="img"
+          sx={{ width: 70 }}
+          image={plant.image}
+          alt={plant.name}
+        />
+      </Card>
+
+    </div>
+  ));
+
 
   return (
     <div>
@@ -132,7 +178,10 @@ export default function AddFarm() {
         <FormikProvider value={formik}>
           <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
             <Grid container spacing={4} className={classes.root}>
+              
               <Grid item sm={6} xs={12}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+
                 <TextField
                   name="name"
                   fullWidth
@@ -142,9 +191,14 @@ export default function AddFarm() {
                   error={Boolean(touched.name && errors.name)}
                   helperText={touched.name && errors.name}
                 />
+                <Icon icon="dashicons:nametag" color="green" width="50" height="50" />
+
+               </div>
               </Grid>
 
               <Grid item sm={6} xs={12}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+
                 <TextField
                   name="type"
                   fullWidth
@@ -152,9 +206,40 @@ export default function AddFarm() {
                   label="type"
                   {...getFieldProps("type")}
                 />
+              <Icon icon="mdi:farm" color="green" width="50" height="50" />
+
+              </div>          
+              </Grid>
+
+
+
+
+              <Grid item sm={4} xs={12}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="subtitle1">Location:</Typography>     
+                    <Icon onClick={handleClickOpen} icon="gis:map-search" color="green" width="50" height="50" />
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        style={{ zIndex: 20 }}
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          {"Farm Location"}
+                        </DialogTitle>
+                        <DialogContent style={{width:"800px" , height:"300px"}}>
+                        <MapPage onMapClick={handleMapClick} /> 
+                        </DialogContent>
+
+                      </Dialog>
+                  
+                </div>
               </Grid>
 
               <Grid item sm={4} xs={12}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+
                 <TextField
                   name="longitude"
                   fullWidth
@@ -164,9 +249,15 @@ export default function AddFarm() {
                   error={Boolean(touched.longitude && errors.longitude)}
                   helperText={touched.longitude && errors.longitude}
                 />
+                <Icon icon="mdi:longitude" color="green" width="50" height="50"
+                
+                />
+                </div>
               </Grid>
 
               <Grid item sm={4} xs={12}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+
                 <TextField
                   name="latitude"
                   fullWidth
@@ -176,11 +267,18 @@ export default function AddFarm() {
                   error={Boolean(touched.latitude && errors.latitude)}
                   helperText={touched.latitude && errors.latitude}
                 />
+                <Icon icon="mdi:latitude" color="green" width="50" height="50" />
+                </div>
               </Grid>
 
-              <Stack direction="row" spacing={2} style={{paddingTop:"50px", paddingLeft:"50px"}}>
-                  <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Plants</Button>
-                  <SwipeableDrawer
+      
+              <div style={{ display: 'flex', flexDirection: 'column-reverse' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px', paddingLeft: '50px' }}>
+                  {selectedPlantsJSX}
+                  </div>
+                  <Stack direction="row" spacing={2} style={{paddingTop:"50px", paddingLeft:"50px"}}>
+                    <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Plants</Button>
+                    <SwipeableDrawer
                       anchor={"right"}
                       open={state["right"]}
                       onClose={toggleDrawer("right", false)}
@@ -189,10 +287,10 @@ export default function AddFarm() {
                     >
                       {list("right")}
                     </SwipeableDrawer>
-                </Stack>
+                  </Stack>
+                </div>
 
-                <p>{selectedPlants._id}</p>
-
+               
               <Grid item xs={12} className={classes.grid}>
                 <Grid item sm={3} xs={12}>
                   <LoadingButton
