@@ -14,9 +14,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import AddFarm from '../ManageFarm/AddFarm'
 import AddPlant from '../ManageFarm/AddPlant'
+import AddAnimal from '../ManageFarm/AddAnimal'
 
 import { getFarms } from "../..//store/farms";
 import { getPlants } from "../..//store/plants";
+import { getAnimals } from "../..//store/animals";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useCallback, useEffect } from "react";
@@ -60,7 +62,15 @@ export default function FarmMangment() {
     setOpenPlant(false);
   };
 
+  const [openAnimal, setOpenAnimal] = React.useState(false);
 
+  const handleClickOpenAnimal = () => {
+    setOpenAnimal(true);
+  };
+
+  const handleCloseAnimal = () => {
+    setOpenAnimal(false);
+  };
 
 
 
@@ -70,17 +80,19 @@ export default function FarmMangment() {
   useEffect(() => {
     dispatch(getFarms());
     dispatch(getPlants());
+    dispatch(getAnimals());
 
   }, [dispatch]);
   const farms = useSelector(state => state.entities.farms.list);
   const plants = useSelector(state => state.entities.plants.list);
+  const animals = useSelector(state => state.entities.animals.list);
 
   const userFarms = farms.filter((farm) => farm.user === userId);
 
 
 
   //const plants = 20;
-  const animals = 30;
+ // const animals = 30;
     return (
         <div>
             <br></br>
@@ -105,6 +117,7 @@ export default function FarmMangment() {
                         onClose={handleClose}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
+                        style={{ zIndex: 20 }}
                       >
                         <DialogTitle id="alert-dialog-title">
                           {"Add Farm"}
@@ -127,6 +140,7 @@ export default function FarmMangment() {
                         onClose={handleClosePlant}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
+                        style={{ zIndex: 20 }}
                       >
                         <DialogTitle id="alert-dialog-title">
                           {"Add Plant"}
@@ -142,9 +156,24 @@ export default function FarmMangment() {
                 <Grid xs>
                     <Item>
                     <Image src="https://i.pinimg.com/originals/82/5c/c1/825cc150e143b6e801bbfaf4b4dfee74.png" style={{width:"200px",height:"250px"}}></Image>
-                    <Button variant="outlined" onClick={handleClickOpen}>
+                    <Button variant="outlined" onClick={handleClickOpenAnimal}>
                         Add Animal
                       </Button>
+                      <Dialog
+                        open={openAnimal}
+                        onClose={handleCloseAnimal}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        style={{ zIndex: 20 }}
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          {"Add Animal"}
+                        </DialogTitle>
+                        <DialogContent>
+                          <AddAnimal/>
+                        </DialogContent>
+
+                      </Dialog>
                   </Item>
                 </Grid>
             </Grid>
@@ -176,13 +205,13 @@ export default function FarmMangment() {
                             </Card>
                         </Grid>
                         <Grid item xs>
-                            <Card>
+                            <Card onClick={() => navigate("AnimalsDetail")}>
                             <CardContent>
                                 <Typography color="textSecondary" gutterBottom>
                                 Animals
                                 </Typography>
                                 <Typography variant="h5" component="h2">
-                                {animals}
+                                {animals.length}
                                 </Typography>
                             </CardContent>
                             </Card>

@@ -1,156 +1,224 @@
-import { useState } from "react";
 import { Stage, Layer, Image, Rect } from "react-konva";
 import * as React from "react";
-import PropTypes from "prop-types";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useImage } from "react-konva-utils";
+import { Button } from "react-bootstrap";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { getFarms, updateFarm } from "../../store/farms";
+import { useState, useCallback } from "react";
+import  useStyles  from "./style"
 
-function SimpleDialog(props) {
-  const { onClose, open, handleCardClick } = props;
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleClose = () => {
-    onClose(selectedImage);
-    setSelectedImage(null); // Reset selectedImage state
-
-  };
-
-  const handleCardClickAndClose = (imageUrl) => {
-    setSelectedImage(imageUrl);
-  };
-
+function PlantListItem({ plant, onClick }) {
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Choose Element From your Farm : </DialogTitle>
-      <Card sx={{ maxWidth: 100 }}>
-        <CardActionArea onClick={() => handleCardClickAndClose("https://konvajs.org/assets/lion.png")}>
-          <CardMedia
-            component="img"
-            height="140"
-            image="https://konvajs.org/assets/lion.png"
-            alt="Lion"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lion
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card sx={{ maxWidth: 100 }}>
-        <CardActionArea onClick={() => handleCardClickAndClose("https://static1.squarespace.com/static/5c05e24636099be8c82c8a7e/t/5c05e34a40ec9a678db48f0b/1676906360868/")}>
-          <CardMedia
-            component="img"
-            height="140"
-            image="https://static1.squarespace.com/static/5c05e24636099be8c82c8a7e/t/5c05e34a40ec9a678db48f0b/1676906360868/"
-            alt="Lion"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Cow
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Dialog>
+    <Card
+      key={plant.plant._id}
+      sx={{ display: "flex" }}
+      style={{ marginTop: "3px" }}
+      onClick={() => onClick(plant)}
+
+    >
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <CardContent sx={{ flex: "1 0 auto" }}>
+          <Typography component="div" variant="h5">
+          <span>{plant.plant.quantity} </span>
+            {plant.plant.name}
+          </Typography>
+        </CardContent>
+      </Box>
+      <CardMedia
+        component="img"
+        sx={{ width: 69, marginLeft: "auto" }}
+        image={plant.plant.image}
+        alt={plant.plant.name}
+      />
+    </Card>
   );
 }
 
 
+const GridCell = ({
+  x,
+  y,
+  cellWidth,
+  cellHeight,
+  plant,
+  onClick,
+  setCoordinates,
+}) => {
+  console.log("h2", plant);
+  const [image] = useImage(plant?.plant.image);
 
-const Grid = ({ rows, cols, cellWidth, cellHeight }) => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState();
-  const [images, setImages] = useState(() => {
-    return Array.from({ length: rows }, () =>
-      Array.from({ length: cols }, () => null)
-    );
-  });
-
-  const [selectedCell, setSelectedCell] = useState(null);
-
-  const handleCardClick = (imageUrl) => {
-    console.log("imageUrl", imageUrl);
-    setSelectedValue(imageUrl);
-    setOpen(false);
-  };
-
-  const handleClickOpen = (rowIndex, colIndex) => {
-    console.log("rowIndex", rowIndex, "colIndex", colIndex);
-    setSelectedCell({ rowIndex, colIndex });
-    setOpen(true);
-  };
-
-  const handleClose = (imageUrl) => {
-    setOpen(false);
-    console.log(images);
-    if (selectedCell !== null) {
-      // Fetch the image
-      const img = new window.Image();
-      img.src = imageUrl;
-      img.onload = () => {
-        setImages((prevImages) => {
-          const newImages = [...prevImages];
-          newImages[selectedCell.rowIndex][selectedCell.colIndex] = img;
-          return newImages;
-        });
-        setSelectedCell(null);
-      };
-    }
+  const handleClick = () => {
+    onClick(x, y);
+    setCoordinates({ x, y });
   };
 
   return (
     <>
-      <Stage width={cols * cellWidth} height={rows * cellHeight}>
-        <Layer>
-          {[...Array(rows)].map((_, rowIndex) =>
-            [...Array(cols)].map((_, colIndex) => (
-              <Rect
-                key={`${rowIndex}-${colIndex}`}
-                x={colIndex * cellWidth}
-                y={rowIndex * cellHeight}
-                width={cellWidth}
-                height={cellHeight}
-                stroke="black"
-                onClick={() => handleClickOpen(rowIndex, colIndex)}
-              ></Rect>
-            ))
-          )}
-          {images.map((row, rowIndex) =>
-            row.map((image, colIndex) => {
-              if (image) {
-                return (
-                  <Image
-                    key={`${rowIndex}-${colIndex}`}
-                    x={colIndex * cellWidth}
-                    y={rowIndex * cellHeight}
-                    width={cellWidth}
-                    height={cellHeight}
-                    image={image}
-                  />
-                );
-              }
-              return null;
-            })
-          )}
-        </Layer>
-      </Stage>
-
-      <SimpleDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-        handleCardClick={handleCardClick}
+      <Rect
+        x={x * cellWidth}
+        y={y * cellHeight}
+        width={cellWidth}
+        height={cellHeight}
+        stroke="black"
+        onClick={handleClick}
       />
+
+      {image && (
+        <Image
+          image={image}
+          x={x * cellWidth + cellWidth / 2 - 35}
+          y={y * cellHeight + cellHeight / 2 - 35}
+          width={60}
+          height={60}
+        />
+      )}
     </>
   );
 };
 
 export default function FarmGrid() {
-  return <Grid rows={5} cols={5} cellWidth={100} cellHeight={100} />;
+  const classes = useStyles();
+  const location = useLocation();
+  const farm = location?.state?.farm;
+  const Navigate = useNavigate();
+  const [state, setState] = React.useState({
+    right: false,
+  });
+  const dispatch = useDispatch();
+  const [coordinates, setCoordinates] = React.useState({ x: 0, y: 0 });
+
+  const rows = 6;
+  const cols = 6;
+  const cellWidth = 100;
+  const cellHeight = 100;
+
+  const [updatedPlants, setUpdatedPlants] = React.useState(farm?.plants);
+
+  console.log("h1", updatedPlants);
+
+  const updatedFarm = (selectedPlant) => {
+    const updated = updatedPlants.map((plant) => {
+      if (plant === selectedPlant) {
+        return {
+          ...plant,
+          position: {
+            x: coordinates.x,
+            y: coordinates.y,
+          },
+        };
+      } else {
+        return plant;
+      }
+    });
+    setUpdatedPlants(updated);
+  };
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => {
+    const handlePlantClick = (plant) => {
+      updatedFarm(plant);
+      toggleDrawer(anchor, false);
+    };
+
+    return (
+      <Box
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+        role="presentation"
+        onClick={() => toggleDrawer(anchor, false)}
+        onKeyDown={() => toggleDrawer(anchor, false)}
+      >
+        <List>
+          {farm?.plants?.map((plant) => (
+            <PlantListItem plant={plant} onClick={handlePlantClick} />
+          ))}
+        </List>
+      </Box>
+    );
+  };
+
+  const handleSave = () => {
+    const updatedFarm = {
+      ...farm,
+      plants: updatedPlants,
+    };
+    console.log(updatedFarm);
+
+    dispatch(updateFarm(updatedFarm, farm._id)).then(() => {
+      Navigate("/ManageMyFarm/FarmsDetail");
+    });
+    
+  };
+
+  const [image, setImage] = useState(new window.Image());
+  React.useEffect(() => {
+    const img = new window.Image();
+    img.src =
+      "https://static.vecteezy.com/system/resources/previews/007/984/827/original/ground-seamless-texture-game-ui-for-the-game-farm-brown-background-of-cultivated-land-vector.jpg";
+    img.width = 600;
+    img.height = 600;
+      setImage(img);
+  }, []);
+
+               
+  return (
+    <div>
+      <Drawer
+        anchor="right"
+        open={state.right}
+        onClose={toggleDrawer("right", false)}
+      >
+        {list("right")}
+      </Drawer>
+
+      {farm && <h1>Farm Name: {farm.name}</h1>}
+
+      <Stage width={cols * cellWidth} height={rows * cellHeight}
+        className={classes.title}
+      >
+        <Layer>
+        <Image x={0} y={0} image={image} />
+          {[...Array(rows * cols)].map((_, index) => {
+            const rowIndex = Math.floor(index / cols);
+            const colIndex = index % cols;
+            const plant = updatedPlants?.find(
+              (p) => p.position.x === rowIndex && p.position.y === colIndex
+            );
+            return (
+              <GridCell
+                key={`${rowIndex}-${colIndex}`}
+                x={rowIndex}
+                y={colIndex}
+                cellWidth={cellWidth}
+                cellHeight={cellHeight}
+                plant={plant}
+                onClick={toggleDrawer("right", true)}
+                setCoordinates={setCoordinates}
+              />
+            );
+          })}
+        </Layer>
+      </Stage>
+
+      <Button variant="primary" className={classes.Savebutton}   onClick={handleSave}>
+        Save
+      </Button>
+    </div>
+  );
 }
