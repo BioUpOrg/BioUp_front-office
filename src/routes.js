@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom";
 import LandingPageNav from "./components/navbars/landingPageNav";
 import MainFooter from "./components/footers/mainFooter";
 import Home from "./pages/home";
@@ -18,7 +18,6 @@ import Farm from "./pages/farm";
 import FarmMangment from "./pages/ManageFarm/farmMangment";
 import MyContract from "./pages/MyContract";
 import AddFarm from './pages/ManageFarm/AddFarm';
-
 import FarmDetails from './pages/ManageFarm/FarmDetails';
 import PlantDetails from './pages/ManageFarm/PlantDetails';
 import OTPVerification from './pages/verifyAccount';
@@ -27,6 +26,7 @@ import UserVerificationWithMail from './pages/UserVerificationWithMail';
 import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
 import ContractForm from './components/forms/contractForm'
 import UserDashbord from "./components/authentication/register/UserDashbors";
+import PopSignature from "./pages/popSignature";
 const MyAppRoutes = () => {
 
   const PrivateRoute = ({ children }) => {
@@ -55,7 +55,7 @@ const MyAppRoutes = () => {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
-      
+
         <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
         <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
         <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
@@ -69,6 +69,8 @@ const MyAppRoutes = () => {
         >
          <Route path="user-dashboard" element={<UserDashbord/>}/>
          <Route path="mycontract" element={<MyContract/>}/>
+         <Route path="popSignature" element={<><PopSignature/></>}/>
+
          </Route>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />
