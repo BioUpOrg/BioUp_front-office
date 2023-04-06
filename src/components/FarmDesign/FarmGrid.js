@@ -43,17 +43,51 @@ function PlantListItem({ plant, onClick }) {
 }
 
 
+
+function AnimalListItem({ animal, onClickAnimal }) {
+  return (
+    <Card
+      key={animal.animal._id}
+      sx={{ display: "flex" }}
+      style={{ marginTop: "3px" }}
+      onClick={() => onClickAnimal(animal)}
+
+    >
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <CardContent sx={{ flex: "1 0 auto" }}>
+          <Typography component="div" variant="h5">
+          <span>{animal.animal.quantity} </span>
+            {animal.animal.name}
+          </Typography>
+        </CardContent>
+      </Box>
+      <CardMedia
+        component="img"
+        sx={{ width: 69, marginLeft: "auto" }}
+        image={animal.animal.image}
+        alt={animal.animal.name}
+      />
+    </Card>
+  );
+}
+
+
 const GridCell = ({
   x,
   y,
   cellWidth,
   cellHeight,
   plant,
+  animal,
   onClick,
   setCoordinates,
 }) => {
-  console.log("h2", plant);
-  const [image] = useImage(plant?.plant.image);
+
+
+  const [image] = useImage(plant?.plant?.image || animal?.animal?.image);
+
+
+  
 
   const handleClick = () => {
     onClick(x, y);
@@ -101,8 +135,9 @@ export default function FarmGrid() {
   const cellHeight = 100;
 
   const [updatedPlants, setUpdatedPlants] = React.useState(farm?.plants);
+  const [updatedAnimals, setUpdatedAnimals] = React.useState(farm?.animals);
 
-  console.log("h1", updatedPlants);
+
 
   const updatedFarm = (selectedPlant) => {
     const updated = updatedPlants.map((plant) => {
@@ -121,6 +156,31 @@ export default function FarmGrid() {
     setUpdatedPlants(updated);
   };
 
+
+  const updatedFarmAnimal = (selectedAnimal) => {
+    const updated = updatedAnimals.map((animal) => {
+      if (animal === selectedAnimal) {
+        return {
+          ...animal,
+          position: {
+            x: coordinates.x,
+            y: coordinates.y,
+          },
+        };
+      } else {
+        return animal;
+      }
+    });
+    setUpdatedAnimals(updated);
+  };
+
+
+
+
+
+
+
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -137,6 +197,12 @@ export default function FarmGrid() {
       toggleDrawer(anchor, false);
     };
 
+    const handleAnimalClick = (animal) => {
+      updatedFarmAnimal(animal);
+      toggleDrawer(anchor, false);
+    };
+
+
     return (
       <Box
         sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -149,6 +215,11 @@ export default function FarmGrid() {
             <PlantListItem plant={plant} onClick={handlePlantClick} />
           ))}
         </List>
+        <List>
+              {farm?.animals?.map((animal) => (
+            <AnimalListItem animal={animal} onClickAnimal={handleAnimalClick} />
+          ))}      
+        </List>
       </Box>
     );
   };
@@ -157,8 +228,8 @@ export default function FarmGrid() {
     const updatedFarm = {
       ...farm,
       plants: updatedPlants,
+      animals: updatedAnimals,
     };
-    console.log(updatedFarm);
 
     dispatch(updateFarm(updatedFarm, farm._id)).then(() => {
       Navigate("/ManageMyFarm/FarmsDetail");
@@ -200,6 +271,9 @@ export default function FarmGrid() {
             const plant = updatedPlants?.find(
               (p) => p.position.x === rowIndex && p.position.y === colIndex
             );
+            const animal = updatedAnimals?.find(
+              (A) => A.position.x === rowIndex && A.position.y === colIndex
+            );
             return (
               <GridCell
                 key={`${rowIndex}-${colIndex}`}
@@ -208,6 +282,7 @@ export default function FarmGrid() {
                 cellWidth={cellWidth}
                 cellHeight={cellHeight}
                 plant={plant}
+                animal={animal}
                 onClick={toggleDrawer("right", true)}
                 setCoordinates={setCoordinates}
               />

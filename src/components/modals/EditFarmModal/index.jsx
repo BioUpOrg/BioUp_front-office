@@ -18,12 +18,14 @@ import Stack from '@mui/material/Stack';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Box from '@mui/material/Box';
 import AffectPlantToFarmModal from "../AffterPlantToFarmModal";
+import AffectAnimalToFarmModal from "../AffectAnimalToFarmModal";
 import { Card, CardContent, CardMedia } from '@mui/material';
 
 export default function UpdateFarmModal({ element }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [selectedPlants, setSelectedPlants] = useState([]);
+  const [selectedAnimals, setSelectedAnimals] = useState([]);
 
   const [state, setState] = React.useState({right: false,});
   const [open, setOpen] = React.useState(false);
@@ -49,13 +51,36 @@ export default function UpdateFarmModal({ element }) {
     return Object.values(selectedPlants);
   }
   
+
+
+  function getSelectedAnimals(animalData) {
+    const selectedAnimals = {};
+    animalData.forEach((data) => {
+      const animalId = data.animal._id; // Access the animal ID from the animal object
+      if (!selectedAnimals[animalId]) {
+        // Create a new animal object if it doesn't exist
+        selectedAnimals[animalId] = { ...data.animal };
+        selectedAnimals[animalId].quantity = 1;
+      } else {
+        // Increment the quantity of an existing animal object
+        selectedAnimals[animalId].quantity += 1;
+      }
+    });
+    // Return an array of animals with the total quantity
+    return Object.values(selectedAnimals);
+  }
+  
+
+
+
+
+
+
   const ExistingPlant = getSelectedPlants(element.plants);
+  const ExistingAnimal = getSelectedAnimals(element.animals);
 
   console.log("e2",ExistingPlant);
 
-  const removePlants = () => {
-    setSelectedPlants([]);
-  };
 
 
 
@@ -96,6 +121,15 @@ export default function UpdateFarmModal({ element }) {
       data.plants = plantData;
 
 
+      const animalData = selectedAnimals.reduce((animals, animal) => {
+        for (let i = 0; i < animal.quantity; i++) {
+          animals.push({ animal: animal._id });
+        }
+        return animals;
+      }, []);
+      data.animals = animalData;
+
+
 
       dispatch(updateFarm(data, element._id))
         .then(() => {
@@ -119,6 +153,7 @@ export default function UpdateFarmModal({ element }) {
       longitude: element?.longitude,
       latitude: element?.latitude,
       plants: element?.plants,
+      animals: element?.animals,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element]);
@@ -155,7 +190,12 @@ export default function UpdateFarmModal({ element }) {
 
  };
 
+  
 
+ const handleSelectedAnimalsChange =  (animals) => {
+   setSelectedAnimals(animals);
+
+ };
 
 
 
@@ -181,6 +221,8 @@ export default function UpdateFarmModal({ element }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
      <AffectPlantToFarmModal onSelectedPlantsChange={handleSelectedPlantsChange} element={ExistingPlant} />
+     <AffectAnimalToFarmModal onSelectedAnimalsChange={handleSelectedAnimalsChange} element={ExistingAnimal} />
+
     </Box>
   );
 
@@ -211,6 +253,21 @@ export default function UpdateFarmModal({ element }) {
 
     </div>
   ));
+
+  const selectedAnimalsJSX = selectedAnimals.map((animal) => (
+    <div key={animal._id} style={{ display: 'flex', alignItems: 'center' }}>
+      <Card sx={{ display: 'flex' }} style={{paddingTop:"20px", marginRight:"10px"}}>
+        <CardMedia
+          component="img"
+          sx={{ width: 70 }}
+          image={animal.image}
+          alt={animal.name}
+        />
+      </Card>
+
+    </div>
+  ));
+
 
 
 
@@ -325,9 +382,13 @@ export default function UpdateFarmModal({ element }) {
               <div style={{ display: 'flex', flexDirection: 'column-reverse' }}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px', paddingLeft: '50px' }}>
                     {selectedPlantsJSX}
+                    {selectedAnimalsJSX}
+
                   </div>
                   <Stack direction="row" spacing={2} style={{paddingTop:"50px", paddingLeft:"50px"}}>
                     <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Plants</Button>
+                    <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Animals</Button>
+
                     <SwipeableDrawer
                       anchor={"right"}
                       open={state["right"]}
