@@ -2,11 +2,40 @@ import React, { useState } from "react";
 import { Card, Nav } from "react-bootstrap";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import UserDashbord from "../components/authentication/register/UserDashbors";
-import Contract from "../pages/MyContract";
+import Contract from "../pages/ContractDelivery/MyContract";
+import axios from "axios";
+import { useEffect } from "react";
 export default function Dashboard() {
   const location = useLocation();
   const message = new URLSearchParams(location.search).get("message");
-  
+  const [statusRole,setStatusRole]=useState('true');
+  const token =  localStorage.getItem("TOKEN_KEY");
+
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/users/auth/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          console.log(response.data)
+             if(response.data.role==="transporter"){
+              setStatusRole(false);
+             }
+        })
+        .catch(error => {
+           console.error(error);
+        });
+      
+    } catch (error) {
+     
+    }
+  };
+
+   useEffect(()=>{
+    fetchUser();
+   },[])
 
   return (
     <div class="container" style={{marginBlock:"100px"}}>
@@ -45,7 +74,7 @@ export default function Dashboard() {
                     </NavLink>
                     </li>
                     <li className="nav-item">
-                    <NavLink className="nav-link" to="/Dashboard/mycontract">
+                    <NavLink hidden={statusRole} className="nav-link" to="/Dashboard/mycontract">
                       <i className="fi-rs-shopping-cart-check mr-10"></i>
                      My Contract
                     </NavLink>

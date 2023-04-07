@@ -1,86 +1,54 @@
 import axios from 'axios';
 import React, {  useEffect, useState } from 'react';
-import PopSignature from '../pages/popSignature';
+import PopSignature from './popSignature';
 import { Document, Page ,Text,Image,StyleSheet, PDFDownloadLink, View} from '@react-pdf/renderer';
- import {getMyContract} from '../services/contractService';
+ import {getMyContract} from '../../services/contractService';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 
 const MyContract = () => {
   const [user,setUser]=useState({});
-  const [contractData, setContractData] = useState(null);
-  const [statusContract,setStatusContract]=useState('');
-  const [vehicle,setvehicle]=useState({});
-  const [statsig,setstatsig]=useState(true);
+  const [contractData, setContractData] = useState({});
   const token =  localStorage.getItem("TOKEN_KEY");
   const navigate = useNavigate();
 
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get('http://localhost:3000/users/auth/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        .then(response => {
-          console.log(response.data)
-          setUser(response.data);
-        })
-        .catch(error => {
-           console.error(error);
-        });
-      
-    } catch (error) {
-     
-    }
-  };
-
-  useEffect(() => {
-    
-    fetchUser();
-  }
-  ,[token]
-  );
-
-  const fetchUserContract = async ()=>{
-    try{
-    
-      await  getMyContract(user.id)
-          .then((resp) => {
-            console.log("res", resp);
-            setContractData(resp);
-             setvehicle((resp.vehicle));
-            if(!resp.signature===""||null){
-              setstatsig('You have already sign Your contract');    
-            }
-            if(resp.statuscontract===false){
-              setStatusContract('Pending');
-            }
-            else{
-              setStatusContract('Accepted');
-            }
-          })
-          .catch((err) => {
-            console.log("err", err);
-          });
-
-      
-    }catch(e){
-      console.log(e,'error while fetching user contract')
-    }
  
-}
-  useEffect(()=>{
-    
-  fetchUserContract();
-  },
-  [contractData]);
-    
 
-const sendContractByMail=()=>{
 
-}
+useEffect(()=>{
+  const fetchUser = async () => {
+    const res = await axios.get('http://localhost:3000/users/auth/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(
+        async (response)=>{
+          console.log("userdata",response.data); 
+          await setUser(response.data);
+          await getMyContract(response.data.id).then(async (res,err)=>{
+            if(res){
+              console.log('contract',res)
+              await setContractData(res);
+              
+
+            }   else{
+              console.log('error getting contract data');
+            }
+          }) ; 
+          
+      })
+    
+      .catch(error => {
+         console.error(error);
+      });
+    
+  } 
+  fetchUser();
+},[])
+
+
 
   const styles=StyleSheet.create({
   
@@ -154,12 +122,15 @@ const sendContractByMail=()=>{
       alert('You have already sign Your contract'); 
        }
   }
+
+
   return (
+   
     
-    
-   <>   
+   <> 
+   
     <>
-    <Button onClick={signhandle}>Sign Now </Button>
+    <Button onClick={signhandle}>Sign Your Contract </Button>
     <Document style={{marginBottom:'10%'}}>
    <Page style={styles.body}>
      <View>
@@ -197,7 +168,8 @@ const sendContractByMail=()=>{
        </View>
        </View>
    </Page>
- </Document></>
+ </Document>
+ </>
     <>
      
        <PDFDownloadLink document={ <Document style={{marginBottom:'10%'}}>
@@ -249,6 +221,7 @@ const sendContractByMail=()=>{
 </> 
   )
 }
+
 
 export default MyContract;
 
