@@ -28,8 +28,10 @@ import ContractForm from './components/forms/contractForm'
 import UserDashbord from "./components/authentication/register/UserDashbors";
 import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
+import DeliveryMap from "./pages/locationAgent/DeliveryMap";
 import axios from "axios";
 import { useEffect, useState } from "react";  
+import { MyLocation } from "@mui/icons-material";
 const MyAppRoutes = () => {
   const [isDeliveryAgent,setIsDeliveryAgent]=useState(false);
   const PrivateRoute = ({ children }) => {
@@ -105,6 +107,7 @@ const MyAppRoutes = () => {
          <Route path="user-dashboard" element={<UserDashbord/>}/>
          <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
          <Route path="popSignature" element={<><PopSignature/></>}/>
+         <Route path="mylocation" element ={<DeliveryMap />}/>
          </Route>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />
