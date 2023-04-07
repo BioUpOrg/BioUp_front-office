@@ -16,7 +16,7 @@ import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard";
 import Farm from "./pages/farm";
 import FarmMangment from "./pages/ManageFarm/farmMangment";
-import MyContract from "./pages/MyContract";
+import MyContract from "./pages/ContractDelivery/MyContract";
 import AddFarm from './pages/ManageFarm/AddFarm';
 import FarmDetails from './pages/ManageFarm/FarmDetails';
 import PlantDetails from './pages/ManageFarm/PlantDetails';
@@ -26,15 +26,49 @@ import UserVerificationWithMail from './pages/UserVerificationWithMail';
 import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
 import ContractForm from './components/forms/contractForm'
 import UserDashbord from "./components/authentication/register/UserDashbors";
-import PopSignature from "./pages/popSignature";
+import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
+import axios from "axios";
+import { useEffect, useState } from "react";  
 const MyAppRoutes = () => {
-
+  const [isDeliveryAgent,setIsDeliveryAgent]=useState(false);
   const PrivateRoute = ({ children }) => {
     const isAuthenticated = localStorage.getItem("TOKEN_KEY") ? true : false;
     return isAuthenticated ? children : <Navigate to="/login" />;
   }
+ const ProtectedRoute=({children})=>{
 
+  const token= localStorage.getItem("TOKEN_KEY"); 
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/users/auth/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        
+        .then(response => {
+          console.log(response.data)
+             if(response.data.role==="transporter"){
+              setIsDeliveryAgent(true);
+             }
+        })
+        .catch(error => {
+           console.error(error);
+        });
+      
+    } catch (error) {
+       
+    }
+  };
+
+   useEffect(()=>{
+    fetchUser();
+   },[])
+
+    const istransporter =isDeliveryAgent ? false : true;
+    return istransporter ?  <Navigate to="/dashboard" /> : children;
+ }
 
   
 
@@ -69,9 +103,8 @@ const MyAppRoutes = () => {
           </PrivateRoute>}
         >
          <Route path="user-dashboard" element={<UserDashbord/>}/>
-         <Route path="mycontract" element={<MyContract/>}/>
+         <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
          <Route path="popSignature" element={<><PopSignature/></>}/>
-
          </Route>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />

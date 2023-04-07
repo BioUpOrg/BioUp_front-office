@@ -4,7 +4,7 @@ import instance from '../utils/auth.interceptor'
 const urladdContrat="http://localhost:3000/contract/addnewContract/";
 const urlgetUserContract="http://localhost:3000/contract/getUserContract/"
 const urlsaveSignature="http://localhost:3000/contract/saveUserSignature/"
- export const addContract =  (data)=>{
+ export const addContract = async (data)=>{
     return axios.post(`${urladdContrat}`,{data})
     .then(response => {
       console.log(response.data)
@@ -17,7 +17,7 @@ const urlsaveSignature="http://localhost:3000/contract/saveUserSignature/"
 }
 
 
- export const getMyContract =(userid)=>{
+ export const getMyContract = async (userid)=>{
    userid=userid || ''
   return axios.get(`${urlgetUserContract}${userid}`)
   .then(response => {
@@ -29,7 +29,7 @@ const urlsaveSignature="http://localhost:3000/contract/saveUserSignature/"
       return error;
   })
 }
-  export const saveSignature=(signature,userid)=>{
+  export const saveSignature= async (signature,userid)=>{
     return instance.put(`${urlsaveSignature}`,{signature,userid})
     .then(response => {
       console.log(response)
