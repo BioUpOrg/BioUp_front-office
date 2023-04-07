@@ -62,11 +62,12 @@ export default function Dashboard() {
                       Order
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link">
-                      <i class="fi-rs-marker mr-10"></i>My Address
-                    </a>
-                  </li>
+                 
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/Dashboard/mylocation">
+                      <i className="fi-rs-marker mr-10"></i>Get My Location 
+                    </NavLink>
+                    </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/user-dashboard">
                       <i className="fi-rs-shopping-cart-check mr-10"></i>sell
