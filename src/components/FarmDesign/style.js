@@ -31,15 +31,18 @@ container: {
         marginBottom: '50px',
         marginTop: '100px',
     },
-    Savebutton:{
+    Savebutton: {
+      width: '500px',
+    },
+    buttonContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: '100px',
 
-        display:'block',
-        margin: '0 auto',
-        width: '500px',
-        marginBottom: '100px',
-
-
-    }
+    },
   }
+
+  
 ));
 export default useStyles;

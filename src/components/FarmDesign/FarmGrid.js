@@ -14,6 +14,10 @@ import { useDispatch } from "react-redux";
 import { getFarms, updateFarm } from "../../store/farms";
 import { useState, useCallback } from "react";
 import  useStyles  from "./style"
+import html2canvas from 'html2canvas';
+import { useRef , useEffect } from "react";
+import { Icon } from '@iconify/react';
+
 
 function PlantListItem({ plant, onClick }) {
   return (
@@ -84,7 +88,7 @@ const GridCell = ({
 }) => {
 
 
-  const [image] = useImage(plant?.plant?.image || animal?.animal?.image);
+  const [image] = useImage(plant?.plant?.image || animal?.animal?.image, 'Anonymous');
 
 
   
@@ -96,14 +100,16 @@ const GridCell = ({
 
   return (
     <>
-      <Rect
+       <Rect
         x={x * cellWidth}
         y={y * cellHeight}
         width={cellWidth}
         height={cellHeight}
-        stroke="black"
+       // stroke="black"
+        strokeWidth={0.5}
         onClick={handleClick}
       />
+
 
       {image && (
         <Image
@@ -129,8 +135,8 @@ export default function FarmGrid() {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = React.useState({ x: 0, y: 0 });
 
-  const rows = 6;
-  const cols = 6;
+  const rows = 9;
+  const cols = 9;
   const cellWidth = 100;
   const cellHeight = 100;
 
@@ -212,7 +218,8 @@ export default function FarmGrid() {
       >
         <List>
           {farm?.plants?.map((plant) => (
-            <PlantListItem plant={plant} onClick={handlePlantClick} />
+            //Warning: Each child in a list should have a unique "key" prop
+            <PlantListItem  plant={plant} onClick={handlePlantClick} />
           ))}
         </List>
         <List>
@@ -240,14 +247,55 @@ export default function FarmGrid() {
   const [image, setImage] = useState(new window.Image());
   React.useEffect(() => {
     const img = new window.Image();
-    img.src =
-      "https://static.vecteezy.com/system/resources/previews/007/984/827/original/ground-seamless-texture-game-ui-for-the-game-farm-brown-background-of-cultivated-land-vector.jpg";
-    img.width = 600;
+    img.crossOrigin = 'Anonymous';
+
+    //img.src ="https://cdna.artstation.com/p/assets/images/images/048/850/940/medium/welld-v-location-forest.jpg?1651081928"
+    img.src ="https://static.vecteezy.com/system/resources/previews/007/984/827/original/ground-seamless-texture-game-ui-for-the-game-farm-brown-background-of-cultivated-land-vector.jpg";
+    img.width = 900;
     img.height = 600;
       setImage(img);
   }, []);
 
-               
+
+  const stageRef = useRef(null);
+
+
+
+
+  const handleExportClick = () => {
+    const stage = stageRef.current;  
+    // use html2canvas to convert the stage to an image
+    html2canvas(stage.container()).then(canvas => {
+      // create a new canvas element to draw the original image and text on
+      const finalCanvas = document.createElement('canvas');
+      const finalContext = finalCanvas.getContext('2d');
+  
+      // set the dimensions of the final canvas to match the original image
+      finalCanvas.width = canvas.width;
+      finalCanvas.height = canvas.height;
+  
+      // draw the original image on the final canvas
+      finalContext.drawImage(canvas, 0, 0);
+  
+      // add text to the final canvas
+      finalContext.font = 'bold 20px Arial';
+      finalContext.fillStyle = '#000';
+      finalContext.fillText('My Farm', 20, 30);
+  
+      // create a temporary link to download the image
+      const link = document.createElement('a');
+      link.download = 'my-farm.png';
+      link.href = finalCanvas.toDataURL();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  };
+  
+
+
+
+            
   return (
     <div>
       <Drawer
@@ -260,8 +308,9 @@ export default function FarmGrid() {
 
       {farm && <h1>Farm Name: {farm.name}</h1>}
 
-      <Stage width={cols * cellWidth} height={rows * cellHeight}
+      <Stage width={cols * cellWidth} height={(rows-3) * cellHeight}
         className={classes.title}
+        ref={stageRef}
       >
         <Layer>
         <Image x={0} y={0} image={image} />
@@ -291,9 +340,14 @@ export default function FarmGrid() {
         </Layer>
       </Stage>
 
-      <Button variant="primary" className={classes.Savebutton}   onClick={handleSave}>
-        Save
-      </Button>
+      <div className={classes.buttonContainer}>
+          <Button variant="primary" className={classes.Savebutton} onClick={handleSave}>
+            Save
+          </Button>
+          <Icon icon="uil:file-download" color="green" width="50" height="50" onClick={handleExportClick}>
+            Export
+          </Icon>
+        </div>
     </div>
   );
 }
