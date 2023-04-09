@@ -53,7 +53,9 @@ const MyAppRoutes = () => {
           console.log(response.data)
              if(response.data.role==="transporter"){
               setIsDeliveryAgent(true);
+             
              }
+            
         })
         .catch(error => {
            console.error(error);
@@ -68,8 +70,17 @@ const MyAppRoutes = () => {
     fetchUser();
    },[])
 
-    const istransporter =isDeliveryAgent ? false : true;
-    return istransporter ?  <Navigate to="/dashboard" /> : children;
+
+  
+if(isDeliveryAgent){
+  if (isDeliveryAgent===false){
+    return <Navigate to="/dashboard" />;
+  }else if(isDeliveryAgent===true){
+      return children;  
+  }
+}  
+
+
  }
 
   
@@ -106,7 +117,7 @@ const MyAppRoutes = () => {
         >
          <Route path="user-dashboard" element={<UserDashbord/>}/>
          <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
-         <Route path="popSignature" element={<><PopSignature/></>}/>
+         <Route path="popSignature" element={<PopSignature/>}/>
          <Route path="mylocation" element ={<DeliveryMap />}/>
          </Route>
         <Route path="/401" element={<Page401 />} />

@@ -5,37 +5,24 @@ import UserDashbord from "../components/authentication/register/UserDashbors";
 import Contract from "../pages/ContractDelivery/MyContract";
 import axios from "axios";
 import { useEffect } from "react";
+import jwt_decode from "jwt-decode";
 export default function Dashboard() {
   const location = useLocation();
   const message = new URLSearchParams(location.search).get("message");
   const [statusRole,setStatusRole]=useState('true');
   const token =  localStorage.getItem("TOKEN_KEY");
+  const decoded = jwt_decode(token);
+  const userId=decoded.role;
 
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get('http://localhost:3000/users/auth/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        .then(response => {
-          console.log(response.data)
-             if(response.data.role==="transporter"){
-              setStatusRole(false);
-             }
-        })
-        .catch(error => {
-           console.error(error);
-        });
-      
-    } catch (error) {
-     
-    }
-  };
+  useEffect(()=>{
+        if(userId==="transporter"){
+          setStatusRole(false)
 
-   useEffect(()=>{
-    fetchUser();
-   },[])
+        }
+    console.log(statusRole)
+
+  },[])
+ 
 
   return (
     <div class="container" style={{marginBlock:"100px"}}>
