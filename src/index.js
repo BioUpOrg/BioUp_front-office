@@ -7,12 +7,17 @@ import jwt_decode from "jwt-decode";
 
 import { Provider } from 'react-redux';
 //import { store } from './redux/store';
+import { persistStore } from 'redux-persist';
 
 import configureStore from "./store/configureStore";
 import { setUserId } from "./store/users";
+import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
 const store = configureStore();
-
+//import store from '../src/store/store'
+const persistor = persistStore(store)
+store.subscribe(()=>console.log(store.getState()))
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const isAuthenticated = localStorage.getItem("TOKEN_KEY");
@@ -30,11 +35,10 @@ store.dispatch(setUserId(userId));
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-    <App />
-    </Provider>
-
-  
+   <Provider store={store} >
+    
+   <App />
+   </Provider>
   </React.StrictMode>
 );
 
