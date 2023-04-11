@@ -15,13 +15,13 @@ import { color } from '@mui/system';
 
 function ContractForm() {
 
-  const [vehicleType, setvehicleType] = useState('PickUp');
+  const [vehicleType, setvehicleType] = useState('cars');
   const [salary, setSalary] = useState(20);
   const [acceptedRules, setAcceptedRules] = useState(false);
   const [typeContract, setTypeContract]=useState('Trimestrial'); 
-  const [vehicleMarque, setvehicleMarque]=useState('');
-  const[capacite,setcapacite]=useState(''); 
-  const [vehicleModel,setvehicleModel]=useState('');
+  const [vehicleMarque, setvehicleMarque]=useState(null);
+  const[capacite,setcapacite]=useState(null); 
+  const [vehicleModel,setvehicleModel]=useState(null);
   const [user,setUser]=useState({});
   const [vehicleBrandsList, setVehicleBrandsList] = useState([]);
    const [modelList, setModelList] = useState([]);
@@ -76,7 +76,9 @@ function ContractForm() {
       setSalary(30);
     }
   }, [vehicleType]);
-
+const fetchModel = ()=>{
+  
+}
   useEffect(() => {
     if (vehicleMarque === 'Audi') {
       setModelList(vm.Audi);
@@ -117,12 +119,13 @@ function ContractForm() {
     }
   }, [vehicleMarque]);
 
-
+  console.log(vehicleType);
+    console.log(vehicleMarque);
+    console.log(capacite);
+    console.log(vehicleModel);
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(vehicleModel===''){
-    
-    }
+  
 console.log(typeContract) ;
 console.log(user.id);
 const vehicle={
@@ -247,9 +250,9 @@ const vehicle={
                   isInvalid={vehicleModel === ''}
                   >
             {modelList.map((model) => (
-              <option value={model}>
-                {model}
-              </option>
+               <option  value={model}>
+               {model}
+             </option>
             ))}
 
                     </Form.Select>

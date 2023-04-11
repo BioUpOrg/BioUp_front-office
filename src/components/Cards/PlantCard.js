@@ -132,7 +132,6 @@ const handleCloseForm = () => {
                               id="composition-menu"
                               aria-labelledby="composition-button"
                             >
-                              <MenuItem onClick={handleClose}>Design</MenuItem>
                               <MenuItem onClick={handleClickOpenForm}>Update</MenuItem>
 
                               <Dialog
@@ -169,6 +168,7 @@ const handleCloseForm = () => {
           height="200" // set a fixed height for all cards
           image={plant.image}
           alt={plant.name}
+          style={{width: "100%", height: "auto"}}
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
