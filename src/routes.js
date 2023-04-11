@@ -6,7 +6,6 @@ import Home from "./pages/home";
 import About from "./pages/about";
 import Contact from "./pages/contact";
 import Composts from "./pages/composts";
-import Products from "./pages/products";
 import Services from "./pages/services";
 import Register from "./pages/register";
 import Login from "./pages/login";
@@ -26,6 +25,13 @@ import UserVerificationWithMail from './pages/UserVerificationWithMail';
 import RecoverPassEmail from './pages/RecuperePasswordWithEmail';
 import ContractForm from './components/forms/contractForm'
 import UserDashbord from "./components/authentication/register/UserDashbors";
+import ProductLayout from "./pages/ManageProducts/ProductLayout";
+import AddProduct from "./pages/ManageProducts/addProduct";
+import UpdateProduct from "./pages/ManageProducts/UpdateProduct";
+import ProductDetails from "./pages/ManageProducts/ProductDetails";
+import Products from "./pages/ManageProducts/Products";
+import { lazy, Suspense } from "react";
+import SpinnerExample from "./pages/ManageProducts/Spinner";
 import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
 import DeliveryMap from "./pages/locationAgent/DeliveryMap";
@@ -87,11 +93,16 @@ if(isDeliveryAgent){
 
   return (
     <BrowserRouter>
-      <LandingPageNav />
+    <LandingPageNav />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/About" element={<About />} />
-        <Route path="/Products" element={<Products />} />
+        <Route path="/Products" element={<ProductLayout />}>
+            <Route path="list" element={<Products />} />
+            <Route path="add" element={<AddProduct />} />
+            <Route path="update/:id" element={<UpdateProduct />} />
+            <Route path=":id" element={<ProductDetails />} />
+          </Route>
         <Route path="/Farm" element={<Farm />} />
         <Route path="/ManageMyFarm" element={<FarmMangment />} />
         <Route path="/addFarm" element={<AddFarm />} />
@@ -126,6 +137,7 @@ if(isDeliveryAgent){
       </Routes>
       <MainFooter />
     </BrowserRouter>
+
   );
 };
 
