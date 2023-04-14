@@ -5,6 +5,7 @@ import { getProduct } from "../../../src/services/api";
 import Rating from '@mui/material/Rating';
 import { addRating , getRating } from "../../../src/services/api";
 import { useSelector } from "react-redux";
+import { Button } from 'react-bootstrap';
 
 
 
@@ -67,11 +68,11 @@ function ProductDetails() {
 />
 <Col md={4}>
   <Row>
-  <button variant="success" size="sm" onClick={() => {
+  <Button variant="success" size="sm" onClick={() => {
           add();
           getProductFunction();
 
-           } }>Add Rating</button>
+           } }>Add Rating</Button>
     </Row>
     </Col> 
 

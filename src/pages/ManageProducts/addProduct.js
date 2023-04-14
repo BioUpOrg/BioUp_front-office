@@ -8,11 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProductReducer } from "../../store/slices/productSlice";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { Spinner } from "react-bootstrap";
-import Select from 'react-select';
-import { useSelector } from "react-redux";
-
+ 
 
 function AddProduct() {
 
