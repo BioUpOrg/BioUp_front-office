@@ -18,22 +18,27 @@ import AffectAnimalToFarmModal from '../../../components/modals/AffectAnimalToFa
 import { Icon } from '@iconify/react';
 import MapPage from "./Map";
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { async } from "q";
 import { Card, CardContent, CardMedia } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export default function AddFarm(){
   const classes = useStyles();
   const dispatch = useDispatch();
   const [latLng, setLatLng] = useState(null);
+  const [area, setArea] = useState(null);
 
   function handleMapClick(latLng) {
     setLatLng(latLng);
     formik.setFieldValue("latitude", latLng.lat);
     formik.setFieldValue("longitude", latLng.lng);
   }
+
+  function handleAreaChange(newArea) {
+    setArea(newArea);
+    formik.setFieldValue("area", newArea);
+  };
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -44,6 +49,7 @@ export default function AddFarm(){
     name: Yup.string().required("Le nom de la formation est obligatoire"),
     latitude: Yup.string().required("La latitude est obligatoire"),
     longitude: Yup.string().required("La longitude est obligatoire"),
+    area: Yup.string().required("L'aire est obligatoire"),
   });
 
   const formik = useFormik({
@@ -51,13 +57,13 @@ export default function AddFarm(){
       name: "",
       latitude: "",
       longitude: "",
+      area: "",
       type: "",
       plants: [],
 
     },
     validationSchema: EventSchema,
     onSubmit: async (data) => {
-      console.log("data", data);
 
       const plantData = selectedPlants.reduce((plants, plant) => {
         for (let i = 0; i < plant.quantity; i++) {
@@ -72,8 +78,7 @@ export default function AddFarm(){
         }
         return animals;
       }, []);
-console.log("plantData", plantData);
-console.log("animalData", animalData);
+
 
       const farmData = {
         ...data,
@@ -247,7 +252,7 @@ console.log("animalData", animalData);
 
 
 
-              <Grid item sm={4} xs={12}>
+              <Grid item sm={12} xs={12}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <Typography variant="subtitle1">Location:</Typography>     
                     <Icon onClick={handleClickOpen} icon="gis:map-search" color="green" width="50" height="50" />
@@ -262,7 +267,7 @@ console.log("animalData", animalData);
                           {"Farm Location"}
                         </DialogTitle>
                         <DialogContent style={{width:"800px" , height:"300px"}}>
-                        <MapPage onMapClick={handleMapClick} /> 
+                        <MapPage onMapClick={handleMapClick} onAreaChange={handleAreaChange} /> 
                         </DialogContent>
 
                       </Dialog>
@@ -270,7 +275,7 @@ console.log("animalData", animalData);
                 </div>
               </Grid>
 
-              <Grid item sm={4} xs={12}>
+              <Grid item sm={6} xs={12}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
 
                 <TextField
@@ -288,7 +293,7 @@ console.log("animalData", animalData);
                 </div>
               </Grid>
 
-              <Grid item sm={4} xs={12}>
+              <Grid item sm={6} xs={12}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
 
                 <TextField
@@ -304,6 +309,26 @@ console.log("animalData", animalData);
                 </div>
               </Grid>
 
+              <Grid item sm={8} xs={12}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+
+                <TextField
+                  name="area"
+                  fullWidth
+                  type="text"
+                  label="area *"
+                  {...getFieldProps("area")}
+                  error={Boolean(touched.area && errors.area)}
+                  helperText={touched.area && errors.area}
+                  InputProps={{
+                    endAdornment: <InputAdornment position="start">(m²)</InputAdornment>,
+                  }}
+                />
+                
+                <Icon icon="gis:measure-area-alt" color="green" width="50" height="50" />
+                </div>
+              </Grid>
+
       
               <div style={{ display: 'flex', flexDirection: 'column-reverse' }}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', paddingBottom: '50px', paddingLeft: '50px' }}>
@@ -311,8 +336,7 @@ console.log("animalData", animalData);
                   {selectedAnimalsJSX}
                   </div>
                   <Stack direction="row" spacing={2} style={{paddingTop:"50px", paddingLeft:"50px"}}>
-                    <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Plants</Button>
-                    <Button variant="contained" onClick={toggleDrawer("right", true)} >Select Animals</Button>
+                    <Button variant="contained" onClick={toggleDrawer("right", true)} >Select From Stock</Button>
 
                     <SwipeableDrawer
                       anchor={"right"}
