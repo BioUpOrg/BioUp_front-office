@@ -91,8 +91,31 @@ const handleCloseForm = () => {
 };
 
 function handleDesignClick(farm) {
-  navigate('/farm', { state: { farm } });
+  navigate('/farm', { state: { farm , numberOfAppleTrees } });
 }
+
+
+function calculateNumberOfAppleTrees(area) {
+  // Convert the area to hectares
+  const areaInHectares = area / 10000;
+  
+  // Calculate the estimated number of apple trees based on planting density
+  const minTreesPerHectare = 370;
+  const maxTreesPerHectare = 494;
+  const minTrees = Math.round(areaInHectares * minTreesPerHectare);
+  const maxTrees = Math.round(areaInHectares * maxTreesPerHectare);
+  let cols=0;
+  let rows=0;
+
+  while(cols*rows<maxTrees){
+    cols++;
+    rows++;
+  }
+  // Return the estimated number of apple trees as a range
+  return { cols: cols, rows: rows };
+}
+
+const numberOfAppleTrees = calculateNumberOfAppleTrees(farm.area);
 
 
 

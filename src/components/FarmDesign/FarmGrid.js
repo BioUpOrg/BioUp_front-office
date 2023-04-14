@@ -26,19 +26,21 @@ function PlantListItem({ plant, onClick }) {
       sx={{ display: "flex" }}
       style={{ marginTop: "3px" }}
       onClick={() => onClick(plant)}
-
     >
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">
-          <span>{plant.plant.quantity} </span>
             {plant.plant.name}
           </Typography>
+
         </CardContent>
+        <Typography component="div" variant="subtitle1" sx={{ color: "text.secondary",fontSize: "10px" }}>
+            Position :[ {plant.position.x} ][ {plant.position.y} ]
+          </Typography>
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 69, marginLeft: "auto" }}
+        sx={{ width: 79, marginLeft: "auto" }}
         image={plant.plant.image}
         alt={plant.plant.name}
       />
@@ -55,19 +57,20 @@ function AnimalListItem({ animal, onClickAnimal }) {
       sx={{ display: "flex" }}
       style={{ marginTop: "3px" }}
       onClick={() => onClickAnimal(animal)}
-
     >
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">
-          <span>{animal.animal.quantity} </span>
             {animal.animal.name}
           </Typography>
         </CardContent>
+        <Typography component="div" variant="subtitle1" sx={{ color: "text.secondary",fontSize: "10px" }}>
+            Position :[ {animal.position.x} ][ {animal.position.y} ]
+          </Typography>
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 69, marginLeft: "auto" }}
+        sx={{ width: 79, marginLeft: "auto" }}
         image={animal.animal.image}
         alt={animal.animal.name}
       />
@@ -105,7 +108,7 @@ const GridCell = ({
         y={y * cellHeight}
         width={cellWidth}
         height={cellHeight}
-       // stroke="black"
+        stroke="black"
         strokeWidth={0.5}
         onClick={handleClick}
       />
@@ -128,6 +131,7 @@ export default function FarmGrid() {
   const classes = useStyles();
   const location = useLocation();
   const farm = location?.state?.farm;
+  const numberOfAppleTrees = location?.state?.numberOfAppleTrees;
   const Navigate = useNavigate();
   const [state, setState] = React.useState({
     right: false,
@@ -135,8 +139,13 @@ export default function FarmGrid() {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = React.useState({ x: 0, y: 0 });
 
-  const rows = 9;
-  const cols = 9;
+
+console.log(numberOfAppleTrees)
+
+
+let cols = numberOfAppleTrees.cols;
+  let rows = numberOfAppleTrees.rows;
+
   const cellWidth = 100;
   const cellHeight = 100;
 
@@ -251,8 +260,8 @@ export default function FarmGrid() {
 
     //img.src ="https://cdna.artstation.com/p/assets/images/images/048/850/940/medium/welld-v-location-forest.jpg?1651081928"
     img.src ="https://static.vecteezy.com/system/resources/previews/007/984/827/original/ground-seamless-texture-game-ui-for-the-game-farm-brown-background-of-cultivated-land-vector.jpg";
-    img.width = 900;
-    img.height = 600;
+    img.width = cols * cellWidth;
+    img.height = rows * cellHeight;
       setImage(img);
   }, []);
 
@@ -308,7 +317,7 @@ export default function FarmGrid() {
 
       {farm && <h1>Farm Name: {farm.name}</h1>}
 
-      <Stage width={cols * cellWidth} height={(rows-3) * cellHeight}
+      <Stage width={cols * cellWidth} height={rows * cellHeight}
         className={classes.title}
         ref={stageRef}
       >

@@ -93,7 +93,7 @@ const handleCloseForm = () => {
 
 
     return (
-      <Card sx={{ maxWidth: 345, width: "345px" }}>
+      <Card sx={{ maxWidth: 250, width: 250 }}>
         <CardHeader
         action={
           <IconButton aria-label="settings">
@@ -168,7 +168,7 @@ const handleCloseForm = () => {
           height="200" // set a fixed height for all cards
           image={animal.image}
           alt={animal.name}
-          style={{width: "100%", height: "auto"}}
+          style={{width: "70%", height: "auto"}}
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
@@ -176,17 +176,17 @@ const handleCloseForm = () => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+        {/*  <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">
             <ShareIcon />
-          </IconButton>
+          </IconButton>*/} 
           <IconButton
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
-          >
+          >View Details
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
