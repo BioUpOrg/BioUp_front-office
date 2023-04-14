@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom";
 import LandingPageNav from "./components/navbars/landingPageNav";
 import MainFooter from "./components/footers/mainFooter";
 import Home from "./pages/home";
@@ -15,9 +15,8 @@ import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard";
 import Farm from "./pages/farm";
 import FarmMangment from "./pages/ManageFarm/farmMangment";
-import MyContract from "./pages/MyContract";
+import MyContract from "./pages/ContractDelivery/MyContract";
 import AddFarm from './pages/ManageFarm/AddFarm';
-
 import FarmDetails from './pages/ManageFarm/FarmDetails';
 import PlantDetails from './pages/ManageFarm/PlantDetails';
 import OTPVerification from './pages/verifyAccount';
@@ -33,14 +32,62 @@ import ProductDetails from "./pages/ManageProducts/ProductDetails";
 import Products from "./pages/ManageProducts/Products";
 import { lazy, Suspense } from "react";
 import SpinnerExample from "./pages/ManageProducts/Spinner";
-
+import PopSignature from "./pages/ContractDelivery/popSignature";
+import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
+import DeliveryMap from "./pages/locationAgent/DeliveryMap";
+import axios from "axios";
+import { useEffect, useState } from "react";  
+import { MyLocation } from "@mui/icons-material";
 const MyAppRoutes = () => {
-
+  const [isDeliveryAgent,setIsDeliveryAgent]=useState(false);
   const PrivateRoute = ({ children }) => {
     const isAuthenticated = localStorage.getItem("TOKEN_KEY") ? true : false;
     return isAuthenticated ? children : <Navigate to="/login" />;
   }
+ const ProtectedRoute=({children})=>{
 
+  const token= localStorage.getItem("TOKEN_KEY"); 
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/users/auth/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        
+        .then(response => {
+          console.log(response.data)
+             if(response.data.role==="transporter"){
+              setIsDeliveryAgent(true);
+             
+             }
+            
+        })
+        .catch(error => {
+           console.error(error);
+        });
+      
+    } catch (error) {
+       
+    }
+  };
+
+   useEffect(()=>{
+    fetchUser();
+   },[])
+
+
+  
+if(isDeliveryAgent){
+  if (isDeliveryAgent===false){
+    return <Navigate to="/dashboard" />;
+  }else if(isDeliveryAgent===true){
+      return children;  
+  }
+}  
+
+
+ }
 
   
 
@@ -61,13 +108,13 @@ const MyAppRoutes = () => {
         <Route path="/addFarm" element={<AddFarm />} />
         <Route path="/ManageMyFarm/FarmsDetail" element={<FarmDetails />} />
         <Route path="/ManageMyFarm/PlantsDetail" element={<PlantDetails />} />
-
+        <Route path="/ManageMyFarm/AnimalsDetail" element={<AnimalDetails />} />
         <Route path="/Composts" element={<Composts />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
-      
+
         <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
         <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
         <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
@@ -80,7 +127,9 @@ const MyAppRoutes = () => {
           </PrivateRoute>}
         >
          <Route path="user-dashboard" element={<UserDashbord/>}/>
-         <Route path="mycontract" element={<MyContract/>}/>
+         <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
+         <Route path="popSignature" element={<PopSignature/>}/>
+         <Route path="mylocation" element ={<DeliveryMap />}/>
          </Route>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />

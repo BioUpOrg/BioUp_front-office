@@ -2,11 +2,27 @@ import React, { useState } from "react";
 import { Card, Nav } from "react-bootstrap";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import UserDashbord from "../components/authentication/register/UserDashbors";
-import Contract from "../pages/MyContract";
+import Contract from "../pages/ContractDelivery/MyContract";
+import axios from "axios";
+import { useEffect } from "react";
+import jwt_decode from "jwt-decode";
 export default function Dashboard() {
   const location = useLocation();
   const message = new URLSearchParams(location.search).get("message");
-  
+  const [statusRole,setStatusRole]=useState('true');
+  const token =  localStorage.getItem("TOKEN_KEY");
+  const decoded = jwt_decode(token);
+  const userId=decoded.role;
+
+  useEffect(()=>{
+        if(userId==="transporter"){
+          setStatusRole(false)
+
+        }
+    console.log(statusRole)
+
+  },[])
+ 
 
   return (
     <div class="container" style={{marginBlock:"100px"}}>
@@ -33,11 +49,12 @@ export default function Dashboard() {
                       Order
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link">
-                      <i class="fi-rs-marker mr-10"></i>My Address
-                    </a>
-                  </li>
+                 
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/Dashboard/mylocation">
+                      <i className="fi-rs-marker mr-10"></i>Get My Location 
+                    </NavLink>
+                    </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/user-dashboard">
                       <i className="fi-rs-shopping-cart-check mr-10"></i>sell
@@ -45,7 +62,7 @@ export default function Dashboard() {
                     </NavLink>
                     </li>
                     <li className="nav-item">
-                    <NavLink className="nav-link" to="/Dashboard/mycontract">
+                    <NavLink hidden={statusRole} className="nav-link" to="/Dashboard/mycontract">
                       <i className="fi-rs-shopping-cart-check mr-10"></i>
                      My Contract
                     </NavLink>

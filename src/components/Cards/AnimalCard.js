@@ -14,7 +14,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useDispatch } from 'react-redux';
-import { getFarms,deleteFarm } from '../../store/farms';
+import { getAnimals,deleteAnimal } from '../../store/animals';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
@@ -25,14 +25,12 @@ import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import UpdateFarmModal from '../modals/EditFarmModal';
-import { useNavigate } from 'react-router-dom';
-import { useHistory } from "react-router-dom";
+import UpdateAnimalModal from '../modals/EditAnimalModal';
 
-export default function FarmCard({ farm }) {
+export default function AnimalCard({ animal }) {
     const [expanded, setExpanded] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
 
   
     const handleExpandClick = () => {
@@ -40,9 +38,9 @@ export default function FarmCard({ farm }) {
     };
   
     const handleDelete = () => {
-      if (window.confirm("Are you sure you want to delete this farm?")) {
-          dispatch(deleteFarm(farm._id)).then(() => {
-              dispatch(getFarms());
+      if (window.confirm("Are you sure you want to delete this animal?")) {
+          dispatch(deleteAnimal(animal._id)).then(() => {
+              dispatch(getAnimals());
           });
       }
   };
@@ -78,7 +76,7 @@ export default function FarmCard({ farm }) {
 
 
 
-//Farm Form
+//Animal Form
 
 const [openForm, setOpenForm] = React.useState(false);
 
@@ -90,9 +88,7 @@ const handleCloseForm = () => {
   setOpenForm(false);
 };
 
-function handleDesignClick(farm) {
-  navigate('/farm', { state: { farm } });
-}
+
 
 
 
@@ -136,7 +132,6 @@ function handleDesignClick(farm) {
                               id="composition-menu"
                               aria-labelledby="composition-button"
                             >
-                              <MenuItem onClick={() => handleDesignClick(farm)}>Design</MenuItem>
                               <MenuItem onClick={handleClickOpenForm}>Update</MenuItem>
 
                               <Dialog
@@ -144,13 +139,12 @@ function handleDesignClick(farm) {
                               onClose={handleCloseForm}
                               aria-labelledby="alert-dialog-title"
                               aria-describedby="alert-dialog-description"
-                              style={{ zIndex: 10 }}
                             >
                               <DialogTitle id="alert-dialog-title">
-                                {"Update Farm"}
+                                {"Update Animal"}
                               </DialogTitle>
                               <DialogContent>
-                                 <UpdateFarmModal element={farm } />
+                               <UpdateAnimalModal element={animal } />
                               </DialogContent>
       
                             </Dialog>
@@ -167,18 +161,18 @@ function handleDesignClick(farm) {
           </IconButton>
         }
 
-          title={farm.name}
-          /*subheader={`Attribut1: ${farm.description}, Attribut2: ${farm.description}`}  */
+          title={animal.name}
         />
         <CardMedia
           component="img"
           height="200" // set a fixed height for all cards
-          image="https://static.wixstatic.com/media/0e5dbb_8b662557450f4402976fcc88d26bd439~mv2.png/v1/fill/w_981,h_670,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/0e5dbb_8b662557450f4402976fcc88d26bd439~mv2.png"
-          alt={farm.name}
+          image={animal.image}
+          alt={animal.name}
+          style={{width: "100%", height: "auto"}}
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            {farm.description}
+             BirthDate: {animal.birthdate}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -199,9 +193,9 @@ function handleDesignClick(farm) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Details:</Typography>
-            <Typography paragraph>Latitude: {farm.latitude}</Typography>
-            <Typography paragraph>Longitude: {farm.longitude}</Typography>
-            <Typography paragraph>Price: {farm.price}</Typography>
+            <Typography paragraph>healthStatus: {animal.healthStatus}</Typography>
+            <Typography paragraph>price: {animal.price}</Typography>
+            <Typography paragraph>quantity: {animal.quantity}</Typography>
           </CardContent>
         </Collapse>
       </Card>
