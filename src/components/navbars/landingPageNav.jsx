@@ -91,7 +91,7 @@ export default function LandingPageNav() {
                 <div className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                   <ul>
                     <li>
-                      <Link to="/Dashboard">
+                      <Link to="/Dashboard/stats">
                         <i className="fi fi-rs-user mr-10"></i>Dashboard
                       </Link>
                     </li>
