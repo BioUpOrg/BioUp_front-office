@@ -9,6 +9,10 @@ import {  useSelector } from "react-redux";
 
 export default function AffectAnimalToFarmModal({ onSelectedAnimalsChange , element}) {
   const animals = useSelector((state) => state.entities.animals.list);
+  const userId = useSelector((state) => state.entities.users.userId);
+  const userAnimals = animals.filter((animal) => animal.user === userId);
+
+
   const [selectedAnimals, setSelectedAnimals] = React.useState(element || [] );
   console.log("selectedAnimals", selectedAnimals);
 
@@ -32,7 +36,7 @@ export default function AffectAnimalToFarmModal({ onSelectedAnimalsChange , elem
 
   return (
     <div>
-      {animals.map((animal) => (
+      {userAnimals.map((animal) => (
         <Card
           key={animal._id}
           sx={{ display: "flex" }}

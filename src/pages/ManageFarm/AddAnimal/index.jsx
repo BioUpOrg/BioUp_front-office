@@ -25,7 +25,8 @@ export default function AddAnimal() {
       name: Yup.string().required("Le nom de la formation est obligatoire"),
   
     });
-  
+    const userId = useSelector((state) => state.entities.users.userId);
+
   
     const formik = useFormik({
       initialValues: {
@@ -45,7 +46,8 @@ export default function AddAnimal() {
       //const imageUrl = await searchPhotos(data.sex);
           const imageUrl = getImageUrl(data.name);
           data.image = imageUrl;
-          console.log(data)
+
+          data.user = userId;
         dispatch(addAnimal(data))
           .then(() => {
             setShowAlert(true);

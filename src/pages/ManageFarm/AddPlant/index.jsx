@@ -17,6 +17,7 @@ export default function AddPlant() {
   const dispatch = useDispatch();
 
   const [showAlert, setShowAlert] = useState(false);
+  const userId = useSelector((state) => state.entities.users.userId);
 
   const EventSchema = Yup.object().shape({
     name: Yup.string().required("Le nom de la formation est obligatoire"),
@@ -46,6 +47,7 @@ export default function AddPlant() {
     //const imageUrl = await searchPhotos(data.scientificName);
         const imageUrl = getImageUrl(data.scientificName);
         data.image = imageUrl;
+        data.user = userId;
       dispatch(addPlant(data))
         .then(() => {
           setShowAlert(true);
