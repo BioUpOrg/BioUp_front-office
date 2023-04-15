@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { setCompostDetails } from "../../store/composts";
 
 export default function CompostCard({ compost }) {
-
+//
   const navigate= useNavigate();
   const dispatch = useDispatch();
 
