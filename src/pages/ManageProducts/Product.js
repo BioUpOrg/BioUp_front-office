@@ -6,6 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { increment } from "../../store/slices/cartSlice";
 import { deleteProduct, getProducts } from "../../../src/services/api";
+import { Icon } from '@iconify/react';
 
 function Product(props) {
   const [product,] = useState(props.product);
@@ -32,6 +33,14 @@ function Product(props) {
     <Card style={{ width: "18rem" }} className={className}>
  
       <Card.Body>
+        {product?.pic ? (
+              <img src={product?.pic} alt="product" />
+            ) :
+            <Icon icon="noto-v1:man-teacher" fontSize={120}  />
+
+            }
+          
+
         <Card.Title>
           <Link to={`/products/${product._id}`}>{product.name}</Link>
         </Card.Title>
