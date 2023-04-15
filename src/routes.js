@@ -38,6 +38,7 @@ import DeliveryMap from "./pages/locationAgent/DeliveryMap";
 import axios from "axios";
 import { useEffect, useState } from "react";  
 import { MyLocation } from "@mui/icons-material";
+import GetListCommandeNotShipped from "./pages/Shipment/GetListCommandeNotShipped";
 const MyAppRoutes = () => {
   const [isDeliveryAgent,setIsDeliveryAgent]=useState(false);
   const PrivateRoute = ({ children }) => {
@@ -128,8 +129,10 @@ if(isDeliveryAgent){
         >
          <Route path="user-dashboard" element={<UserDashbord/>}/>
          <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
-         <Route path="popSignature" element={<PopSignature/>}/>
+         <Route path="popSignature" element={<ProtectedRoute><PopSignature/></ProtectedRoute>}/>
          <Route path="mylocation" element ={<DeliveryMap />}/>
+         <Route path="listorder" element={<GetListCommandeNotShipped/>}/>
+
          </Route>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />
