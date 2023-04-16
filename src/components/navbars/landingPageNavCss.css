@@ -1,0 +1,43 @@
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  nav li {
+    margin: 0 10px;
+    position: relative;
+  }
+
+
+  
+  nav .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  
+  nav .dropdown-menu li {
+    display: block;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+
+  }
+  
+  nav .dropdown-menu li:hover {
+    background-color: #f6f6f6;
+  }
+  
+  nav .dropdown-menu a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+  }
+  

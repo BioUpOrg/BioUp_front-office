@@ -4,7 +4,8 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-
+import { Link } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
 export default function LoginForm() {
   const navigate = useNavigate(); // defining navigate here
 
@@ -18,23 +19,23 @@ export default function LoginForm() {
   const handleEmailBlur = async (e) => {
     console.log(e.target.value);
     const isEmailExist = await existEmail(e.target.value);
-    if (!isEmailExist) {
-      setEmailAlert(<Alert severity="error">Email not found</Alert>);
-      setTimeout(() => {
-        setEmailAlert(null);
-      }, 2000);
-    }
+    // if (isEmailExist) {
+    //   setEmailAlert(<Alert severity="error">Email not found</Alert>);
+    //   setTimeout(() => {
+    //     setEmailAlert(null);
+    //   }, 2000);
+    // }
   };
 
   const handlePhoneBlur = async (e) => {
     // console.log(e.phone);
     const isPhoneExist = await existPhone(e.phone);
-    if (!isPhoneExist) {
-      setPhoneAlert(<Alert severity="error">Phone number not found</Alert>);
-      setTimeout(() => {
-        setPhoneAlert(null);
-      }, 2000);
-    }
+    // if (!isPhoneExist) {
+    //   setPhoneAlert(<Alert severity="error">Phone number not found</Alert>);
+    //   setTimeout(() => {
+    //     setPhoneAlert(null);
+    //   }, 2000);
+    // }
   };
 
   const handleSubmit = async (e) => {
@@ -89,6 +90,22 @@ export default function LoginForm() {
         >
           Log in
         </button>
+        <Row>
+          <Col md={6}></Col>
+          <Col md={6}>
+            <Link to={"/recover-pass-sms"} className="m-2">
+              recover password with phone
+            </Link>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}></Col>
+          <Col md={6}>
+            <Link to={"/RecoverPassEmail"} className="m-2">
+              recover password with Email
+            </Link>
+          </Col>
+        </Row>
       </div>
     </form>
   );

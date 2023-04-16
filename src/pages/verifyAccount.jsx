@@ -1,5 +1,5 @@
 import React from 'react'
-import OtpInput from '../components/OtpInput'
+import OtpInput from '../components/inputs/OtpInput'
 const verifyAccount = () => {
   return (
   

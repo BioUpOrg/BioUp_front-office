@@ -34,9 +34,11 @@ export default function RegisterForm() {
     const [contactMethod, setContactMethod] = useState('email');
 
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
 
    const [errorMessage, setErrorMessage] = useState(null);
+
+   const [pic, setPic] = useState(null);
+
 
     const RegisterSchema = Yup.object().shape({
         firstName: Yup.string()
@@ -46,7 +48,8 @@ export default function RegisterForm() {
         lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
         email: Yup.string().email('Email must be a valid email address'),
         phone: Yup.string(),
-        password: Yup.string().required('Password is required')
+        password: Yup.string().required('Password is required'),
+        adress:Yup.string().required("adress is required")
       });
 
 
@@ -58,34 +61,41 @@ export default function RegisterForm() {
           password: '',
           role: 'user',
           phone: '',
+          pic:'',
+          adress:''
         },
         validationSchema: RegisterSchema,
         onSubmit: async (data) => {
-          console.log(data)
+          console.log(data);
           const formData = new FormData();
+          if (pic) {
+            formData.append('file', pic);
+          }
           formData.append('firstName', data?.firstName);
           formData.append('lastName', data?.lastName);
           formData.append('email', data?.email);
           formData.append('password', data?.password);
           formData.append('role', data?.role);
           formData.append('phone', data?.phone);
+          formData.append('adress',data?.adress);
           const userData = formData;
+          const result =  dispatch(addUser(userData));
 
-
-
-          const result = dispatch(addUser(data));
-          
-          Promise.resolve(result).then(data => {
-            console.log("debug data",data);
-            if (data === 'phone' || data === 'email') {
-              setErrorMessage("A User with this " +data+ " already exists");
+          Promise.resolve(result).then(error => {
+            if (error === 'phone' || error === 'email') {
+              setErrorMessage("A User with this " +error+ " already exists");
 
               setTimeout(() => {
                 setErrorMessage(null);
               }, 5000);
 
             }else{
-              navigate('/login')
+              if(data.email !==""){
+                navigate("/login")
+              }
+              if(data.phone!=""){
+                navigate("/verify-account-sms")
+              }
             }
           });
         }
@@ -105,6 +115,9 @@ export default function RegisterForm() {
         };
     }
 
+    const handleChangeFile = (event) => {
+      setPic(event.target.files[0]);
+    };
 
     return (
 
@@ -112,7 +125,36 @@ export default function RegisterForm() {
 <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
+        <Stack sm={6} xs={12}>
+            <TextField name="pic" fullWidth type="file" onChange={handleChangeFile} />
 
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+
+                justifyContent: 'center'
+              }}
+            >
+              <img
+                src={
+                  // eslint-disable-next-line no-nested-ternary
+                  pic
+                    ? URL.createObjectURL(pic)
+                    : touched?.pic
+                    ? touched?.pic
+                    : 'https://res.cloudinary.com/clouder32/image/upload/v1655285221/1200px-Breezeicons-actions-22-im-user.svg_r4qbs1.png'
+                }
+                alt="UserImage"
+                style={{
+                  width: '40%',
+                  height: '20%',
+                  objectFit: 'contain',
+                  paddingTop: 16
+                }}
+              />
+            </div>
+          </Stack>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField
               fullWidth
@@ -194,14 +236,21 @@ export default function RegisterForm() {
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
           />
-
+           <TextField
+              fullWidth
+              label="Local Adress"
+              name="adress"
+              type="text"
+              {...getFieldProps('adress')}
+              error={Boolean(touched.adress && errors.adress)}
+              helperText={touched.adress && errors.adress}
+            />
 
         <LoadingButton
             fullWidth
             size="large"
             type="submit"
             variant="contained"
-            loading={isLoading}
           >
             Inscription
           </LoadingButton>

@@ -1,0 +1,18 @@
+{
+    "vehicleTypes": [
+      {
+        "value": "cars",
+        "label": "Cars"
+      },
+      {
+        "value": "trucks",
+        "label": "Trucks"
+      },
+    
+      {
+        "value": "vans",
+        "label": "Vans"
+      }
+    ]
+  }
+  

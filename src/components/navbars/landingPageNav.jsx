@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom";
 import { BiUser } from "react-icons/bi";
 import React from 'react'
+import { useNavigate } from "react-router-dom";
+import { Logout } from "../../services/authService";
+import "./landingPageNavCss.css";
+import { Icon } from '@iconify/react';
+
 
 export default function LandingPageNav() {
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const navigate= useNavigate();
   let registerBtn;
   let loginBtn;
   let signout;
   const isAuthenticated = localStorage.getItem("TOKEN_KEY") ? true : false;
+  
+  const logout = async () => {
+    await Logout(navigate);
+    // navigate('/');
+  }
+
+
   if (!isAuthenticated) {
     registerBtn = (
       <div className="header-action-icon-2">
@@ -27,9 +44,9 @@ export default function LandingPageNav() {
   }
   if(isAuthenticated){
     signout=<li>
-    <a href="page-login">
+    <Link to={"/"} onClick={() => logout()}>
       <i className="fi fi-rs-sign-out mr-10"></i>Sign out
-    </a>
+    </Link>
   </li>
   }
   return (
@@ -72,6 +89,16 @@ export default function LandingPageNav() {
                   </li>
                   <li>
                     <Link to={"/Contact"}>Contact</Link>
+                  </li>
+                 <li>
+                    <span onClick={toggleDropdown}>Farm <Icon icon="gridicons:dropdown" /></span>
+                    {isDropdownOpen && (
+                      <ul className="dropdown-menu">
+                        <li>
+                          <Link to={"/ManageMyFarm"}>Manage My Farm</Link>
+                        </li>
+                      </ul>
+                    )}
                   </li>
                 </ul>
               </nav>

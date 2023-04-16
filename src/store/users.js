@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
-import axios from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+
 //import moment from "moment";
 
 const slice = createSlice({
@@ -9,7 +8,9 @@ const slice = createSlice({
   initialState: {
     list: [],
     loading: false,
-    lastFetch: null
+    lastFetch: null,
+    userId: null
+
   },
   reducers: {
     usersRequested: (users, action) => {
@@ -32,6 +33,9 @@ const slice = createSlice({
     userAdded: (users, action) => {
       users.list.push(action.payload);
     },
+    setUserId: (state, action) => {
+      state.userId = action.payload;
+    }
 
   }
 });
@@ -41,12 +45,14 @@ export const {
   userResolved,
   usersReceived,
   usersRequested,
+  setUserId,
+  currentUserReceived,
   usersRequestFailed
 } = slice.actions;
 export default slice.reducer;
 
 // Action Creators
-const url = "/auth/";
+const url = "/users/auth/";
 /*
 export const loadUsers = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.users;
@@ -65,7 +71,7 @@ export const loadUsers = () => (dispatch, getState) => {
 };
 */
 
-export const addUser = user =>
+export const addUser = user => 
   apiCallBegan({
     url,
     method: "post",
@@ -73,3 +79,20 @@ export const addUser = user =>
     onSuccess: userAdded.type,
     onError: usersRequestFailed.type
   });
+;
+
+
+
+
+
+/*
+export const addUser = user =>
+console.log(user);
+  apiCallBegan({
+    url,
+    method: "post",
+    data: user,
+    onSuccess: userAdded.type,
+    onError: usersRequestFailed.type
+  });
+*/
