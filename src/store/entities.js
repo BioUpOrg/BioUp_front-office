@@ -14,6 +14,6 @@ export default combineReducers({
   plants : plantsReducer,
   counter:counterSlice,
   products:productSlice,
-  cart:cartSlice
+  cart:cartSlice,
   animals: animalsReducer,
 });

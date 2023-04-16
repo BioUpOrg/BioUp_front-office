@@ -35,6 +35,8 @@ import SpinnerExample from "./pages/ManageProducts/Spinner";
 import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
 import DeliveryMap from "./pages/locationAgent/DeliveryMap";
+import GoogleCloudVision from "./pages/ManageFarm/FarmIA/yolo";
+
 import axios from "axios";
 import { useEffect, useState } from "react";  
 import { MyLocation } from "@mui/icons-material";
@@ -109,6 +111,7 @@ if(isDeliveryAgent){
         <Route path="/ManageMyFarm/FarmsDetail" element={<FarmDetails />} />
         <Route path="/ManageMyFarm/PlantsDetail" element={<PlantDetails />} />
         <Route path="/ManageMyFarm/AnimalsDetail" element={<AnimalDetails />} />
+        <Route path="/ManageMyFarm/FarmAI" element={<GoogleCloudVision />} />
         <Route path="/Composts" element={<Composts />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />

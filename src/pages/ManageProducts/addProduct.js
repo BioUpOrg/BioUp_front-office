@@ -10,7 +10,6 @@ import { addProductReducer } from "../../store/slices/productSlice";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Spinner } from "react-bootstrap";
-import Select from 'react-select';
 import { useSelector } from "react-redux";
 
 

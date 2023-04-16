@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
+import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 //import moment from "moment";
 
@@ -8,7 +10,7 @@ const slice = createSlice({
   initialState: {
     list: [],
     loading: false,
-    lastFetch: null
+    lastFetch: null,
   },
   reducers: {
     animalsRequested: (animals, action) => {
@@ -47,6 +49,7 @@ const slice = createSlice({
       animals.list = animals.list.filter((animal) => animal._id !== action.payload);
     },
 
+
   }
 });
 
@@ -56,7 +59,7 @@ export const {
   animalUpdated,
   animalsRequested,
   animalDeleted,
-  animalsRequestFailed
+  animalsRequestFailed,
 } = slice.actions;
 export default slice.reducer;
 
@@ -102,3 +105,17 @@ export const getAnimals = () =>
     onSuccess: animalDeleted.type,
     onError: animalsRequestFailed.type,
   });
+
+
+  export const getObjectFromPic = createAsyncThunk(
+    'animals/getObjectFromPic',
+    async (formData, thunkAPI) => {
+      try {
+        const response = await axios.post('http://localhost:3000/animals/getIAObjects', formData);
+        return response.data;
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+    }
+  );
+
