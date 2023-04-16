@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import usersReducer from "./users";
+import compostsReducer from "./composts";
 import farmsReducer from "./farms";
 import plantsReducer from "./plants";
 import counterSlice from "./slices/counterSlice";
@@ -17,4 +18,5 @@ export default combineReducers({
   cart:cartSlice,
   shipment:shipmentSlice,
   animals: animalsReducer,
+  composts: compostsReducer,
 });
