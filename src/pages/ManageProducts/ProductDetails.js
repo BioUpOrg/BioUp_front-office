@@ -56,27 +56,9 @@ function ProductDetails() {
     <Container style={{ marginTop: "30px" }}>
        {product._id !== undefined ? <Row>
          
-<Rating
-  name="simple-controlled"
-  value={value}
-  onChange={(e, ratingValue) => {
-    setValue(ratingValue);
-    addRatingP(e);
-    console.log("ratingValuenow",product.rating);
-    
-  }}
-/>
+
 <Col md={4}>
-  <Row>
-  <Button variant="success" size="sm" onClick={() => {
-          add();
-          getProductFunction();
 
-           } }>Add Rating</Button>
-    </Row>
-    </Col> 
-
-<p>rating :{product.rating}</p>
 
           <Col md={8}>
           <Row>
@@ -110,15 +92,30 @@ function ProductDetails() {
             <p style={{ marginLeft: "50px"}}>{product.quantity}</p>
 
             </Col>
-            </Row>
-            <Row>
-            <Col md={12}>
-            <h5>Likes : </h5>
-            </Col>
             <Col>
             <p style={{ marginLeft: "50px"}}>{product.like}</p>
             </Col>
             </Row>
+            <Row>
+            <Rating
+  name="simple-controlled"
+  value={value}
+  onChange={(e, ratingValue) => {
+    setValue(ratingValue);
+    addRatingP(e);
+    console.log("ratingValuenow",product.rating);
+    
+  }}
+/>
+  <Button variant="success" size="sm" onClick={() => {
+          add();
+          getProductFunction();
+
+           } }>Add Rating</Button>
+    </Row>
+    </Col> 
+
+<p>rating :{product.rating}</p>
           </Col>
       
         </Row> : <p> Product does not exist </p>}

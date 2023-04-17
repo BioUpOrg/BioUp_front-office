@@ -30,6 +30,7 @@ import AddProduct from "./pages/ManageProducts/addProduct";
 import UpdateProduct from "./pages/ManageProducts/UpdateProduct";
 import ProductDetails from "./pages/ManageProducts/ProductDetails";
 import Products from "./pages/ManageProducts/Products";
+import Myproducts from "./pages/ManageProducts/MyProducts";
 import { lazy, Suspense } from "react";
 import SpinnerExample from "./pages/ManageProducts/Spinner";
 import PopSignature from "./pages/ContractDelivery/popSignature";
@@ -98,6 +99,7 @@ if(isDeliveryAgent){
         <Route exact path="/" element={<Home />} />
         <Route path="/About" element={<About />} />
         <Route path="/Products" element={<ProductLayout />}>
+            <Route path="myproducts" element={<Myproducts />} />
             <Route path="list" element={<Products />} />
             <Route path="add" element={<AddProduct />} />
             <Route path="update/:id" element={<UpdateProduct />} />
