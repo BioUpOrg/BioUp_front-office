@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Col } from "react-bootstrap";
-import CompostCard from "../../components/cards/compostCard";
+import CompostCard from "../../components/Cards/compostCard"
 import { getComposts } from "../../services/compostService";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
