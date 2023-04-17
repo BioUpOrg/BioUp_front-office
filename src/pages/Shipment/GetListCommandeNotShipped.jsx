@@ -119,6 +119,7 @@ function GetListCommandeNotShipped() {
                                   console.log("p2",products);
 
                                   if (pr) {
+                                    console.log("pic",pr.pic)
                                     return (
                                       <div
                                         className="swiper-slide"
@@ -126,23 +127,22 @@ function GetListCommandeNotShipped() {
                                         key={product.product}
                                       >
                                         <div className="card-2 bg-9 wow animate__animated animate__fadeInUp">
-                                          <figure className=" img-hover-scale overflow-hidden">
-                                            <a>
-                                              <img
-                                                src="assets/imgs/shop/cat-13.png"
-                                                alt=""
-                                              />
-                                            </a>
+                                          <figure className="img-hover-scale overflow-hidden">
+                                            <img
+                                              src={pr.pic}
+                                              alt=""
+                                              style={{
+                                                height: "100%",
+                                                width: "100%",
+                                                objectFit: "cover",
+                                              }}
+                                            />
                                           </figure>
-                                          <h6 style={{margin:'20%'}}>
-                                            <a > Name:{pr.name}</a>
-                                        
-                                          <a >
-                                           Type: {product.type}
-                                          </a>
-                                          <a >
-                                             Quantity : {product.quantity} 
-                                          </a>
+                                          <h6 style={{ margin: "20%" }}>
+                                            <a> Name:{pr.name}</a>
+
+                                            <a>Type: {product.type}</a>
+                                            <a>Quantity : {product.quantity}</a>
                                           </h6>
                                         </div>
                                       </div>

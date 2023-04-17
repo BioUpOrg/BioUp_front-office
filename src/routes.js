@@ -115,7 +115,6 @@ if(isDeliveryAgent){
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
-
         <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
         <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
         <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
@@ -131,7 +130,7 @@ if(isDeliveryAgent){
          <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
          <Route path="popSignature" element={<ProtectedRoute><PopSignature/></ProtectedRoute>}/>
          <Route path="mylocation" element ={<DeliveryMap />}/>
-         <Route path="listorder" element={<GetListCommandeNotShipped/>}/>
+         <Route path="listorder" element={<ProtectedRoute><GetListCommandeNotShipped/></ProtectedRoute>}/>
 
          </Route>
         <Route path="/401" element={<Page401 />} />
