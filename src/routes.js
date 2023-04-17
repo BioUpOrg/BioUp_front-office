@@ -125,6 +125,11 @@ const MyAppRoutes = () => {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/verify-account-sms" element={<><OTPVerification/></>}/>
+        <Route path="/recover-pass-sms" element ={<> <RecoverPassSms/></>}/>
+        <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
+        <Route path="/RecoverPassEmail" element={<RecoverPassEmail/>} />
+        <Route path="delivery-agent-contract-form" element={<><PrivateRoute><ContractForm/></PrivateRoute></>}/>
 
         <Route
           path="/verify-account-sms"
@@ -170,6 +175,11 @@ const MyAppRoutes = () => {
             </PrivateRoute>
           }
         >
+         <Route path="user-dashboard" element={<UserDashbord/>}/>
+         <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
+         <Route path="popSignature" element={<ProtectedRoute><PopSignature/></ProtectedRoute>}/>
+         <Route path="mylocation" element ={<DeliveryMap />}/>
+         <Route path="listorder" element={<ProtectedRoute><GetListCommandeNotShipped/></ProtectedRoute>}/>
           <Route path="user-dashboard" element={<UserDashbord />} />
           <Route
             path="mycontract"

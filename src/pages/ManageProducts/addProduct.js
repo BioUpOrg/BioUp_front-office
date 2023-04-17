@@ -5,11 +5,10 @@ import Form from "react-bootstrap/Form";
 
 import { addProduct } from "../../../src/services/api";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProductReducer } from "../../store/slices/productSlice";
 import Row from "react-bootstrap/Row";
 import { Spinner } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { TextField } from '@mui/material';
 
 

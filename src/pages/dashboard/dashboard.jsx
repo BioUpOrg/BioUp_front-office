@@ -1,20 +1,47 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
-
+import React, { useState } from "react";
+import { Card, Nav } from "react-bootstrap";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import axios from "axios";
+import { useEffect } from "react";
+import jwt_decode from "jwt-decode";
 export default function Dashboard() {
+  const location = useLocation();
+  const message = new URLSearchParams(location.search).get("message");
+  const [statusRole,setStatusRole]=useState('true');
+  const token =  localStorage.getItem("TOKEN_KEY");
+  const decoded = jwt_decode(token);
+  const userId=decoded.role;
+
+  useEffect(()=>{
+        if(userId==="transporter"){
+          setStatusRole(false)
+
+        }
+    console.log(statusRole)
+
+  },[])
+ 
+
   return (
-    <div className="container" style={{ marginBlock: "200px" }}>
-      <div className="row">
-        <div className="col-lg-10 m-auto">
-          <div className="row">
-            <div className="col-md-3">
-              <div className="dashboard-menu">
-                <ul className="nav flex-column" role="tablist">
-                  <li className="nav-item">
+    <div class="container" style={{marginBlock:"50px"}}>
+      <div class="row">
+        <div class="col-lg-12 m-auto">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="dashboard-menu">
+                <ul class="nav flex-column" role="tablist">
+                <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/stats">
                       <i className="fi-rs-settings-sliders mr-10"></i>Dashboard
                     </NavLink>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link">
+                      <i class="fi-rs-shopping-bag mr-10"></i>Orders
+                    </a>
+                  </li>
+             
+                
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/compost-Form">
                       <i className="fi-rs-shopping-bag mr-10"></i>sell compost
@@ -32,15 +59,31 @@ export default function Dashboard() {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/Dashboard/Account-details">
-                      <i className="fi-rs-user mr-10"></i>Account details
+                    <NavLink className="nav-link" to="/Dashboard/mylocation">
+                      <i className="fi-rs-marker mr-10"></i>Get My Location 
                     </NavLink>
-                  </li>
+                    </li>
+                    <li className="nav-item">
+                    <NavLink   hidden={statusRole} className="nav-link" to="/Dashboard/listorder">
+                      <i className="fi-rs-marker mr-10"></i>Oders Not Shipped
+                    </NavLink>
+                    </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/page-login">
-                      <i className="fi-rs-sign-out mr-10"></i>Logout
-                    </a>
-                  </li>
+                    <NavLink className="nav-link" to="/Dashboard/user-dashboard">
+                      <i className="fi-rs-shopping-cart-check mr-10"></i>
+                     User Details
+                    </NavLink>
+                    </li>
+                    <li className="nav-item">
+                    <NavLink hidden={statusRole} className="nav-link" to="/Dashboard/mycontract">
+                      <i className="fi-rs-shopping-cart-check mr-10"></i>
+                     My Contract
+                    </NavLink>
+                    </li>
+                
+                  
+                   
+                 
                 </ul>
               </div>
             </div>
