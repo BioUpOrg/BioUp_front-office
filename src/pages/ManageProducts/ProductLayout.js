@@ -5,9 +5,8 @@ import SideBar from '../ManageProducts/SideBar'
 function ProductLayout() {
   return (
     <>
-    <div style={{display: "flex" }} >
+    <div>
 
-    <SideBar/>
     <Outlet/>
 
   </div>

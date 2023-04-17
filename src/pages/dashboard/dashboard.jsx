@@ -21,6 +21,11 @@ export default function Dashboard() {
                     </NavLink>
                   </li>
                   <li className="nav-item">
+                    <NavLink className="nav-link" to="/Dashboard/Products/myproducts">
+                      <i className="fi-rs-shopping-bag mr-10"></i>My products
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/product-Form">
                       <i className="fi-rs-shopping-cart-check mr-10"></i>sell
                       bio-product

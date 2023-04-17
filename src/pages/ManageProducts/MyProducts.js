@@ -65,16 +65,32 @@ function Products () {
             <hr />
           </Alert>
         }
+           <div className="table-responsive">
+      <h4>My Products</h4>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>description</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody>
             {products && products.map((element,index)=>
             console.log(element) ||
-                <Col key={index} >
                 <Product product={element} buyFunction={buy} deleteProd={deleteProd}/>
-                </Col>
             )}
+        </tbody>
+      </table>
+    </div>
          {visible &&   <Alert style={{ marginTop: "30px" }} variant="primary">
             <p>
             You Bought an Item
             </p>
+            
              </Alert>}
         </Row>
         </Container> );

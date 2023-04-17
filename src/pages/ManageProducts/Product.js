@@ -7,6 +7,11 @@ import { useDispatch } from "react-redux";
 import { increment } from "../../store/slices/cartSlice";
 import { deleteProduct, getProducts } from "../../../src/services/api";
 import { Icon } from '@iconify/react';
+import { BsTrash } from "react-icons/bs";
+import { BsInfoCircle } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
+import { FiEdit } from "react-icons/fi";
+
 
 function Product(props) {
   const [product,] = useState(props.product);
@@ -30,25 +35,25 @@ function Product(props) {
   }, []);
   const className = likes > 5 ?"bestProduct mx-auto my-2":"mx-auto my-2" ;
   return (
-    <Card style={{ width: "18rem" }} className={className}>
+    <tr  className={className}>
  
-      <Card.Body>
+      <td>
         {product?.pic ? (
-              <img src={product?.pic} alt="product" />
+              <img src={product?.pic} alt="product" width={60} height={60} />
             ) :
             <Icon icon="mdi:camera" style={{ fontSize: '100px' }} />
           
 
             }
+      </td>
           
 
-        <Card.Title>
+        <td>
           <Link to={`/products/${product._id}`}>{product.name}</Link>
-        </Card.Title>
-        <Card.Text>{product.description}</Card.Text>
-        <Card.Text>Price :{product.price}</Card.Text>
-        <Card.Text>Quantity :{product.quantity}</Card.Text>
-        <Row>
+        </td>
+        <td>{product.description}</td>
+        <td>{product.price}</td>
+        <td>{product.quantity}</td>
       
         
           {/* <Col md={6}>
@@ -61,25 +66,35 @@ function Product(props) {
               Buy
             </Button>
           </Col> */}
-        </Row>
-        <br></br>
-        <Row>
-            <Col md={6}>
-              {" "}
-              <Button variant="success" size="sm"><Link to={`/products/update/${product._id}`} style={{textDecoration :'none' ,color: 'white'}}>Update</Link></Button>
-            </Col>
-            <Col md={6}>
-              <Button variant="danger" size="sm" onClick={() =>{
-deleteProd(product._id);
-                
+                  <td className="text-center">
 
-              }}>Delete</Button>
-            </Col>
+          
+            <BsTrash
+            size={20}
+            color="#FF0000"
+            style={{ cursor: "pointer" }} onClick={() =>{
+deleteProd(product._id)
+}}                
+/>
+<NavLink to={`/products/update/${product._id}`} >
+            <FiEdit
+              size={20}
+              color="#FFA500"
+              style={{ cursor: "pointer", marginInline: "10px" }}
+            />
+          </NavLink>
+          <NavLink  to={`/products/${product._id}`} >
+            <BsInfoCircle
+              size={20}
+              color="#00FF00"
+              style={{ cursor: "pointer" }}
+            />
+          </NavLink>
+
+          </td>
             
-          </Row>
          
-      </Card.Body>
-    </Card>
+    </tr>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import "./styles.css"
 import { useNavigate } from "react-router-dom";
 
@@ -30,4 +30,4 @@ export function SideBar(){
     
       
       
-export default SideBar;
+export default SideBar; */

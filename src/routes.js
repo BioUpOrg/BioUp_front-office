@@ -190,6 +190,13 @@ const MyAppRoutes = () => {
           <Route path="mylocation" element={<DeliveryMap />} />
           <Route path="listorder" element={<GetListCommandeNotShipped />} />
           <Route path="stats" element={<DashboardStats />} />
+          <Route path="Products" element={<ProductLayout />}>
+            <Route path="myproducts" element={<Myproducts />} />
+            <Route path="list" element={<Products />} />
+            <Route path="add" element={<AddProduct />} />
+            <Route path="update/:id" element={<UpdateProduct />} />
+            <Route path=":id" element={<ProductDetails />} />
+          </Route>
           <Route path="compost-form/:id?" element={<CompostForm />} />
           <Route path="compost-details" element={<DashboardCompostDetails />}>
             <Route path="Description" element={<Description />} />
