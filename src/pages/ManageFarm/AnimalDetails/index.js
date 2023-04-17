@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Box, Grid, Paper } from "@material-ui/core";
 
-import AnimalCard from "../../../components/Cards/AnimalCard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAnimals } from "../../..//store/animals";
+import { getAnimals } from "../../../store/animals";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
+import AnimalCard from "../../../components/cards/AnimalCard"
 
 
 export default function AnimalDetails() {

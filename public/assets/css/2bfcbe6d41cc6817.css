@@ -14768,12 +14768,13 @@ table .product-thumbnail img {
 .product-cart-wrap:hover {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
   border: 1px solid #bce3c9;
+  cursor:pointer;
 }
 .product-cart-wrap .product-img-action-wrap {
   position: relative;
   background-color: #fff;
   overflow: hidden;
-  max-height: 320px;
+  height: 320px;
   padding: 25px 25px 0;
 }
 .product-cart-wrap .product-img-action-wrap .product-action-1 {
@@ -14785,15 +14786,18 @@ table .product-thumbnail img {
   position: relative;
   overflow: hidden;
   border-radius: 15px;
-}
-.product-cart-wrap .product-img-action-wrap .product-img a {
   overflow: hidden;
-  display: flex;
-}
-.product-cart-wrap .product-img-action-wrap .product-img a img {
   width: 100%;
+  height: 100%;
+  padding-bottom: 5px;
 }
-.product-cart-wrap .product-img-action-wrap .product-img a img.hover-img {
+
+.product-cart-wrap .product-img-action-wrap .product-img  img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.product-cart-wrap .product-img-action-wrap .product-img  img.hover-img {
   position: absolute;
   left: 0;
   top: 0;

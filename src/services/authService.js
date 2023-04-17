@@ -4,7 +4,7 @@ import { BASE_URL } from "../endpoints";
 
 export const Login = (data, navigate) => {
   axios
-    .post(BASE_URL + "/users/login", data)
+    .post(BASE_URL + "users/login", data)
     .then((response) => {
       localStorage.setItem("TOKEN_KEY", response.data.token);
       console.log(

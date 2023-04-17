@@ -4,6 +4,9 @@ const apiUrlRating = "http://localhost:3000/rating"
 export async function getProducts(){
     return await axios.get(apiUrl);
 }
+export async function getMyProducts(id){
+    return await axios.post(`${apiUrl}/myproducts/${id}`);
+}
 export async function getProduct(id){
     return await axios.get(`${apiUrl}/${id}`);
 }

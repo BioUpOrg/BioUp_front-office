@@ -1,0 +1,29 @@
+livraison{
+    id_livraison,
+    id_livreur
+    commandes=[
+        id_commande1, id_commande2, ...
+    ]
+}
+
+--------------------------
+
+commande{
+    id_commande
+    total_price
+    date_command
+    produits=[
+        {
+            id_produit, 
+            quntité
+        }
+    ]
+}
+
+---------------------------
+compost{
+    id_compost,
+    nom, 
+    ...,
+    id_seller
+}

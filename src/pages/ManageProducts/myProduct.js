@@ -7,11 +7,6 @@ import { useDispatch } from "react-redux";
 import { increment } from "../../store/slices/cartSlice";
 import { deleteProduct, getProducts } from "../../../src/services/api";
 import { Icon } from '@iconify/react';
-import { BsTrash } from "react-icons/bs";
-import { BsInfoCircle } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
-import { FiEdit } from "react-icons/fi";
-
 
 function Product(props) {
   const [product,] = useState(props.product);
@@ -35,25 +30,25 @@ function Product(props) {
   }, []);
   const className = likes > 5 ?"bestProduct mx-auto my-2":"mx-auto my-2" ;
   return (
-    <tr  className={className}>
+    <Card style={{ width: "18rem" }} className={className}>
  
-      <td>
+      <Card.Body>
         {product?.pic ? (
-              <img src={product?.pic} alt="product" width={60} height={60} />
+              <img src={product?.pic} alt="product" />
             ) :
             <Icon icon="mdi:camera" style={{ fontSize: '100px' }} />
           
 
             }
-      </td>
           
 
-        <td>
+        <Card.Title>
           <Link to={`/products/${product._id}`}>{product.name}</Link>
-        </td>
-        <td>{product.description}</td>
-        <td>{product.price}</td>
-        <td>{product.quantity}</td>
+        </Card.Title>
+        <Card.Text>{product.description}</Card.Text>
+        <Card.Text>Price :{product.price}</Card.Text>
+        <Card.Text>Quantity :{product.quantity}</Card.Text>
+        <Row>
       
         
           {/* <Col md={6}>
@@ -66,35 +61,16 @@ function Product(props) {
               Buy
             </Button>
           </Col> */}
-                  <td className="text-center">
-
-          
-            <BsTrash
-            size={20}
-            color="#FF0000"
-            style={{ cursor: "pointer" }} onClick={() =>{
-deleteProd(product._id)
-}}                
-/>
-<NavLink to={`/products/update/${product._id}`} >
-            <FiEdit
-              size={20}
-              color="#FFA500"
-              style={{ cursor: "pointer", marginInline: "10px" }}
-            />
-          </NavLink>
-          <NavLink  to={`/products/${product._id}`} >
-            <BsInfoCircle
-              size={20}
-              color="#00FF00"
-              style={{ cursor: "pointer" }}
-            />
-          </NavLink>
-
-          </td>
+        </Row>
+        <br></br>
+        <Row>
+            <Col md={6}>       
+            </Col>
             
+          </Row>
          
-    </tr>
+      </Card.Body>
+    </Card>
   );
 }
 

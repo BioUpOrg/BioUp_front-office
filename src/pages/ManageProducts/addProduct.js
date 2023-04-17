@@ -5,12 +5,11 @@ import Form from "react-bootstrap/Form";
 
 import { addProduct } from "../../../src/services/api";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProductReducer } from "../../store/slices/productSlice";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { Spinner } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { TextField } from '@mui/material';
 
 
 function AddProduct() {
@@ -18,7 +17,7 @@ function AddProduct() {
   const [product, setProduct] = useState({
     name: "",
     price: 0,
-    img: "",
+    pic:'',
     like: 0,
     quantity: 0,
     description: "",
@@ -26,7 +25,10 @@ function AddProduct() {
     user:""
 
   });
+  const [pic, setPic] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { errors, touched, handleSubmit, isSubmitting, getFieldProps, setFieldValue } = product;
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,11 +42,14 @@ function AddProduct() {
 
   };
   const handleChangeFile = (e) => {
-    console.log(e.target.files[0].name);
-    console.log(e.target.name);
+    /*console.log(e.target.files[0].name);
+    console.log(e.target.name); */
 
-    setProduct({ ...product, img: e.target.files[0].name });
-    console.log(product);
+    setProduct({ ...product, pic: e.target.files[0] });
+    console.log(product); 
+    console.log("file",e.target.files[0]);
+    //setPic(event.target.files[0]);
+
   };
   const handleChangeSelect =(e) => {
     if(product.categorie === ""){
@@ -67,10 +72,22 @@ function AddProduct() {
 
     e.preventDefault();
     setIsLoading(true);
+    console.log("product in insertion",product);
+    const formData = new FormData();
+formData.append('file', product.pic);
+formData.append('name', product.name);
+formData.append('price', product.price);
+formData.append('like', product.like);
+formData.append('quantity', product.quantity);
+formData.append('description', product.description);
+formData.append('categorie', product.categorie);
+formData.append('user', product.user);
+const userData = formData;
 
-    addProduct(product).then(() => {
+    addProduct(userData).then(() => {
+      console.log("product in insertion",userData);
       setIsLoading(false);
-      dispatch(addProductReducer(product));
+      dispatch(addProductReducer(userData));
       navigate("/products/list");
     });
   };
@@ -142,8 +159,8 @@ function AddProduct() {
   
         <Form.Group className="mb-3">
           <Form.Label>Image</Form.Label>
-          <Form.Control type="file" onChange={(e) => handleChangeFile(e)} />
-        </Form.Group>
+          <TextField name="pic" fullWidth type="file" onChange={handleChangeFile} />
+               </Form.Group>
         <Button variant="primary" type="submit" onClick={(e) => add(e)}>
           {isLoading ? (
             <>

@@ -1,4 +1,4 @@
-import Product from "./myProduct";
+import Product from "./Product";
 import { useEffect, useState } from 'react';
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
@@ -6,11 +6,13 @@ import Container from "react-bootstrap/Container";
 import Row  from "react-bootstrap/Row";
 
 // import { useOutletContext } from "react-router-dom";
-import { deleteProduct, getProducts } from "../../../src/services/api";
+import { deleteProduct, getMyProducts } from "../../../src/services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { populateProducts } from "../../store/slices/productSlice";
 function Products () {
     const products = useSelector((state)=>state.entities.products.products)
+    const userId = useSelector((state) => state.entities.users.userId);
+
     const dispatch= useDispatch();
     const [visible,setVisible]=useState(false)
     const [visible2,setVisible2]=useState(false)
@@ -24,7 +26,8 @@ function Products () {
     }, [])
     
     const getAllProduct=async()=>{
-      await getProducts().then((res)=>dispatch(populateProducts(res.data)));
+        console.log(userId);
+      await getMyProducts(userId).then((res)=>dispatch(populateProducts(res.data)));
       // setProducts(res.data);
     }
     const buy=(product)=>{
@@ -62,16 +65,32 @@ function Products () {
             <hr />
           </Alert>
         }
+           <div className="table-responsive">
+      <h4>My Products</h4>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>description</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody>
             {products && products.map((element,index)=>
             console.log(element) ||
-                <Col key={index} >
                 <Product product={element} buyFunction={buy} deleteProd={deleteProd}/>
-                </Col>
             )}
+        </tbody>
+      </table>
+    </div>
          {visible &&   <Alert style={{ marginTop: "30px" }} variant="primary">
             <p>
             You Bought an Item
             </p>
+            
              </Alert>}
         </Row>
         </Container> );

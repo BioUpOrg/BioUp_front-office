@@ -115,11 +115,12 @@ useEffect(()=>{
     },
   })
   const signhandle=async ()=>{
+   
     if(contractData.signature===""||null){
       navigate('/dashboard/popSignature');
 
     }else{
-      alert('You have already sign Your contract'); 
+      alert('You have already sign Your contract or you dont have contract to Sign'); 
        }
   }
 

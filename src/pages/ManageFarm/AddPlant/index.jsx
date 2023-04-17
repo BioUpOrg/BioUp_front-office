@@ -9,7 +9,6 @@ import { addPlant } from "../../..//store/plants";
 import useStyles from "./style";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import { createApi } from "unsplash-js";
 import { plants } from './plants.js';
 
 export default function AddPlant() {
@@ -63,7 +62,7 @@ export default function AddPlant() {
     },
   });
 
-  const { errors, touched, handleSubmit, getFieldProps, setValues } = formik;
+  const { errors, touched, handleSubmit, getFieldProps } = formik;
 
 
   function getImageUrl(plantName) {
