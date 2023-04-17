@@ -137,9 +137,20 @@ export default function FarmMangment() {
                 <Grid xs>
                    <Item> 
                    <Image src="https://treedefi.com/images/seed.png" style={{width:"200px",height:"250px"}}></Image>
-                   <Button variant="outlined" onClick={handleClickOpenPlant}>
-                        Add Plant
-                      </Button>
+                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <Button variant="outlined" onClick={handleClickOpenPlant} style={{ width:"100px", whiteSpace: 'nowrap' }}>
+                            Add Plant
+                          </Button>
+                          <Link to={"/ManageMyFarm/FarmAI"}>
+                          <Button variant="outlined" color="error" style={{ width:"100px", whiteSpace: 'nowrap' }}
+                          
+                          >
+                            IA Model
+                          </Button>
+
+                          </Link>
+
+                        </div>
                       <Dialog
                         open={openPlant}
                         onClose={handleClosePlant}
@@ -161,9 +172,20 @@ export default function FarmMangment() {
                 <Grid xs>
                     <Item>
                     <Image src="https://i.pinimg.com/originals/82/5c/c1/825cc150e143b6e801bbfaf4b4dfee74.png" style={{width:"200px",height:"250px"}}></Image>
-                    <Button variant="outlined" onClick={handleClickOpenAnimal}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                    <Button variant="outlined" onClick={handleClickOpenAnimal} style={{ width:"100px", whiteSpace: 'nowrap' }}>
                         Add Animal
                       </Button>
+                      <Link to={"/ManageMyFarm/FarmAI"}>
+                          <Button variant="outlined" color="error" style={{ width:"100px", whiteSpace: 'nowrap' }}
+                          
+                          >
+                            IA Model
+                          </Button>
+
+                          </Link>
+                          </div>
                       <Dialog
                         open={openAnimal}
                         onClose={handleCloseAnimal}
