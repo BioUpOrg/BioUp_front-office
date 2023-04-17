@@ -59,6 +59,21 @@ export const loadShipment = () => (dispatch, getState) => {
         })
     );
 };
+const handleMyMissionResponse = (response, dispatch) => {
+    console.log(response);
+    dispatch(shipmentReceived(response));
+  };
+  
+  export const getMyMission = id => dispatch => {
+    dispatch(
+      apiCallBegan({
+        url: `/shipment/MyMission/${id}`,
+        onStart: shipmentRequested.type,
+        onSuccess: response => handleMyMissionResponse(response, dispatch), // Pass dispatch as a parameter
+        onError: shipmentRequestFailed.type
+      })
+    );
+  };
 
 export const addShipment = shipment => apiCallBegan({
     url: '/shipment/addnewShipment',

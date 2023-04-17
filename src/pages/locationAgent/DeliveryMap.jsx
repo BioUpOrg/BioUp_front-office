@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import "./map.css";
 import L from 'leaflet';
+import { Col, Container, Row } from 'react-bootstrap';
+import MyMissions from '../Shipment/MyMissions';
 
 
 
@@ -41,7 +43,15 @@ const Maps = () => {
   }
 
   return (
-    <MapContainer
+    <>
+    
+   <Container>
+     <Row >
+     
+        <MyMissions/>
+      
+    
+      <MapContainer
       center={[33.886917, 9.537499]}
       zoom={13}
       scrollWheelZoom
@@ -53,9 +63,14 @@ const Maps = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       
-
+      
       <DeliveryMap />
     </MapContainer>
+     </Row>
+   </Container>
+   
+ 
+    </>
   );
 };
 

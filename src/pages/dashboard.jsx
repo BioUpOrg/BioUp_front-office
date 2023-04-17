@@ -25,7 +25,7 @@ export default function Dashboard() {
  
 
   return (
-    <div class="container" style={{marginBlock:"100px"}}>
+    <div class="container" style={{marginBlock:"50px"}}>
       <div class="row">
         <div class="col-lg-12 m-auto">
           <div class="row">
@@ -55,7 +55,7 @@ export default function Dashboard() {
                     </NavLink>
                     </li>
                     <li className="nav-item">
-                    <NavLink className="nav-link" to="/Dashboard/listorder">
+                    <NavLink   hidden={statusRole} className="nav-link" to="/Dashboard/listorder">
                       <i className="fi-rs-marker mr-10"></i>Oders Not Shipped
                     </NavLink>
                     </li>

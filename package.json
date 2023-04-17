@@ -29,6 +29,8 @@
     "react-konva-utils": "^1.0.3",
     "react-leaflet": "^4.2.1",
     "react-leaflet-draw": "^0.20.4",
+    "react-modal": "^3.16.1",
+    "react-pdf": "^6.2.2",
     "react-phone-number-input": "^3.2.19",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
