@@ -8,9 +8,7 @@ import { Icon } from '@iconify/react';
 
 
 export default function LandingPageNav() {
-  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const navigate= useNavigate();
   let registerBtn;
@@ -85,20 +83,13 @@ export default function LandingPageNav() {
                     <Link to={"/Composts"}>Composts</Link>
                   </li>
                   <li>
+                    <Link to={"/ManageMyFarm"}>My Farm</Link>
+                  </li>
+                  <li>
                     <Link to={"/Blog"}>Our Blog</Link>
                   </li>
                   <li>
                     <Link to={"/Contact"}>Contact</Link>
-                  </li>
-                 <li>
-                    <span onClick={toggleDropdown}>Farm <Icon icon="gridicons:dropdown" /></span>
-                    {isDropdownOpen && (
-                      <ul className="dropdown-menu">
-                        <li>
-                          <Link to={"/ManageMyFarm"}>Manage My Farm</Link>
-                        </li>
-                      </ul>
-                    )}
                   </li>
                 </ul>
               </nav>

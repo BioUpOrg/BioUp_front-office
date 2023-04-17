@@ -5,6 +5,11 @@ import { useFormik, Form, FormikProvider } from 'formik';
 import { Stack, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { getObjectFromPic } from '../../../store/animals';
+import { addAnimal } from '../../../store/animals';
+import Button from '@mui/material/Button';
+import { useSelector } from 'react-redux';
+import { animals } from '../AddAnimal/animals';
+
 
 export default function GoogleCloudVision() {
 
@@ -13,9 +18,25 @@ export default function GoogleCloudVision() {
   const [pic, setPic] = useState(null);
   const dispatch = useDispatch();
 
+  const userId = useSelector((state) => state.entities.users.userId);
+
   const handleChangeFile = (event) => {
     setPic(event.target.files[0]);
   };
+
+  function getImageUrl(animalName) {
+    const animal = animals.animals.find(p => p.name.toLowerCase() === animalName.toLowerCase());
+    return animal ? animal.image : '';
+  }
+
+  const handleAdd = (object) => {
+    const imageUrl = getImageUrl(object.name);
+    object.image = imageUrl;
+    object.user = userId;
+
+    console.log(object)
+    dispatch(addAnimal(object));
+  }
 
 
 
@@ -85,7 +106,9 @@ export default function GoogleCloudVision() {
           {objects.map((object) => (
             <div key={object.name}>
               <h1>{object.name}</h1>
-              <h1>{object.score}</h1>
+              <h1>{object.score.toFixed(2)}%</h1>
+
+              <Button onClick={() => handleAdd(object)} variant="contained" color="success">Add </Button>
             </div>
           ))}
      

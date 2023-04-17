@@ -99,7 +99,7 @@ export default function AddFarm(){
         .then(() => {
           setTimeout(() => {
             setShowAlert(false);
-          }, 5000);
+          }, 2000);
         }); 
     },
   });
