@@ -57,7 +57,7 @@ export default function AddPlant() {
         .then(() => {
           setTimeout(() => {
             setShowAlert(false);
-          }, 5000);
+          }, 2000);
         }); 
     },
   });
