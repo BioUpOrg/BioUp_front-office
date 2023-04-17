@@ -71,7 +71,7 @@ export const loadUsers = () => (dispatch, getState) => {
 };
 */
 
-export const addUser = user => 
+export const addUser = user =>
   apiCallBegan({
     url,
     method: "post",
@@ -79,7 +79,9 @@ export const addUser = user =>
     onSuccess: userAdded.type,
     onError: usersRequestFailed.type
   });
-;
+
+
+
 
 
 

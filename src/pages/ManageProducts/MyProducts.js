@@ -1,4 +1,4 @@
-import Product from "./myProduct";
+import Product from "./Product";
 import { useEffect, useState } from 'react';
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
@@ -6,11 +6,13 @@ import Container from "react-bootstrap/Container";
 import Row  from "react-bootstrap/Row";
 
 // import { useOutletContext } from "react-router-dom";
-import { deleteProduct, getProducts } from "../../../src/services/api";
+import { deleteProduct, getMyProducts } from "../../../src/services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { populateProducts } from "../../store/slices/productSlice";
 function Products () {
     const products = useSelector((state)=>state.entities.products.products)
+    const userId = useSelector((state) => state.entities.users.userId);
+
     const dispatch= useDispatch();
     const [visible,setVisible]=useState(false)
     const [visible2,setVisible2]=useState(false)
@@ -24,7 +26,8 @@ function Products () {
     }, [])
     
     const getAllProduct=async()=>{
-      await getProducts().then((res)=>dispatch(populateProducts(res.data)));
+        console.log(userId);
+      await getMyProducts(userId).then((res)=>dispatch(populateProducts(res.data)));
       // setProducts(res.data);
     }
     const buy=(product)=>{

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Grid, Paper } from "@material-ui/core";
 
-import PlantCard from "../../../components/Cards/PlantCard";
+import PlantCard from "../../../components/cards/FarmCard"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlants } from "../../..//store/plants";
