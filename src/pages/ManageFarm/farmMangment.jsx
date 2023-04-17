@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useCallback, useEffect } from "react";
 import Image from 'react-bootstrap/Image'; // Import Image component
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -87,12 +88,25 @@ export default function FarmMangment() {
   const plants = useSelector(state => state.entities.plants.list);
   const animals = useSelector(state => state.entities.animals.list);
 
+
+
   const userFarms = farms.filter((farm) => farm.user === userId);
+  const userAnimals = animals.filter((animal) => animal.user === userId);
+  const userPlants = plants.filter((plant) => plant.user === userId);
 
 
 
-  //const plants = 20;
- // const animals = 30;
+    const [weatherData, setWeatherData] = useState(null);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=3f76fc20946bdf7dd52b89a9439fb6f3");
+        setWeatherData(response.data);
+      };
+      fetchData();
+    }, []);
+
+
     return (
         <div>
             <br></br>
@@ -100,10 +114,12 @@ export default function FarmMangment() {
             <br></br>
         <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
-        <Grid xs>
-          <Item>xs</Item>
+        <Grid sm={3} xs={12}>
+          <Item>
+         {/*<Image src="https://cdn.shopify.com/s/files/1/0722/2059/files/2ff4f1e_large.jpg?v=1507886793" style={{width:"400px",height:"550px"}}></Image> */} 
+          </Item>
         </Grid>
-        <Grid xs={6}>
+        <Grid sm={6} xs={12}>
           <Item>
             <Grid container spacing={3}>
                 <Grid xs>
@@ -181,37 +197,46 @@ export default function FarmMangment() {
                     <Item>
                         <Grid container spacing={3}>
                         <Grid item xs>
-                            <Card onClick={() => navigate("FarmsDetail")}>
+                            <Card onClick={() => navigate("FarmsDetail")}
+                            style={{ cursor: "pointer" , backgroundColor: "#F5F5F5"}}
+                            >
                             <CardContent>
                                 <Typography color="textSecondary" gutterBottom>
-                                Farms
+                                View my Farms
                                 </Typography>
                                 <Typography variant="h5" component="h2">
                                 {userFarms.length}
+                                
+                                </Typography>
+
+                            </CardContent>
+                            </Card>
+                            
+                        </Grid>
+                        <Grid item xs>
+                            <Card onClick={() => navigate("PlantsDetail")}
+                             style={{ cursor: "pointer" , backgroundColor: "#F5F5F5"}}
+                            >
+                            <CardContent>
+                                <Typography color="textSecondary" gutterBottom>
+                                View my Plants
+                                </Typography>
+                                <Typography variant="h5" component="h2">
+                                {userPlants.length}
                                 </Typography>
                             </CardContent>
                             </Card>
                         </Grid>
                         <Grid item xs>
-                            <Card onClick={() => navigate("PlantsDetail")}>
+                            <Card onClick={() => navigate("AnimalsDetail")}
+                            style={{ cursor: "pointer" , backgroundColor: "#F5F5F5"}}
+                            >
                             <CardContent>
                                 <Typography color="textSecondary" gutterBottom>
-                                Plants
+                                View my Animals
                                 </Typography>
                                 <Typography variant="h5" component="h2">
-                                {plants.length}
-                                </Typography>
-                            </CardContent>
-                            </Card>
-                        </Grid>
-                        <Grid item xs>
-                            <Card onClick={() => navigate("AnimalsDetail")}>
-                            <CardContent>
-                                <Typography color="textSecondary" gutterBottom>
-                                Animals
-                                </Typography>
-                                <Typography variant="h5" component="h2">
-                                {animals.length}
+                                {userAnimals.length}
                                 </Typography>
                             </CardContent>
                             </Card>
@@ -219,8 +244,16 @@ export default function FarmMangment() {
                         </Grid>
                     </Item>
         </Grid>
-        <Grid xs>
-          <Item>xs</Item>
+        <Grid sm={3} xs={12}>
+          <Item>
+          {weatherData ? (
+        <div>
+          {console.log(weatherData)}
+        </div>
+      ) : (
+        <p>Loading weather data...</p>
+      )}
+          </Item>
         </Grid>
       </Grid>
     </Box>

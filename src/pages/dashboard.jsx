@@ -49,10 +49,14 @@ export default function Dashboard() {
                       Order
                     </a>
                   </li>
-                 
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/mylocation">
                       <i className="fi-rs-marker mr-10"></i>Get My Location 
+                    </NavLink>
+                    </li>
+                    <li className="nav-item">
+                    <NavLink className="nav-link" to="/Dashboard/listorder">
+                      <i className="fi-rs-marker mr-10"></i>Oders Not Shipped
                     </NavLink>
                     </li>
                   <li className="nav-item">

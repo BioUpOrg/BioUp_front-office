@@ -48,7 +48,8 @@ export default function RegisterForm() {
         lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
         email: Yup.string().email('Email must be a valid email address'),
         phone: Yup.string(),
-        password: Yup.string().required('Password is required')
+        password: Yup.string().required('Password is required'),
+        adress:Yup.string().required("adress is required")
       });
 
 
@@ -60,7 +61,8 @@ export default function RegisterForm() {
           password: '',
           role: 'user',
           phone: '',
-          pic:''
+          pic:'',
+          adress:''
         },
         validationSchema: RegisterSchema,
         onSubmit: async (data) => {
@@ -75,7 +77,7 @@ export default function RegisterForm() {
           formData.append('password', data?.password);
           formData.append('role', data?.role);
           formData.append('phone', data?.phone);
-
+          formData.append('adress',data?.adress);
           const userData = formData;
           const result =  dispatch(addUser(userData));
 
@@ -234,7 +236,15 @@ export default function RegisterForm() {
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
           />
-
+           <TextField
+              fullWidth
+              label="Local Adress"
+              name="adress"
+              type="text"
+              {...getFieldProps('adress')}
+              error={Boolean(touched.adress && errors.adress)}
+              helperText={touched.adress && errors.adress}
+            />
 
         <LoadingButton
             fullWidth

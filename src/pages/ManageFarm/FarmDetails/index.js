@@ -36,7 +36,7 @@ export default function FarmDetails() {
               color: "green",
             }}
           >
-            All My Farms
+            Farms
           </h1>
           <Grid container spacing={2}>
             {userFarms.map((farm) => (
