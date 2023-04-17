@@ -35,7 +35,7 @@ import SpinnerExample from "./pages/ManageProducts/Spinner";
 import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
 import DeliveryMap from "./pages/locationAgent/DeliveryMap";
-import GoogleCloudVision from "./pages/ManageFarm/FarmIA/yolo";
+import GoogleCloudVision from "./pages/ManageFarm/FarmIA";
 
 import axios from "axios";
 import { useEffect, useState } from "react";  

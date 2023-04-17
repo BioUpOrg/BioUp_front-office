@@ -4,7 +4,7 @@ import { useFormik, Form, FormikProvider } from 'formik';
 // material
 import { Stack, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { getObjectFromPic } from '../../../..//store/animals';
+import { getObjectFromPic } from '../../../store/animals';
 
 export default function GoogleCloudVision() {
 
@@ -42,8 +42,10 @@ export default function GoogleCloudVision() {
   const { touched, handleSubmit } = formik;
 
 
-  return (
 
+
+  return (
+<div style={{ maxWidth: '600px', margin: '0 auto' }}>
 <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
@@ -67,16 +69,17 @@ export default function GoogleCloudVision() {
                     ? touched?.pic
                     : 'https://res.cloudinary.com/clouder32/image/upload/v1655285221/1200px-Breezeicons-actions-22-im-user.svg_r4qbs1.png'
                 }
-                alt="UserImage"
+                alt="ItemImage"
                 style={{
-                  width: '40%',
-                  height: '20%',
+                  width: '80%',
+                  height: '60%',
                   objectFit: 'contain',
                   paddingTop: 16
                 }}
               />
             </div>
           </Stack>
+
           <h1>Objects</h1>
          
           {objects.map((object) => (
@@ -98,7 +101,7 @@ export default function GoogleCloudVision() {
         </Stack>
       </Form>
     </FormikProvider>
-
+    </div>
 
 
 
