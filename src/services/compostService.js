@@ -1,7 +1,7 @@
 import axios from "axios";
 import { COMPOSTS_ENDPOINT } from "../endpoints";
 import Swal from "sweetalert2";
-import axiosInstance from "../utils/auth.Interceptor";
+import axiosInstance from "../utils/auth.interceptor";
 
 export function SuccessAlert(msg) {
   Swal.fire({
