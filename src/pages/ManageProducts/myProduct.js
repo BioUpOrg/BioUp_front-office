@@ -64,16 +64,7 @@ function Product(props) {
         </Row>
         <br></br>
         <Row>
-            <Col md={6}>
-              {" "}
-              <Button variant="success" size="sm"><Link to={`/products/update/${product._id}`} style={{textDecoration :'none' ,color: 'white'}}>Update</Link></Button>
-            </Col>
-            <Col md={6}>
-              <Button variant="danger" size="sm" onClick={() =>{
-deleteProd(product._id);
-                
-
-              }}>Delete</Button>
+            <Col md={6}>       
             </Col>
             
           </Row>
