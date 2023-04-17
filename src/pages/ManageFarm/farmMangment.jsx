@@ -21,10 +21,9 @@ import { getPlants } from "../..//store/plants";
 import { getAnimals } from "../..//store/animals";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useCallback, useEffect } from "react";
+import {useEffect } from "react";
 import Image from 'react-bootstrap/Image'; // Import Image component
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 
 
@@ -96,15 +95,7 @@ export default function FarmMangment() {
 
 
 
-    const [weatherData, setWeatherData] = useState(null);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        const response = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=3f76fc20946bdf7dd52b89a9439fb6f3");
-        setWeatherData(response.data);
-      };
-      fetchData();
-    }, []);
+
 
 
     return (
@@ -115,9 +106,7 @@ export default function FarmMangment() {
         <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
         <Grid sm={3} xs={12}>
-          <Item>
-         {/*<Image src="https://cdn.shopify.com/s/files/1/0722/2059/files/2ff4f1e_large.jpg?v=1507886793" style={{width:"400px",height:"550px"}}></Image> */} 
-          </Item>
+
         </Grid>
         <Grid sm={6} xs={12}>
           <Item>
@@ -244,17 +233,7 @@ export default function FarmMangment() {
                         </Grid>
                     </Item>
         </Grid>
-        <Grid sm={3} xs={12}>
-          <Item>
-          {weatherData ? (
-        <div>
-          {console.log(weatherData)}
-        </div>
-      ) : (
-        <p>Loading weather data...</p>
-      )}
-          </Item>
-        </Grid>
+ 
       </Grid>
     </Box>
     <br></br>
