@@ -220,9 +220,9 @@ const MyAppRoutes = () => {
             <Route path="Additional-Info" element={<AdditionalInfo />} />
             <Route path="Reviews" element={<Reviews />} />
             {/* </Route> */}
-            <Route path="product-form" element={<ProductForm />} />
           </Route>
-          <Route path="product-details" element={<ProductDetailsLayout />} >
+          <Route path="product-form" element={<AddProduct />} />
+        <Route path="product-details" element={<ProductDetailsLayout />} >
           <Route path="Description" element={<Descriptionproducts />} />
           <Route path="Additional-Info" element={<AdditionalInfoproducts />} />
           <Route path="Reviews" element={<Reviewsproducts />} />
