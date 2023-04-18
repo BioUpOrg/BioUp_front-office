@@ -59,8 +59,8 @@ export default function Dashboard() {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/Dashboard/mylocation">
-                      <i className="fi-rs-marker mr-10"></i>Get My Location 
+                    <NavLink   hidden={statusRole} className="nav-link" to="/Dashboard/mylocation">
+                      <i className="fi-rs-marker mr-10"></i>My Mission 
                     </NavLink>
                     </li>
                     <li className="nav-item">
