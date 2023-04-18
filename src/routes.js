@@ -63,6 +63,7 @@ import { MyLocation } from "@mui/icons-material";
 import GetListCommandeNotShipped from "./pages/Shipment/GetListCommandeNotShipped";
 import Cart from "./pages/cart";
 import HeaderMiddle from "./components/navbars/headerMiddle";
+import WishList from "./pages/wishlist";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -235,6 +236,7 @@ const MyAppRoutes = () => {
         </Route>
         </Route>
           <Route path="/cart" element={<Cart/>}/>
+          <Route path="/wishlist" element={<WishList/>}/>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />
         <Route path="/*" element={<Page404 />} />

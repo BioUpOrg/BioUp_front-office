@@ -9,6 +9,7 @@ import "./landingPageNavCss.css";
 import { Icon } from '@iconify/react';
 import { useSelector } from "react-redux";
 import { getCartItemsCount } from "../../store/cart";
+import { getWishListItemsCount } from "../../store/wishlist";
 
 
 export default function LandingPageNav() {
@@ -53,6 +54,7 @@ export default function LandingPageNav() {
   }
 
   const cartItemsCount = useSelector(getCartItemsCount);
+  const wishListCount = useSelector(getWishListItemsCount);
   
   return (
     <div className="header-bottom header-bottom-bg-color bioup-sticky-navbar">
@@ -116,10 +118,10 @@ export default function LandingPageNav() {
                   </a>
                 </div>
                 <div className="header-action-icon-2">
-                  <a href="shop-wishlist">
+                  <NavLink to={"/wishlist"}>
                   <BiHeart/>
-                    <span className="pro-count blue">0</span>
-                  </a>
+                    <span className="pro-count blue">{wishListCount}</span>
+                  </NavLink>
                   <span className="lable">Wishlist</span>
                 </div>
                 <div className="header-action-icon-2">
