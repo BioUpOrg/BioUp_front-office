@@ -1,11 +1,33 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
+import {
+  addItemToCart,
+  decrement,
+  getCompostQuantityInCart,
+  increment,
+} from "../../store/cart";
 
 export default function CompostDetails() {
   const compostDetails = useSelector(
     (state) => state.entities.composts.compostDetails
   );
-  console.log(compostDetails);
+  const dispatch = useDispatch();
+
+  const handleIncrementOnClick = (compost) => {
+    const cartItem = { cartItem: { ...compost }, quantity: 0, type: "compost" };
+    dispatch(increment(cartItem));
+  };
+  const handleDecrementOnClick = (compost) => {
+    const cartItem = { cartItem: { ...compost }, quantity: 0, type: "compost" };
+    dispatch(decrement(cartItem));
+  };
+  const addToCartOnClick = (compost) => {
+    const cartItem = { cartItem: { ...compost }, quantity: 0, type: "compost" };
+    dispatch(addItemToCart(cartItem));
+  };
+
+  const quantity = useSelector(getCompostQuantityInCart);
+
   return (
     <div className="container">
       <section className="mt-50 mb-50">
@@ -15,7 +37,7 @@ export default function CompostDetails() {
               <div className="product-detail accordion-detail">
                 <div className="row mb-50 mt-30">
                   <div className="col-md-6 col-sm-12 col-xs-12">
-                    <img class="img-fluid" src={compostDetails.image} />
+                    <img className="img-fluid" src={compostDetails.image} />
                   </div>
                   <div className="col-md-6 col-sm-12 col-xs-12">
                     <div className="detail-info pr-30 pl-30">
@@ -78,16 +100,31 @@ export default function CompostDetails() {
                         <div className="bt-1 border-color-1 mt-30 mb-30"></div>
                         <div className="detail-extralink">
                           <div className="detail-qty border radius">
-                            <a className="qty-down">
+                            <NavLink
+                              className="qty-down"
+                              onClick={() => {
+                                handleDecrementOnClick(compostDetails);
+                              }}
+                            >
                               <i className="fi-rs-angle-small-down"></i>
-                            </a>
-                            <span className="qty-val">1</span>
-                            <a className="qty-up">
+                            </NavLink>
+                            <div className="qty-val">{quantity}</div>
+                            <NavLink
+                              className="qty-up"
+                              onClick={() => {
+                                handleIncrementOnClick(compostDetails);
+                              }}
+                            >
                               <i className="fi-rs-angle-small-up"></i>
-                            </a>
+                            </NavLink>
                           </div>
                           <div className="product-extra-link2">
-                            <button className="button button-add-to-cart">
+                            <button
+                              className="button button-add-to-cart"
+                              onClick={() => {
+                                addToCartOnClick(compostDetails);
+                              }}
+                            >
                               Add to cart
                             </button>
                             <a
