@@ -8,6 +8,7 @@ import productSlice from "./slices/productSlice";
 import cartReducer from "./cart";
 import animalsReducer from "./animals";
 import shipmentSlice from "./shipment";
+import wishlistReducer from "./wishlist";
 
 export default combineReducers({
   users: usersReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   shipment:shipmentSlice,
   animals: animalsReducer,
   composts: compostsReducer,
+  wishList: wishlistReducer
 });
