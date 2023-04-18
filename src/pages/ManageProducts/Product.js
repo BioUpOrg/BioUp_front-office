@@ -11,6 +11,7 @@ import { BsTrash } from "react-icons/bs";
 import { BsInfoCircle } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
+import { selectProduct } from "../../../src/store/slices/productSlice";
 
 
 function Product(props) {
@@ -30,6 +31,10 @@ function Product(props) {
   const addToCart = (p) => {
     dispatch(increment(p));
   };
+  const handleProductDetails = () => {
+    dispatch(selectProduct(product));
+  };
+
   useEffect(() => {
     console.log("Likes Update");
   }, []);
@@ -83,11 +88,13 @@ deleteProd(product._id)
               style={{ cursor: "pointer", marginInline: "10px" }}
             />
           </NavLink>
-          <NavLink  to={`/products/${product._id}`} >
+          <NavLink  to={"/Dashboard/product-details/Description"} >
             <BsInfoCircle
               size={20}
               color="#00FF00"
               style={{ cursor: "pointer" }}
+              onClick={handleProductDetails}
+
             />
           </NavLink>
 

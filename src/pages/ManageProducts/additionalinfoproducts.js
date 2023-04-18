@@ -6,11 +6,11 @@ import Rating from '@mui/material/Rating';
 import { addRating , getRating } from "../../../src/services/api";
 import { useSelector } from "react-redux";
 import { Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
 
 
 
 function ProductDetails() {
+  const product = useSelector((state) => state.entities.products.selectedProduct);
   const [rating, setRating] = useState({
     ratingValue: 0,
     product:"",
@@ -22,12 +22,11 @@ function ProductDetails() {
     console.log("userId",userId);
 
     
-    const [product, setProduct] = useState({});
     const [ratingV, setRatingV] = useState({
       ratingVa: 0,
     });
     useEffect(() => {
-      getProductFunction();
+   //   getProductFunction();
       setRatingV({ ...ratingV, ratingVa: getRating(param.id) }); 
 
 
@@ -48,46 +47,22 @@ function ProductDetails() {
   
     const getProductFunction = async () => {
       const response = await getProduct(param.id);
-      setProduct(response.data);
+      product = response.data;
       console.log(response.data)
 
-    };
+    }; 
 
   return (
     <Container style={{ marginTop: "30px" }}>
        {product._id !== undefined ? <Row>
          
 
-<Col md={4}>
+<Col md={8}>
 
 
           <Col md={8}>
-          <Row>
-          <Col>
-            {product?.pic ? (
-              <img src={product?.pic} alt="product" width={500} height={500}/>
-            ) :
-            <Icon icon="mdi:camera" style={{ fontSize: '100px' }} />
-          
-
-            }
-            </Col>
-            </Row>
+      
             <Row>
-
-          <Col md={12}>
-            <h1>{product.name}</h1>
-
-            </Col>
-         
-            <Col md={12}>
-            <h5>Description : </h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>
-            {product.description}
-            </p>
-            </Col>
             <Col md={12}>
             <h5>Price :</h5>
             </Col>
@@ -105,26 +80,10 @@ function ProductDetails() {
             <Col>
             <p style={{ marginLeft: "50px"}}>{product.like}</p>
             </Col>
-           
-            <Rating
-  name="simple-controlled"
-  value={value}
-  onChange={(e, ratingValue) => {
-    setValue(ratingValue);
-    addRatingP(e);
-    console.log("ratingValuenow",product.rating);
-    
-  }}
-/>
-  <Button variant="success" size="sm" onClick={() => {
-          add();
-          getProductFunction();
-
-           } }>Add Rating</Button>
-    </Row>
+            </Row>
+   
     </Col> 
 
-<p>rating :{product.rating}</p>
           </Col>
       
         </Row> : <p> Product does not exist </p>}

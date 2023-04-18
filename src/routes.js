@@ -7,6 +7,7 @@ import {
   Routes,
 } from "react-router-dom";
 import LandingPageNav from "./components/navbars/landingPageNav";
+import HeaderTop from "./components/navbars/headerTop";
 import MainFooter from "./components/footers/mainFooter";
 import Home from "./pages/home";
 import About from "./pages/about";
@@ -51,11 +52,18 @@ import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
 import DeliveryMap from "./pages/locationAgent/DeliveryMap";
 import GoogleCloudVision from "./pages/ManageFarm/FarmIA";
+import ProductDetailsLayout from "./pages/ManageProducts/productDetailsLayout";
+import Descriptionproducts from "./pages/ManageProducts/Descriptionproducts";
+import AdditionalInfoproducts from "./pages/ManageProducts/additionalinfoproducts";
+import Reviewsproducts from "./pages/ManageProducts/reviewsproducts";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { MyLocation } from "@mui/icons-material";
 import GetListCommandeNotShipped from "./pages/Shipment/GetListCommandeNotShipped";
+import Cart from "./pages/cart";
+import HeaderMiddle from "./components/navbars/headerMiddle";
+import WishList from "./pages/wishlist";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -100,6 +108,8 @@ const MyAppRoutes = () => {
 
   return (
     <BrowserRouter>
+    {/* <HeaderTop/>
+    <HeaderMiddle/> */}
       <LandingPageNav />
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -216,9 +226,17 @@ const MyAppRoutes = () => {
             <Route path="Additional-Info" element={<AdditionalInfo />} />
             <Route path="Reviews" element={<Reviews />} />
             {/* </Route> */}
-            <Route path="product-form" element={<ProductForm />} />
           </Route>
+
+          <Route path="product-form" element={<AddProduct />} />
+        <Route path="product-details" element={<ProductDetailsLayout />} >
+          <Route path="Description" element={<Descriptionproducts />} />
+          <Route path="Additional-Info" element={<AdditionalInfoproducts />} />
+          <Route path="Reviews" element={<Reviewsproducts />} />
         </Route>
+        </Route>
+          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/wishlist" element={<WishList/>}/>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />
         <Route path="/*" element={<Page404 />} />
