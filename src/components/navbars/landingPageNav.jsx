@@ -77,7 +77,7 @@ export default function LandingPageNav() {
                     <Link to={"/Services"}>Our Services</Link>
                   </li>
                   <li>
-                    <Link to={"/Products"}>Bio Products</Link>
+                    <Link to={"/products/list"}>Bio Products</Link>
                   </li>
                   <li className="position-static">
                     <Link to={"/Composts"}>Composts</Link>
