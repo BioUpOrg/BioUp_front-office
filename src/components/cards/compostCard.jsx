@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { setCompostDetails } from "../../store/composts";
 import { addItemToCart } from "../../store/cart";
+import { addItemToWishList } from "../../store/wishlist";
 
 export default function CompostCard({ compost }) {
   //
@@ -17,6 +18,11 @@ export default function CompostCard({ compost }) {
     const cartItem = { cartItem: { ...compost }, quantity: 0, type: "compost" };
     console.log("cartItem: ", cartItem);
     dispatch(addItemToCart(cartItem));
+  };
+
+  const handleAddToWishListOnClick = (compost) => {
+    dispatch(addItemToWishList(compost));
+    // navigate("/compost-details/Description");
   };
 
   return (
@@ -42,6 +48,10 @@ export default function CompostCard({ compost }) {
               <i className="fi-rs-eye"></i>
             </NavLink>
             <NavLink
+            to={"/wishlist"}
+            onClick={() => {
+              handleAddToWishListOnClick(compost);
+            }}
               aria-label="Add To Wishlist"
               className="action-btn hover-up"
             >
