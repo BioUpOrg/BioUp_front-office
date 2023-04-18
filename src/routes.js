@@ -51,6 +51,10 @@ import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
 import DeliveryMap from "./pages/locationAgent/DeliveryMap";
 import GoogleCloudVision from "./pages/ManageFarm/FarmIA";
+import ProductDetailsLayout from "./pages/ManageProducts/productDetailsLayout";
+import Descriptionproducts from "./pages/ManageProducts/Descriptionproducts";
+import AdditionalInfoproducts from "./pages/ManageProducts/additionalinfoproducts";
+import Reviewsproducts from "./pages/ManageProducts/reviewsproducts";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -218,6 +222,11 @@ const MyAppRoutes = () => {
             {/* </Route> */}
             <Route path="product-form" element={<ProductForm />} />
           </Route>
+          <Route path="product-details" element={<ProductDetailsLayout />} >
+          <Route path="Description" element={<Descriptionproducts />} />
+          <Route path="Additional-Info" element={<AdditionalInfoproducts />} />
+          <Route path="Reviews" element={<Reviewsproducts />} />
+        </Route>
         </Route>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />

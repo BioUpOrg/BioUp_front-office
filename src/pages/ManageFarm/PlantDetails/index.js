@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Box, Grid, Paper } from "@material-ui/core";
 
-import PlantCard from "../../../components/Cards/FarmCard"
 
 import PlantCard from "../../../components/Cards/PlantCard"
 
