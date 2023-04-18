@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import "leaflet/dist/leaflet.css";
+import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 import "./map.css";
+
 import L from 'leaflet';
 import { Col, Container, Row } from 'react-bootstrap';
 import MyMissions from '../Shipment/MyMissions';
-
-
+import LeafletGeocoder from '../Shipment/LeafletGeocoder';
 
 const Maps = () => {
+  const [searchCoordinates, setSearchCoordinates] = useState(null);
+
+  const handleSearch = (e) => {
+    const result = e?.geocode?.features?.[0];
+    if (result) {
+      const geometry = result.geometry;
+      const latLng = L.latLng(geometry.coordinates[1], geometry.coordinates[0]);
+      setSearchCoordinates(latLng);
+    }
+  };
+  useEffect(() => {
+    console.log("searchCoordinates", searchCoordinates);
+  }, [searchCoordinates]);
+  
+
   function DeliveryMap() {
     const [position, setPosition] = useState(null);
 
@@ -24,6 +40,7 @@ const Maps = () => {
         map.flyTo(e.latlng, map.getZoom());
       });
     }, []);
+
     const markerIcon = L.icon({
       iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
       iconSize: [25, 41],
@@ -36,6 +53,7 @@ const Maps = () => {
     });
 
     return position === null ? null : (
+      
       <Marker  position={position} icon={markerIcon} >
         <Popup>You are here</Popup>
       </Marker>
@@ -62,13 +80,15 @@ const Maps = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      
-      
+  <LeafletGeocoder 
+   onSearch={handleSearch }
+   />
+        {searchCoordinates && <Marker position={searchCoordinates} />}
       <DeliveryMap />
     </MapContainer>
      </Row>
    </Container>
-   
+  
  
     </>
   );
