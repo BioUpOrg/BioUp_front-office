@@ -69,9 +69,8 @@ function Product(props) {
             <a href="#">armani</a>
           </div>
           <h2>
-            <a href="/products/seeds-of-change-organic-quinoe">
-              {product.name}
-            </a>
+          <Link to={`/products/${product._id}`}>{product.name}</Link>
+
           </h2>
           <div className="product-rate-cover">
             <div className="product-rate d-inline-block">
