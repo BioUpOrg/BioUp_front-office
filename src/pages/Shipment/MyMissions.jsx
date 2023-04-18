@@ -6,18 +6,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMyMission } from '../../services/shipmentService';
 import { getMymissionCommands } from '../../services/shipmentService';
 import { fetchProducts } from '../../store/slices/productSlice';
+import { getUserById } from '../../services/shipmentService';
+import { getComposts } from '../../services/compostService';
+import { populateComposts } from '../../store/composts';
 
 const MyMissions = () => {
   const dispatch = useDispatch();
   const [mission, setMission] = useState({});
   const [commands, setCommands] = useState({});
-   const [userDetail,setUserDetail]=useState({});
+   const [userDetailbio,setUserDetailbio]=useState({});
+    const [userDetailcomposte,setUserDetailcomposte]=useState({});
+   const [showDetails, setShowDetails] = useState(true);
+   const [shipmentAdresses, setShipmentAdresses] = useState({
+    shipmentLocations: [],
+    pickupFroms: [],
+  });
   const token = localStorage.getItem("TOKEN_KEY");
   const decoded = jwt_decode(token);
   const userId = decoded._id; 
   const { products } = useSelector((state) => state.entities.products); // get products from store
-  const [bioprod,setbioprod]=useState({});
+  const composts = useSelector((state) => state.entities.composts.list);
 
+  const [bioprod,setbioprod]=useState({});
+  const [compostDetails,setCompostDetails]=useState({});
   
 
   useEffect(() => {
@@ -26,6 +37,7 @@ const MyMissions = () => {
       const m = await getMyMission(userId);
       setMission(m);
       dispatch(fetchProducts()); // fetch products on mount
+      getAllCompost();
 
      
       // Fetch command details for all commands in the shipment
@@ -42,28 +54,57 @@ const MyMissions = () => {
 
     }
     fetchMission();
+    
   }, []);
-  const handleClickDetails = (product) => {
-    console.log("product:", product);
-console.log("products:", products);
-    console.log(`Product clicked is !`,product);
-    if (product.type === "bioprod") {
-      const biop = products.find((p) => p._id === product.product);
-      if (biop) {
-        console.log(`Bioprod:`, biop);
-        setUserDetail('lotfi detail');
-setbioprod(biop)   ;
-   } else {
-        console.log("No bioprod found with matching name and type");
-      }
-    }
-  };
-  return (
-    <>
-      <h3 className='justify-content-center'>My Mission</h3>
+  const getAllCompost=async()=>{
+    await getComposts().then((res)=>dispatch(populateComposts(res)));
+  }
 
-      {mission && mission.shipment_items && // Check if shipment_items exists
-        <Card style={{ width: '100%' }}>
+ 
+ 
+const handleClickDetails = (product) => {
+  console.log("product:", product);
+  console.log("products:", products);
+  console.log(`Product clicked is !`,product);
+  setShowDetails(false);
+
+  if (product.type === "bioprod") {
+    const biop = products.find((p) => p._id === product.product);
+    if (biop) {
+      console.log(`Bioprod:`, biop);
+      getUserById(biop.user).then((res) => {
+        console.log("userd",res.data);
+       
+        setUserDetailbio(res.data);
+      }); 
+      setbioprod(biop);
+    } else {
+      console.log("No bioprod found with matching name and type");
+    }
+  }
+  else if (product.type === "compost") {
+    const comp = composts.find((p) => p._id === product.product);
+    if (comp) {
+      console.log(`Compost:`, comp);
+      getUserById(comp._idSeller).then((res) => {
+        console.log("userd",res.data);
+       
+        setUserDetailcomposte(res.data);
+      }); 
+      setCompostDetails(comp);
+    } else {
+      console.log("No compost found with matching ID");
+    }
+  } else {
+    console.log("Unknown product type:", product.type);
+  }
+};
+  return (
+    <Container>
+      <h3 className='text-center my-3'>My Mission</h3>
+  
+      {mission && mission.shipment_items && ( // use parentheses to wrap multiple lines of code
+        <Card>
           <Card.Body>
             <Table bordered hover>
               <thead>
@@ -83,30 +124,37 @@ setbioprod(biop)   ;
                         <Table striped bordered hover>
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Owner</th>
-                              <th>image</th>
+                              <th hidden={showDetails}>Name</th>
+                              <th hidden={showDetails}>Owner</th>
+                              <th hidden={showDetails}>Contact</th>
+                              <th hidden={showDetails}>PickUp Adress </th>
+                              <th hidden={showDetails}>Image</th>
                               <th>Type</th>
                               <th>Quantity</th>
                               <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {commands[item.commande_id].products.map((product) => (
-                              <tr key={product.product}>
-                               <td>{product.type === "bioprod" && product.product === bioprod._id ? bioprod.name : "-"}</td>
-                               <td>{product.type === "bioprod" && product.product === bioprod._id ? userDetail : "-"}</td>
-                               <td>{product.type === "bioprod" && product.product === bioprod._id ? <img src={bioprod.pic}/> : "-"}</td>
-
-                                <td>{product.type}</td>
-                                <td>{product.quantity}</td>
-                                <td>
-                                <Button  onClick={() => handleClickDetails(product)}>Details</Button>
-
-                                  
-                                  </td>
-                              </tr>
-                            ))}
+                       {commands[item.commande_id].products.map((product) => (
+                          <tr key={product.product} >
+                            <td hidden={showDetails}> {product.type === "bioprod" && product.product === bioprod._id ? bioprod.name : (product.type === "compost" && product.product === compostDetails._id ? compostDetails.name : "-")}</td>
+                            <td hidden={showDetails}>{product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.firstName + " " + userDetailbio.lastName : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.firstName+""+userDetailcomposte.lastName : "-")}</td>
+                            <td hidden={showDetails}>
+  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? 
+    (userDetailbio.email ? userDetailbio.email : userDetailbio.phone)
+    : (product.type === "compost" && product.product === compostDetails._id ? 
+        (userDetailcomposte.email ? userDetailcomposte.email : userDetailcomposte.phone) 
+        : "-")
+  }
+</td>                            <td hidden={showDetails}>{product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.adress : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.adress : "-")}</td>
+                            <td hidden={showDetails}>{product.type === "bioprod" && product.product === bioprod._id ? <img style={{ width: '100%' }} src={bioprod.pic} alt={bioprod.name} /> : (product.type === "compost" && product.product === compostDetails._id ? <img src={compostDetails.image}/> : "-")}</td>
+                            <td>{product.type}</td>
+                            <td>{product.quantity}</td>
+                            <td>
+                              <Button onClick={() => handleClickDetails(product)} variant="info">Details</Button>
+                            </td>
+                          </tr>
+                        ))}
                           </tbody>
                         </Table>
                       ) : "-"}
@@ -117,9 +165,8 @@ setbioprod(biop)   ;
             </Table>
           </Card.Body>
         </Card>
-      }
-    </>
+      )}
+    </Container>
   );
-};
-
-export default MyMissions;
+                            }
+ export default MyMissions  
