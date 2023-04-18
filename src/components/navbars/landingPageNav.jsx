@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
-import { BiUser } from "react-icons/bi";
+import { Link, NavLink } from "react-router-dom";
+import { BiHeart, BiUser } from "react-icons/bi";
+import {MdOutlineCompareArrows} from "react-icons/md";
+import {AiOutlineShoppingCart} from "react-icons/ai";
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../../services/authService";
 import "./landingPageNavCss.css";
 import { Icon } from '@iconify/react';
+import { useSelector } from "react-redux";
+import { getCartItemsCount } from "../../store/cart";
 
 
 export default function LandingPageNav() {
@@ -47,6 +51,9 @@ export default function LandingPageNav() {
     </Link>
   </li>
   }
+
+  const cartItemsCount = useSelector(getCartItemsCount);
+  
   return (
     <div className="header-bottom header-bottom-bg-color bioup-sticky-navbar">
       <div className="container">
@@ -99,6 +106,31 @@ export default function LandingPageNav() {
             {registerBtn}
             {loginBtn}
             <div className="header-action-2">
+            <div className="header-action-icon-2">
+                  <a href="shop-compare">
+                  <MdOutlineCompareArrows/>
+                    <span className="pro-count blue">0</span>
+                  </a>
+                  <a href="shop-compare">
+                    <span className="lable ml-0">Compare</span>
+                  </a>
+                </div>
+                <div className="header-action-icon-2">
+                  <a href="shop-wishlist">
+                  <BiHeart/>
+                    <span className="pro-count blue">0</span>
+                  </a>
+                  <span className="lable">Wishlist</span>
+                </div>
+                <div className="header-action-icon-2">
+                  <NavLink to={"/cart"} className="mini-cart-icon" >
+                  <AiOutlineShoppingCart/>
+                    <span className="pro-count blue">{cartItemsCount}</span>
+                  </NavLink>
+                  <a href="shop-cart">
+                    <span className="lable">Cart</span>
+                  </a>
+                </div>
               <div className="header-action-icon-2">
                 <a href="page-account">
                   <BiUser />

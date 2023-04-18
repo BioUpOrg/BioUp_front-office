@@ -7,6 +7,7 @@ import {
   Routes,
 } from "react-router-dom";
 import LandingPageNav from "./components/navbars/landingPageNav";
+import HeaderTop from "./components/navbars/headerTop";
 import MainFooter from "./components/footers/mainFooter";
 import Home from "./pages/home";
 import About from "./pages/about";
@@ -60,6 +61,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { MyLocation } from "@mui/icons-material";
 import GetListCommandeNotShipped from "./pages/Shipment/GetListCommandeNotShipped";
+import Cart from "./pages/cart";
+import HeaderMiddle from "./components/navbars/headerMiddle";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -104,6 +107,8 @@ const MyAppRoutes = () => {
 
   return (
     <BrowserRouter>
+    {/* <HeaderTop/>
+    <HeaderMiddle/> */}
       <LandingPageNav />
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -221,6 +226,7 @@ const MyAppRoutes = () => {
             <Route path="Reviews" element={<Reviews />} />
             {/* </Route> */}
           </Route>
+
           <Route path="product-form" element={<AddProduct />} />
         <Route path="product-details" element={<ProductDetailsLayout />} >
           <Route path="Description" element={<Descriptionproducts />} />
@@ -228,6 +234,7 @@ const MyAppRoutes = () => {
           <Route path="Reviews" element={<Reviewsproducts />} />
         </Route>
         </Route>
+          <Route path="/cart" element={<Cart/>}/>
         <Route path="/401" element={<Page401 />} />
         <Route path="/405" element={<Page500 />} />
         <Route path="/*" element={<Page404 />} />
