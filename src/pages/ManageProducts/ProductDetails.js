@@ -6,6 +6,7 @@ import Rating from '@mui/material/Rating';
 import { addRating , getRating } from "../../../src/services/api";
 import { useSelector } from "react-redux";
 import { Button } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
 
 
 
@@ -62,12 +63,23 @@ function ProductDetails() {
 
           <Col md={8}>
           <Row>
+          <Col>
+            {product?.pic ? (
+              <img src={product?.pic} alt="product" width={500} height={500}/>
+            ) :
+            <Icon icon="mdi:camera" style={{ fontSize: '100px' }} />
+          
+
+            }
+            </Col>
+            </Row>
+            <Row>
+
           <Col md={12}>
             <h1>{product.name}</h1>
 
             </Col>
-            </Row>
-            <Row>
+         
             <Col md={12}>
             <h5>Description : </h5>
             </Col>
@@ -76,8 +88,6 @@ function ProductDetails() {
             {product.description}
             </p>
             </Col>
-            </Row>
-            <Row>
             <Col md={12}>
             <h5>Price :</h5>
             </Col>
@@ -95,8 +105,7 @@ function ProductDetails() {
             <Col>
             <p style={{ marginLeft: "50px"}}>{product.like}</p>
             </Col>
-            </Row>
-            <Row>
+           
             <Rating
   name="simple-controlled"
   value={value}
