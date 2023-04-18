@@ -51,6 +51,12 @@ import SpinnerExample from "./pages/ManageProducts/Spinner";
 import PopSignature from "./pages/ContractDelivery/popSignature";
 import AnimalDetails from "./pages/ManageFarm/AnimalDetails";
 import DeliveryMap from "./pages/locationAgent/DeliveryMap";
+import GoogleCloudVision from "./pages/ManageFarm/FarmIA";
+import ProductDetailsLayout from "./pages/ManageProducts/productDetailsLayout";
+import Descriptionproducts from "./pages/ManageProducts/Descriptionproducts";
+import AdditionalInfoproducts from "./pages/ManageProducts/additionalinfoproducts";
+import Reviewsproducts from "./pages/ManageProducts/reviewsproducts";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { MyLocation } from "@mui/icons-material";
@@ -120,6 +126,7 @@ const MyAppRoutes = () => {
         <Route path="/ManageMyFarm/FarmsDetail" element={<FarmDetails />} />
         <Route path="/ManageMyFarm/PlantsDetail" element={<PlantDetails />} />
         <Route path="/ManageMyFarm/AnimalsDetail" element={<AnimalDetails />} />
+        <Route path="/ManageMyFarm/FarmAI" element={<GoogleCloudVision />} />
         <Route path="/Composts" element={<Composts />} />
         <Route path="compost-details" element={<CompostDetails />}>
           <Route path="Description" element={<Description />} />
@@ -218,9 +225,14 @@ const MyAppRoutes = () => {
             <Route path="Additional-Info" element={<AdditionalInfo />} />
             <Route path="Reviews" element={<Reviews />} />
             {/* </Route> */}
-            <Route path="product-form" element={<ProductForm />} />
           </Route>
 
+          <Route path="product-form" element={<AddProduct />} />
+        <Route path="product-details" element={<ProductDetailsLayout />} >
+          <Route path="Description" element={<Descriptionproducts />} />
+          <Route path="Additional-Info" element={<AdditionalInfoproducts />} />
+          <Route path="Reviews" element={<Reviewsproducts />} />
+        </Route>
         </Route>
           <Route path="/cart" element={<Cart/>}/>
         <Route path="/401" element={<Page401 />} />

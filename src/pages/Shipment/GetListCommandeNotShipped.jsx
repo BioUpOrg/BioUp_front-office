@@ -6,6 +6,8 @@ import { setUserId } from "../../store/users";
 import { fetchProducts, selectProduct } from "../../store/slices/productSlice";
 import jwt_decode from "jwt-decode";
 import { set } from "date-fns";
+import { populateComposts } from "../../store/composts";
+import { getComposts } from "../../services/compostService";
 //
 function GetListCommandeNotShipped() {
   const dispatch = useDispatch();
@@ -13,7 +15,7 @@ function GetListCommandeNotShipped() {
   const [selectedOrders, setSelectedOrders] = useState([]);
   const { list } = useSelector((state) => state.entities.shipment);
   const { products } = useSelector((state) => state.entities.products); // get products from store
-  
+  const composts = useSelector((state) => state.entities.composts.list);
 
   const token =  localStorage.getItem("TOKEN_KEY");
 
@@ -23,9 +25,14 @@ function GetListCommandeNotShipped() {
   useEffect(() => {
     dispatch(loadShipment());
     dispatch(fetchProducts()); // fetch products on mount
-  }, [dispatch]);
+    getAllCompost();
 
-  
+  }, [dispatch]);
+ 
+  const getAllCompost=async()=>{
+    await getComposts().then((res)=>dispatch(populateComposts(res)));
+  }
+
 
   const handleCreateShipment = async () => {
     dispatch(setUserId(userId));
@@ -108,6 +115,7 @@ function GetListCommandeNotShipped() {
                                 console.log("prodtype1",product.type);
                                 console.log("pro",product);
                                 console.log("p",products);
+                                console.log("compostttttttttttttttttttttttttt",composts);
                                 // Find the product with the matching ID in the `products` list
                                 if(product.type==="bioprod"){
                                   const pr = products.find(
@@ -123,7 +131,7 @@ function GetListCommandeNotShipped() {
                                     return (
                                       <div
                                         className="swiper-slide"
-                                        style={{ width: 180 }}
+                                        style={{ width: 200 }}
                                         key={product.product}
                                       >
                                         <div className="card-2 bg-9 wow animate__animated animate__fadeInUp">
@@ -150,32 +158,35 @@ function GetListCommandeNotShipped() {
                                   }
                                 }
                                
-                                  if(product.type==="compost"){
-                                  const pc ="composte data ..."
+                                if(product.type==="compost"){
+                                  const pc = composts.find(
+                                    (p) => p._id === product.product
+                                  );
                                   if (pc) {
+                                    console.log("picffffff",pc.image)
                                     return (
                                       <div
                                         className="swiper-slide"
-                                        style={{ width: 180 }}
+                                        style={{ width: 200 }}
                                         key={product.product}
                                       >
                                         <div className="card-2 bg-9 wow animate__animated animate__fadeInUp">
-                                          <figure className=" img-hover-scale overflow-hidden">
-                                            <a>
-                                              <img
-                                                src="assets/imgs/shop/cat-13.png"
-                                                alt=""
-                                              />
-                                            </a>
+                                          <figure className="img-hover-scale overflow-hidden">
+                                            <img
+                                              src={pc.image}
+                                              alt=""
+                                              style={{
+                                                height: "100%",
+                                                width: "100%",
+                                                objectFit: "cover",
+                                              }}
+                                            />
                                           </figure>
-                                          <h6 style={{margin:'20%'}}>
-                                            <a > Name:{pc}</a>
-                                          <a >
-                                           Type: {product.type}
-                                          </a>
-                                          <a >
-                                             Quantity : {product.quantity} 
-                                          </a>
+                                          <h6 style={{ margin: "20%" }}>
+                                            <a> Name:{pc.name}</a>
+
+                                            <a>Type: {product.type}</a>
+                                            <a>Quantity : {product.quantity}</a>
                                           </h6>
                                         </div>
                                       </div>

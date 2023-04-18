@@ -41,7 +41,7 @@ export default function UpdateProduct() {
     if(res.status ===200){
       setIsLoading(false);
     //  dispatch(updateProductReducer(product))
-      navigate("/products/list");
+      navigate("/Dashboard/Products/myproducts");
 
     }
     
