@@ -103,9 +103,10 @@ const handleClickDetails = (product) => {
     <Container>
       <h3 className='text-center my-3'>My Mission</h3>
   
-      {mission && mission.shipment_items && ( // use parentheses to wrap multiple lines of code
+      {mission && mission.shipment_items && (// use parentheses to wrap multiple lines of code
         <Card>
           <Card.Body>
+            
             <Table bordered hover>
               <thead>
                 <tr>
@@ -170,3 +171,13 @@ const handleClickDetails = (product) => {
   );
                             }
  export default MyMissions  
+
+
+
+
+ 
+
+
+ 
+
+ 

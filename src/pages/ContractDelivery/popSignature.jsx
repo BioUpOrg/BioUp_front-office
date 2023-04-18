@@ -72,10 +72,10 @@ function PopSignature() {
           </Col>
           <Col xs={12} sm={9} md={8}>
             <div style={{display: 'flex', flexDirection: 'row'}}>
-              <Button style={{flex: 1, marginRight: '8px'}} onClick={handleSave}>         
+              <Button style={{flex: 1, marginRight: '8px',marginTop:'2%'}} onClick={handleSave}>         
                 Save Signature
               </Button>
-              <Button style={{flex: 1}} onClick={() => signaturePadRef.current.clear()}>
+              <Button style={{flex: 1,marginTop:'2%'}} onClick={() => signaturePadRef.current.clear()}>
                 Clear
               </Button>
             </div>
