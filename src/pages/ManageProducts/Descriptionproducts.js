@@ -27,7 +27,7 @@ function ProductDetails() {
     });
     useEffect(() => {
    //   getProductFunction();
-      setRatingV({ ...ratingV, ratingVa: getRating(param.id) }); 
+      setRatingV({ ...ratingV, ratingVa: getRating(product._id) }); 
 
 
      
@@ -46,9 +46,9 @@ function ProductDetails() {
   }
   
     const getProductFunction = async () => {
-      const response = await getProduct(param.id);
+     /* const response = await getProduct(product._id);
       product = response.data;
-      console.log(response.data)
+      console.log(response.data)*/
 
     }; 
 
