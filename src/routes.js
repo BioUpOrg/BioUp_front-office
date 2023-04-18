@@ -191,7 +191,7 @@ const MyAppRoutes = () => {
          <Route path="user-dashboard" element={<UserDashbord/>}/>
          <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
          <Route path="popSignature" element={<ProtectedRoute><PopSignature/></ProtectedRoute>}/>
-         <Route path="mylocation" element ={<DeliveryMap />}/>
+         <Route path="mylocation" element ={<ProtectedRoute><DeliveryMap /></ProtectedRoute>}/>
          <Route path="listorder" element={<ProtectedRoute><GetListCommandeNotShipped/></ProtectedRoute>}/>
           <Route path="user-dashboard" element={<UserDashbord />} />
           <Route
