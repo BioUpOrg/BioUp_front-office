@@ -1,4 +1,4 @@
-import Product from "./myProduct";
+import Product from "./productClientCard";
 import { useEffect, useState } from 'react';
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
@@ -62,12 +62,17 @@ function Products () {
             <hr />
           </Alert>
         }
+          <div className="tab-content wow fadeIn animated">
+            <div className="tab-pane fade show active">
+              <div className="compost-grid-4 row">
             {products && products.map((element,index)=>
             console.log(element) ||
-                <Col key={index} >
                 <Product product={element} buyFunction={buy} deleteProd={deleteProd}/>
-                </Col>
             )}
+            </div>
+            </div>
+            </div>
+
          {visible &&   <Alert style={{ marginTop: "30px" }} variant="primary">
             <p>
             You Bought an Item
