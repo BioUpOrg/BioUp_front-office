@@ -31,3 +31,17 @@ export const getMyMission = async (userid)=>{
   }
   )
  }
+
+ 
+export const getUserById = async (id)=>{
+  id=id || ''
+ return axios.get(`http://localhost:3000/users/getById/${id}`)
+ .then(response => {
+   console.log(response)
+     return response;
+ })
+ .catch(error => {
+   console.log(error);
+     return error;
+ })
+}
