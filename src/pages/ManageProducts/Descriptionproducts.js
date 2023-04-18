@@ -6,6 +6,8 @@ import Rating from '@mui/material/Rating';
 import { addRating , getRating } from "../../../src/services/api";
 import { useSelector } from "react-redux";
 import { Button } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
+
 
 
 
@@ -57,7 +59,7 @@ function ProductDetails() {
        {product._id !== undefined ? <Row>
          
 
-<Col md={4}>
+<Col md={8}>
 
 
           <Col md={8}>
@@ -65,6 +67,15 @@ function ProductDetails() {
           <Col md={12}>
             <h1>{product.name}</h1>
 
+            </Col>
+            <Col md={12}>
+            {product?.pic ? (
+              <img src={product?.pic} alt="product" width={200} height={200}/>
+            ) :
+            <Icon icon="mdi:camera" style={{ fontSize: '100px' }} />
+          
+
+            }
             </Col>
             </Row>
             <Row>
@@ -78,47 +89,14 @@ function ProductDetails() {
             </Col>
             </Row>
             <Row>
-            <Col md={12}>
-            <h5>Price :</h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.price} DT</p>
-
-            </Col>
-            <Col md={12}>
-            <h5>Quantity :</h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.quantity}</p>
-
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.like}</p>
-            </Col>
-            </Row>
-            <Row>
-            <Rating
-  name="simple-controlled"
-  value={value}
-  onChange={(e, ratingValue) => {
-    setValue(ratingValue);
-    addRatingP(e);
-    console.log("ratingValuenow",product.rating);
-    
-  }}
-/>
-  <Button variant="success" size="sm" onClick={() => {
-          add();
-          getProductFunction();
-
-           } }>Add Rating</Button>
-    </Row>
-    </Col> 
-
-<p>rating :{product.rating}</p>
+        
+            </Row>      
           </Col>
+          </Col>
+
       
         </Row> : <p> Product does not exist </p>}
+
 
       </Container>
   )

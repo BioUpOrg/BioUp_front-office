@@ -57,46 +57,10 @@ function Reviews() {
        {product._id !== undefined ? <Row>
          
 
+
+<Row>
 <Col md={4}>
-
-
-          <Col md={8}>
-          <Row>
-          <Col md={12}>
-            <h1>{product.name}</h1>
-
-            </Col>
-            </Row>
-            <Row>
-            <Col md={12}>
-            <h5>Description : </h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>
-            {product.description}
-            </p>
-            </Col>
-            </Row>
-            <Row>
-            <Col md={12}>
-            <h5>Price :</h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.price} DT</p>
-
-            </Col>
-            <Col md={12}>
-            <h5>Quantity :</h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.quantity}</p>
-
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.like}</p>
-            </Col>
-            </Row>
-            <Row>
+  
             <Rating
   name="simple-controlled"
   value={value}
@@ -107,13 +71,17 @@ function Reviews() {
     
   }}
 />
+</Col>
+<Col md={2}>
   <Button variant="success" size="sm" onClick={() => {
           add();
           getProductFunction();
 
            } }>Add Rating</Button>
+               </Col>
+
     </Row>
-    </Col> 
+  <Col md={4}>
 
 <p>rating :{product.rating}</p>
           </Col>

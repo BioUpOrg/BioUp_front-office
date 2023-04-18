@@ -57,26 +57,11 @@ function ProductDetails() {
        {product._id !== undefined ? <Row>
          
 
-<Col md={4}>
+<Col md={8}>
 
 
           <Col md={8}>
-          <Row>
-          <Col md={12}>
-            <h1>{product.name}</h1>
-
-            </Col>
-            </Row>
-            <Row>
-            <Col md={12}>
-            <h5>Description : </h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>
-            {product.description}
-            </p>
-            </Col>
-            </Row>
+      
             <Row>
             <Col md={12}>
             <h5>Price :</h5>
@@ -96,26 +81,9 @@ function ProductDetails() {
             <p style={{ marginLeft: "50px"}}>{product.like}</p>
             </Col>
             </Row>
-            <Row>
-            <Rating
-  name="simple-controlled"
-  value={value}
-  onChange={(e, ratingValue) => {
-    setValue(ratingValue);
-    addRatingP(e);
-    console.log("ratingValuenow",product.rating);
-    
-  }}
-/>
-  <Button variant="success" size="sm" onClick={() => {
-          add();
-          getProductFunction();
-
-           } }>Add Rating</Button>
-    </Row>
+   
     </Col> 
 
-<p>rating :{product.rating}</p>
           </Col>
       
         </Row> : <p> Product does not exist </p>}
