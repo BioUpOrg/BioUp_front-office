@@ -55,15 +55,13 @@ function ProductDetails() {
 
   return (
     <Container style={{ marginTop: "30px" }}>
-       {product._id !== undefined ? <Row>
-         
+       {product._id !== undefined ? 
+       
+       <Row>
+         <Col md={6}>
 
-<Col md={4}>
 
 
-          <Col md={8}>
-          <Row>
-          <Col>
             {product?.pic ? (
               <img src={product?.pic} alt="product" width={500} height={500}/>
             ) :
@@ -72,40 +70,18 @@ function ProductDetails() {
 
             }
             </Col>
-            </Row>
-            <Row>
-
-          <Col md={12}>
+            <Col md={6}>
             <h1>{product.name}</h1>
 
-            </Col>
          
-            <Col md={12}>
             <h5>Description : </h5>
-            </Col>
-            <Col>
             <p style={{ marginLeft: "50px"}}>
             {product.description}
             </p>
-            </Col>
-            <Col md={12}>
             <h5>Price :</h5>
-            </Col>
-            <Col>
             <p style={{ marginLeft: "50px"}}>{product.price} DT</p>
 
-            </Col>
-            <Col md={12}>
-            <h5>Quantity :</h5>
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.quantity}</p>
-
-            </Col>
-            <Col>
-            <p style={{ marginLeft: "50px"}}>{product.like}</p>
-            </Col>
-           
+          
             <Rating
   name="simple-controlled"
   value={value}
@@ -121,13 +97,15 @@ function ProductDetails() {
           getProductFunction();
 
            } }>Add Rating</Button>
-    </Row>
-    </Col> 
 
 <p>rating :{product.rating}</p>
-          </Col>
+
+</Col>
+
+</Row> 
+     : <h1>loading</h1>  }
       
-        </Row> : <p> Product does not exist </p>}
+
 
       </Container>
   )

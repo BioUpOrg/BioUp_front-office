@@ -7,7 +7,7 @@ import { getAnimals } from "../../../store/animals";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
-import AnimalCard from "../../../components/cards/AnimalCard"
+import AnimalCard from "../../../components/Cards/AnimalCard"
 
 
 export default function AnimalDetails() {
