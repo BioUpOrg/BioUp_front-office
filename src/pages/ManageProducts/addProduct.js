@@ -88,7 +88,7 @@ const userData = formData;
       console.log("product in insertion",userData);
       setIsLoading(false);
       dispatch(addProductReducer(userData));
-      navigate("/products/list");
+      navigate("/Dashboard/Products/myproducts");
     });
   };
   useEffect(() => {
