@@ -22,6 +22,7 @@
     "leaflet": "^1.9.3",
     "leaflet-control-geocoder": "^2.4.0",
     "leaflet-draw": "^1.0.4",
+    "leaflet-routing-machine": "^3.2.12",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-datepicker": "^4.11.0",

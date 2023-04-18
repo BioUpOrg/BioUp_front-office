@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import "leaflet-control-geocoder/dist/Control.Geocoder.css";
-import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.js";
 import "./map.css";
 
 import L from 'leaflet';
@@ -11,6 +11,7 @@ import LeafletGeocoder from '../Shipment/LeafletGeocoder';
 
 const Maps = () => {
   const [searchCoordinates, setSearchCoordinates] = useState(null);
+  const [route, setRoute] = useState(null);
 
   const handleSearch = (e) => {
     const result = e?.geocode?.features?.[0];
@@ -20,10 +21,10 @@ const Maps = () => {
       setSearchCoordinates(latLng);
     }
   };
+
   useEffect(() => {
     console.log("searchCoordinates", searchCoordinates);
   }, [searchCoordinates]);
-  
 
   function DeliveryMap() {
     const [position, setPosition] = useState(null);
@@ -33,7 +34,6 @@ const Maps = () => {
     useEffect(() => {
       map.locate({
         enableHighAccuracy:true
-        
       }).on("locationfound", function (e) {
         setPosition(e.latlng);
         console.log("pos",e.latlng);
@@ -52,46 +52,69 @@ const Maps = () => {
       shadowAnchor: [12, 41]
     });
 
+    useEffect(() => {
+      if (searchCoordinates) {
+        const router = L.Routing.control({
+          waypoints: [
+            L.latLng(position.lat, position.lng),
+
+            searchCoordinates
+          ],
+          
+          routeWhileDragging: true,
+          showAlternatives: false,
+          lineOptions: {
+            styles: [{ color: '#007bff', weight: 6 }]
+          },
+          createMarker: function (i, waypoint, n) {
+            if (i === 0) {
+              return L.marker(waypoint.latLng, { icon: markerIcon, draggable: true }).bindPopup('Start').openPopup();
+            } else {
+              return L.marker(waypoint.latLng, { icon: markerIcon, draggable: true }).bindPopup('End').openPopup();
+            }
+          }
+        });
+
+        setRoute(router);
+        router.addTo(map);
+      }
+    }, [position, searchCoordinates]);
+
     return position === null ? null : (
-      
-      <Marker  position={position} icon={markerIcon} >
-        <Popup>You are here</Popup>
-      </Marker>
+      <>
+        <Marker position={position} icon={markerIcon}>
+          <Popup>You are here</Popup>
+        </Marker>
+        {searchCoordinates && <Marker position={searchCoordinates} />}
+      </>
     );
   }
 
   return (
     <>
-    
-   <Container>
-     <Row >
-     
-        <MyMissions/>
-      
-    
-      <MapContainer
-      center={[33.886917, 9.537499]}
-      zoom={13}
-      scrollWheelZoom
-       enableHighAccuracy
-      style={{ height: "80em" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-  <LeafletGeocoder 
-   onSearch={handleSearch }
-   />
-        {searchCoordinates && <Marker position={searchCoordinates} />}
-      <DeliveryMap />
-    </MapContainer>
-     </Row>
-   </Container>
-  
- 
+      <Container>
+        <Row>
+          <MyMissions/>
+          <MapContainer
+            center={[33.886917, 9.537499]}
+            zoom={13}
+            scrollWheelZoom
+            enableHighAccuracy
+            style={{ height: "80em" }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <LeafletGeocoder 
+              onSearch={handleSearch}
+            />
+            
+            <DeliveryMap />
+          </MapContainer>
+        </Row>
+      </Container>
     </>
   );
-};
-
-export default Maps;
+  }
+  export default Maps;  
