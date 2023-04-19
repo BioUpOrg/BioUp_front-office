@@ -1,31 +1,27 @@
 import { Link, NavLink } from "react-router-dom";
 import { BiHeart, BiUser } from "react-icons/bi";
-import {MdOutlineCompareArrows} from "react-icons/md";
-import {AiOutlineShoppingCart} from "react-icons/ai";
-import React from 'react'
+import { MdOutlineCompareArrows } from "react-icons/md";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../../services/authService";
 import "./landingPageNavCss.css";
-import { Icon } from '@iconify/react';
 import { useSelector } from "react-redux";
 import { getCartItemsCount } from "../../store/cart";
 import { getWishListItemsCount } from "../../store/wishlist";
 
-
 export default function LandingPageNav() {
-
-
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   let registerBtn;
   let loginBtn;
   let signout;
+  let actionIcons;
   const isAuthenticated = localStorage.getItem("TOKEN_KEY") ? true : false;
-  
+
   const logout = async () => {
     await Logout(navigate);
     // navigate('/');
-  }
-
+  };
 
   if (!isAuthenticated) {
     registerBtn = (
@@ -45,17 +41,51 @@ export default function LandingPageNav() {
       </div>
     );
   }
-  if(isAuthenticated){
-    signout=<li>
-    <Link to={"/"} onClick={() => logout()}>
-      <i className="fi fi-rs-sign-out mr-10"></i>Sign out
-    </Link>
-  </li>
+  if (isAuthenticated) {
+    signout = (
+      <li>
+        <Link to={"/"} onClick={() => logout()}>
+          <i className="fi fi-rs-sign-out mr-10"></i>Sign out
+        </Link>
+      </li>
+    );
   }
 
   const cartItemsCount = useSelector(getCartItemsCount);
   const wishListCount = useSelector(getWishListItemsCount);
-  
+
+  if (isAuthenticated) {
+    actionIcons = (
+      <>
+        <div className="header-action-icon-2">
+          <a href="shop-compare">
+            <MdOutlineCompareArrows />
+            <span className="pro-count blue">0</span>
+          </a>
+          <a href="shop-compare">
+            <span className="lable ml-0">Compare</span>
+          </a>
+        </div>
+        <div className="header-action-icon-2">
+          <NavLink to={"/wishlist"}>
+            <BiHeart />
+            <span className="pro-count blue">{wishListCount}</span>
+          </NavLink>
+          <span className="lable">Wishlist</span>
+        </div>
+        <div className="header-action-icon-2">
+          <NavLink to={"/cart"} className="mini-cart-icon">
+            <AiOutlineShoppingCart />
+            <span className="pro-count blue">{cartItemsCount}</span>
+          </NavLink>
+          <a href="shop-cart">
+            <span className="lable">Cart</span>
+          </a>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="header-bottom header-bottom-bg-color bioup-sticky-navbar">
       <div className="container">
@@ -108,31 +138,7 @@ export default function LandingPageNav() {
             {registerBtn}
             {loginBtn}
             <div className="header-action-2">
-            <div className="header-action-icon-2">
-                  <a href="shop-compare">
-                  <MdOutlineCompareArrows/>
-                    <span className="pro-count blue">0</span>
-                  </a>
-                  <a href="shop-compare">
-                    <span className="lable ml-0">Compare</span>
-                  </a>
-                </div>
-                <div className="header-action-icon-2">
-                  <NavLink to={"/wishlist"}>
-                  <BiHeart/>
-                    <span className="pro-count blue">{wishListCount}</span>
-                  </NavLink>
-                  <span className="lable">Wishlist</span>
-                </div>
-                <div className="header-action-icon-2">
-                  <NavLink to={"/cart"} className="mini-cart-icon" >
-                  <AiOutlineShoppingCart/>
-                    <span className="pro-count blue">{cartItemsCount}</span>
-                  </NavLink>
-                  <a href="shop-cart">
-                    <span className="lable">Cart</span>
-                  </a>
-                </div>
+              {actionIcons}
               <div className="header-action-icon-2">
                 <a href="page-account">
                   <BiUser />
