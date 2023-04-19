@@ -9,7 +9,7 @@ import cartReducer from "./cart";
 import animalsReducer from "./animals";
 import shipmentSlice from "./shipment";
 import wishlistReducer from "./wishlist";
-
+import contractsReducer from "./contracts";
 export default combineReducers({
   users: usersReducer,
   farms: farmsReducer,
@@ -20,5 +20,7 @@ export default combineReducers({
   shipment:shipmentSlice,
   animals: animalsReducer,
   composts: compostsReducer,
-  wishList: wishlistReducer
+  wishList: wishlistReducer,
+  contracts: contractsReducer,
+  
 });
