@@ -10,6 +10,9 @@ import { addProductReducer } from "../../store/slices/productSlice";
 import Row from "react-bootstrap/Row";
 import { Spinner } from "react-bootstrap";
 import { TextField } from '@mui/material';
+import Swal from 'sweetalert2'
+import { makeStyles } from '@mui/styles';
+
 
 
 function AddProduct() {
@@ -68,7 +71,7 @@ function AddProduct() {
   }
 
 
-  const add = (e) => {
+  const add =async (e) => {
 
     e.preventDefault();
     setIsLoading(true);
@@ -83,14 +86,22 @@ formData.append('description', product.description);
 formData.append('categorie', product.categorie);
 formData.append('user', product.user);
 const userData = formData;
+dispatch(addProductReducer(product));
 
-    addProduct(userData).then(() => {
+
+await addProduct(userData).then(() => {
       console.log("product in insertion",userData);
       setIsLoading(false);
       dispatch(addProductReducer(userData));
+      Swal.fire(
+        'Good job!',
+        'You added a new bio product!',
+        'success'
+      )
       navigate("/Dashboard/Products/myproducts");
     });
   };
+
   useEffect(() => {
     setProduct({ ...product, user: userId });
     console.log("product",product);
