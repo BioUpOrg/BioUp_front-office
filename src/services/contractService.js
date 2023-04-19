@@ -41,3 +41,17 @@ const urlsaveSignature="http://localhost:3000/contract/saveUserSignature/"
     })
   
 }
+
+export const acceptContract=async (contractid)=>{
+  contractid=contractid || ''
+
+  return instance.put(`http://localhost:3000/contract/acceptContract/${contractid}`)
+  .then(response => {
+    console.log(response)
+      return response;
+  })
+  .catch(error => {
+    console.log(error);
+      return error;
+  })
+}
