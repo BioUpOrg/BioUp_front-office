@@ -15,8 +15,8 @@ const ManageDeliveryAgentContracts = () => {
   }, [dispatch]);
 
   const handleAcceptContract=(id)=>{
+    acceptContract(id);
     
-   acceptContract(id);
   }
 
 
@@ -58,7 +58,7 @@ const ManageDeliveryAgentContracts = () => {
                         <Container>
                           <Row className="justify-content-center">
                             <Col sm={6}>
-                               <Button  onClick={handleAcceptContract(contract._id)}>Accept</Button>
+                               <Button  onClick={()=>{handleAcceptContract(contract._id)}}>Accept</Button>
                             </Col>
                           </Row>
                           </Container>
