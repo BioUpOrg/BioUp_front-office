@@ -211,9 +211,9 @@ function Cart() {
                   </tbody>
                 </table>
               </div>
-              <a href="#" class="btn ">
+              <NavLink to={"/checkout"} className="btn">
                 <i class="fi-rs-box-alt mr-10"></i>Proceed To CheckOut
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>

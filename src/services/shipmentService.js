@@ -1,6 +1,7 @@
 
 import axios from "axios";
-import instance from '../utils/auth.interceptor'
+import { COMMANDS_ENDPOINT } from "../endpoints";
+import axiosInstance from "../utils/auth.interceptor";
 const urlmyshipment="http://localhost:3000/shipment/MyMission/";
 
 
@@ -45,3 +46,10 @@ export const getUserById = async (id)=>{
      return error;
  })
 }
+
+export const addCommand = async (command) => {
+  debugger;
+  const response = await axiosInstance.post(COMMANDS_ENDPOINT, command);
+  debugger;
+  return response.data;
+};
