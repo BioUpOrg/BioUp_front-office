@@ -130,7 +130,9 @@ const GridCell = ({
 export default function FarmGrid() {
   const classes = useStyles();
   const location = useLocation();
-  const farm = location?.state?.farm;
+  //const farm = location?.state?.farm;
+
+ const [farm, setFarm] =React.useState(location?.state?.farm);
   const numberOfAppleTrees = location?.state?.numberOfAppleTrees;
   const Navigate = useNavigate();
   const [state, setState] = React.useState({
@@ -207,12 +209,29 @@ let cols = numberOfAppleTrees.cols;
   };
 
   const list = (anchor) => {
-    const handlePlantClick = (plant) => {
+    function handlePlantClick(plant) {
+      setFarm((prevFarm) => {
+        const plantIndex = prevFarm.plants.findIndex(p => p === plant);
+        const newPlants = prevFarm.plants.filter((p, index) => index !== plantIndex);
+        return {
+          ...prevFarm,
+          plants: newPlants,
+        };
+      });
       updatedFarm(plant);
       toggleDrawer(anchor, false);
-    };
+    }
 
     const handleAnimalClick = (animal) => {
+      setFarm((prevFarm) => {
+        const animalIndex = prevFarm.animals.findIndex(p => p === animal);
+        const newAnimals = prevFarm.animals.filter((p, index) => index !== animalIndex);
+        return {
+          ...prevFarm,
+          animals: newAnimals,
+        };
+      });
+
       updatedFarmAnimal(animal);
       toggleDrawer(anchor, false);
     };

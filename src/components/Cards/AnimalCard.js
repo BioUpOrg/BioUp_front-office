@@ -26,6 +26,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import UpdateAnimalModal from '../modals/EditAnimalModal';
+import Swal from 'sweetalert2';
 
 export default function AnimalCard({ animal }) {
     const [expanded, setExpanded] = useState(false);
@@ -37,12 +38,27 @@ export default function AnimalCard({ animal }) {
       setExpanded(!expanded);
     };
   
-    const handleDelete = () => {
-      if (window.confirm("Are you sure you want to delete this animal?")) {
-          dispatch(deleteAnimal(animal._id)).then(() => {
+    const handleDelete = async() => {
+       const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this animal!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      });
+      if (result.isConfirmed) {
+        dispatch(deleteAnimal(animal._id)).then(() => {
               dispatch(getAnimals());
           });
+        Swal.fire(
+          'Deleted!',
+          'Your animal has been deleted.',
+          'success'
+        );
       }
+
   };
 
 

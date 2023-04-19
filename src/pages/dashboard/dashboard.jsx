@@ -8,6 +8,8 @@ export default function Dashboard() {
   const location = useLocation();
   const message = new URLSearchParams(location.search).get("message");
   const [statusRole,setStatusRole]=useState('true');
+  const [isadmin ,setisAdmin]=useState(false);
+
   const token =  localStorage.getItem("TOKEN_KEY");
   const decoded = jwt_decode(token);
   const userId=decoded.role;
@@ -15,7 +17,9 @@ export default function Dashboard() {
   useEffect(()=>{
         if(userId==="transporter"){
           setStatusRole(false)
-
+        }
+        else if (userId==="admin"){
+          setisAdmin(true);
         }
     console.log(statusRole)
 
@@ -29,7 +33,15 @@ export default function Dashboard() {
           <div class="row">
             <div class="col-md-3">
               <div class="dashboard-menu">
+          
+                
                 <ul class="nav flex-column" role="tablist">
+                       
+                <li hidden={!isadmin} className="nav-item">
+                    <NavLink className="nav-link" to="/Dashboard/manageContracts">
+                      <i className="fi-rs-settings-sliders mr-10"></i>Manage Contracts
+                    </NavLink>
+                  </li>
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/stats">
                       <i className="fi-rs-settings-sliders mr-10"></i>Dashboard
@@ -40,7 +52,7 @@ export default function Dashboard() {
                       <i class="fi-rs-shopping-bag mr-10"></i>Orders
                     </a>
                   </li>
-             
+                     
                 
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/compost-Form">
@@ -59,8 +71,8 @@ export default function Dashboard() {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink   hidden={statusRole} className="nav-link" to="/Dashboard/mylocation">
-                      <i className="fi-rs-marker mr-10"></i>My Mission 
+                    <NavLink className="nav-link" to="/Dashboard/mylocation">
+                      <i className="fi-rs-marker mr-10"></i>Get My Location 
                     </NavLink>
                     </li>
                     <li className="nav-item">

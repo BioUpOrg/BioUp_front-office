@@ -44,6 +44,8 @@ function ProductDetails() {
   const add = async () => {
     console.log("rating btn",rating);
     await addRating(rating);
+    window.location.reload(false);
+
   }
   
     const getProductFunction = async () => {
@@ -88,15 +90,13 @@ function ProductDetails() {
   onChange={(e, ratingValue) => {
     setValue(ratingValue);
     addRatingP(e);
+    add();
+
     console.log("ratingValuenow",product.rating);
     
   }}
 />
-  <Button variant="success" size="sm" onClick={() => {
-          add();
-          getProductFunction();
-
-           } }>Add Rating</Button>
+ 
 
 <p>rating :{product.rating}</p>
 

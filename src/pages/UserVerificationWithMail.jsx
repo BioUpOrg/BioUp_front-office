@@ -22,7 +22,7 @@ const urlverifMail ="http://localhost:3000/users/check/activate/account/";
         console.log(response);
     console.log("res",response);
     if(response ==="unverified"){
-      setMsg("Your account Not Verified");
+      setMsg("Your account Not Verified Please check your mail ");
     }else{
    
       setMsg(`Hi ,${response.lastName} ${response.firstName} your Account has been  Verified`);
@@ -32,7 +32,7 @@ const urlverifMail ="http://localhost:3000/users/check/activate/account/";
 
 
   return (
-    <Container>
+    <Container style = {{marginTop:'3%'}}>
       <Row className="justify-content-center">
         <Col md={10}>
           <div className="swiper-slide">

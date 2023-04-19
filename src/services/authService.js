@@ -19,9 +19,14 @@ export const Login = (data, navigate) => {
         navigate("/404?message=USER not found");
       } else if (err.response.data.error === "INCORRECT_PASSWORD") {
         navigate("/401?message=password incorrect");
-      } else if (err.response.data.error === "NOT_ACTIVATED") {
-        navigate("/401?message= you account is still not activated");
-      } else if (err.response.data.error === "BLOCKED") {
+      }
+       else if (err.response.data.error === "NOT_ACTIVATED"&&data.email) {
+        navigate("/users/check/activate/account/:token");
+      }
+        else if (err.response.data.error === "NOT_ACTIVATED"&&data.phone) {
+          navigate("/verify-account-sms");
+        }
+       else if (err.response.data.error === "BLOCKED") {
         navigate("/401?message=you are blocked please contact the admin");
       }
     });
