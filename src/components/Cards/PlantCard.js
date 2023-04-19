@@ -26,6 +26,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import UpdatePlantModal from '../modals/EditPlantModal';
+import Swal from 'sweetalert2';
+
 
 export default function PlantCard({ plant }) {
     const [expanded, setExpanded] = useState(false);
@@ -37,12 +39,28 @@ export default function PlantCard({ plant }) {
       setExpanded(!expanded);
     };
   
-    const handleDelete = () => {
-      if (window.confirm("Are you sure you want to delete this plant?")) {
-          dispatch(deletePlant(plant._id)).then(() => {
-              dispatch(getPlants());
-          });
+    const handleDelete = async () => {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this plant!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      });
+      if (result.isConfirmed) {
+        dispatch(deletePlant(plant._id)).then(() => {
+          dispatch(getPlants());
+      });
+        Swal.fire(
+          'Deleted!',
+          'Your plant has been deleted.',
+          'success'
+        );
       }
+
+      
   };
 
 

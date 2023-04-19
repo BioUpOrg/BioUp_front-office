@@ -28,6 +28,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import UpdateFarmModal from '../modals/EditFarmModal';
 import { useNavigate } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function FarmCard({ farm }) {
     const [expanded, setExpanded] = useState(false);
@@ -39,11 +40,26 @@ export default function FarmCard({ farm }) {
       setExpanded(!expanded);
     };
   
-    const handleDelete = () => {
-      if (window.confirm("Are you sure you want to delete this farm?")) {
-          dispatch(deleteFarm(farm._id)).then(() => {
-              dispatch(getFarms());
-          });
+    const handleDelete = async() => {
+
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this Farm!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      });
+      if (result.isConfirmed) {
+        dispatch(deleteFarm(farm._id)).then(() => {
+          dispatch(getFarms());
+      });
+        Swal.fire(
+          'Deleted!',
+          'Your Farm has been deleted.',
+          'success'
+        );
       }
   };
 
