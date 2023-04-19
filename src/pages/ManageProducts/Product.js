@@ -11,10 +11,12 @@ import { BsTrash } from "react-icons/bs";
 import { BsInfoCircle } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
-import { selectProduct } from "../../../src/store/slices/productSlice";
+import { selectProduct,deleteProductReducer } from "../../../src/store/slices/productSlice";
+import {useNavigate} from "react-router-dom";
 
 
 function Product(props) {
+  const navigate = useNavigate();
   const [product,] = useState(props.product);
   const [likes, setLikes] = useState(props.product.like);
   const dispatch = useDispatch();
@@ -25,7 +27,9 @@ function Product(props) {
     const result = window.confirm("Are you sure you want to delete?");
   if (result) {
     await deleteProduct(id);
-    getProducts();
+    dispatch(deleteProductReducer(product));
+    window.location.reload(false);
+
    }
 }
   const addToCart = (p) => {
