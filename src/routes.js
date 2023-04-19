@@ -56,7 +56,6 @@ import ProductDetailsLayout from "./pages/ManageProducts/productDetailsLayout";
 import Descriptionproducts from "./pages/ManageProducts/Descriptionproducts";
 import AdditionalInfoproducts from "./pages/ManageProducts/additionalinfoproducts";
 import Reviewsproducts from "./pages/ManageProducts/reviewsproducts";
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { MyLocation } from "@mui/icons-material";
@@ -64,6 +63,7 @@ import GetListCommandeNotShipped from "./pages/Shipment/GetListCommandeNotShippe
 import Cart from "./pages/cart";
 import HeaderMiddle from "./components/navbars/headerMiddle";
 import WishList from "./pages/wishlist";
+import ManageDeliveryAgentContracts from "./pages/ManageContractsForAdmin/manageDeliveryAgentContracts";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -189,6 +189,7 @@ const MyAppRoutes = () => {
           }
         >
          <Route path="user-dashboard" element={<UserDashbord/>}/>
+         <Route path="manageContracts" element={<ManageDeliveryAgentContracts/>}/>
          <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
          <Route path="popSignature" element={<ProtectedRoute><PopSignature/></ProtectedRoute>}/>
          <Route path="mylocation" element ={<ProtectedRoute><DeliveryMap /></ProtectedRoute>}/>
