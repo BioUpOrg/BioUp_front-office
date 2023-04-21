@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {   getContracts } from '../../store/contracts';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { set } from 'date-fns';
- import {acceptContract}  from '../../services/contractService'
-
+import { acceptContract } from '../../store/contracts';
 const ManageDeliveryAgentContracts = () => {
   const contracts = useSelector((state) => state.entities.contracts);
 
@@ -15,8 +14,8 @@ const ManageDeliveryAgentContracts = () => {
   }, [dispatch]);
 
   const handleAcceptContract=(id)=>{
-    acceptContract(id);
-    
+dispatch(acceptContract(id)).then((res)=>{
+  window.location.reload()}) 
   }
 
 
@@ -42,6 +41,7 @@ const ManageDeliveryAgentContracts = () => {
                     <th className="col">Vehicle Matricule</th>
                     <th className="col">User Full Name</th>
                     <th className="col">Salary Unit (100km)</th>
+                    <th className='col'>Status Contract</th>
                     <th className="col">Action</th>
                   </tr>
                 </thead>
@@ -54,6 +54,7 @@ const ManageDeliveryAgentContracts = () => {
                         <td>{contract.vehicle.matricule}</td>
                         <td>{contract.user.firstName} {contract.user.lastName}</td>
                         <td>{contract.salary}</td>
+                        <td>{contract.statuscontract ? "Accepted":"peending" }</td>
                         <td>
                         <Container>
                           <Row className="justify-content-center">

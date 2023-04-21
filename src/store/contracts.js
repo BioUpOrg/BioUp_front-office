@@ -83,17 +83,12 @@ export const acceptContract = (id) =>{
   return apiCallBegan({
     url: `/contract/acceptContract/${id}`,
     method: "put",
-       
+    onSuccess:contractsUpdated.type,   
     onError: contractsRequestFailed.type,
   });
 }
-  export const deleteContract = (id) =>
-  apiCallBegan({
-    url: `/contract/${id}`,
-    method: "delete",
-    onSuccess: contractDeleted.type,
-    onError: contractsRequestFailed.type,
-  });
+
+
 
 
 
