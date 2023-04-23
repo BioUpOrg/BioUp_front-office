@@ -80,8 +80,8 @@ function ProductDetails() {
             <p style={{ marginLeft: "50px"}}>
             {product.description}
             </p>
-            <h5>Price :</h5>
-            <p style={{ marginLeft: "50px"}}>{product.price} DT</p>
+            <h5>unitPrice :</h5>
+            <p style={{ marginLeft: "50px"}}>{product.unitPrice} DT</p>
 
           
             <Rating

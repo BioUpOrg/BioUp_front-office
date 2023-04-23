@@ -46,8 +46,8 @@ function Product(props) {
           <Link to={`/products/${product._id}`}>{product.name}</Link>
         </Card.Title>
         <Card.Text>{product.description}</Card.Text>
-        <Card.Text>Price :{product.price}</Card.Text>
-        <Card.Text>Quantity :{product.quantity}</Card.Text>
+        <Card.Text>unitPrice :{product.unitPrice}</Card.Text>
+        <Card.Text>quantityWeight :{product.quantityWeight}</Card.Text>
         <Row>
       
         
@@ -56,7 +56,7 @@ function Product(props) {
             size="sm"
               variant="primary"
               onClick={() => props.buyFunction(product)}
-              disabled={product.quantity <= 0}
+              disabled={product.quantityWeight <= 0}
             >
               Buy
             </Button>

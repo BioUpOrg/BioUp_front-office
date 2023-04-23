@@ -61,8 +61,8 @@ function Product(props) {
           <Link to={`/products/${product._id}`}>{product.name}</Link>
         </td>
         <td>{product.description}</td>
-        <td>{product.price}</td>
-        <td>{product.quantity}</td>
+        <td>{product.unitPrice}</td>
+        <td>{product.quantityWeight}</td>
       
         
           {/* <Col md={6}>
@@ -70,7 +70,7 @@ function Product(props) {
             size="sm"
               variant="primary"
               onClick={() => props.buyFunction(product)}
-              disabled={product.quantity <= 0}
+              disabled={product.quantityWeight <= 0}
             >
               Buy
             </Button>

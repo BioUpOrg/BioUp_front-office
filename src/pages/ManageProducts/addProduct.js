@@ -19,10 +19,10 @@ function AddProduct() {
 
   const [product, setProduct] = useState({
     name: "",
-    price: 0,
+    unitPrice: 0,
     pic:'',
     like: 0,
-    quantity: 0,
+    quantityWeight: 0,
     description: "",
     categorie : "",
     user:""
@@ -79,9 +79,9 @@ function AddProduct() {
     const formData = new FormData();
 formData.append('file', product.pic);
 formData.append('name', product.name);
-formData.append('price', product.price);
+formData.append('unitPrice', product.unitPrice);
 formData.append('like', product.like);
-formData.append('quantity', product.quantity);
+formData.append('quantityWeight', product.quantityWeight);
 formData.append('description', product.description);
 formData.append('categorie', product.categorie);
 formData.append('user', product.user);
@@ -132,18 +132,18 @@ await addProduct(userData).then(() => {
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Price</Form.Label>
+          <Form.Label>unitPrice</Form.Label>
           <Form.Control
             type="number"
-            name="price"
+            name="unitPrice"
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Quantity</Form.Label>
+          <Form.Label>quantityWeight</Form.Label>
           <Form.Control
             type="number"
-            name="quantity"
+            name="quantityWeight"
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>

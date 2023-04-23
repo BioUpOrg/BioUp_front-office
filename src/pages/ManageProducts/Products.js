@@ -31,7 +31,7 @@ function Products () {
       console.log('====================================');
       console.log(product);
       console.log('====================================');
-        product.quantity--;
+        product.quantityWeight--;
         setVisible(true);
         setTimeout(()=>{setVisible(false)},2000)
     }
