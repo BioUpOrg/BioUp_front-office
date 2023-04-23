@@ -88,19 +88,19 @@ function Product(props) {
             )}
           </div>
           <div className="product-card-bottom">
-            <div className="product-price">
+            <div className="product-unitunitPrice">
               <span>
                 ${product.discountOffered
                   ? (
-                      (product.quantityWeight * product.unitPrice) -
-                      (product.quantityWeight * product.unitPrice) /
+                      (product.quantityWeightWeight * product.unitunitunitPrice) -
+                      (product.quantityWeightWeight * product.unitunitunitPrice) /
                         (100 * product.discountOffered)
                     ).toFixed(2)
-                  : (product.quantityWeight * product.unitPrice)}
+                  : (product.quantityWeightWeight * product.unitunitunitPrice)}
               </span>
               {product.discountOffered && (
-                <span className="old-price">
-                  ${product.quantityWeight * product.unitPrice}
+                <span className="old-unitunitPrice">
+                  ${product.quantityWeightWeight * product.unitunitunitPrice}
                 </span>
               )}
             </div>

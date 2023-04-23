@@ -10,14 +10,14 @@ export default function UpdateProduct() {
   const [product, setProduct] = useState({
     id: param.id ,
     name: "",
-    price: 0,
+    unitPrice: 0,
     img: "",
     like: 0,
-    quantity: 0,
+    quantityWeight: 0,
     description: "",
   });
   const dispatch = useDispatch()
-  const { name, price, quantity, description } = product;
+  const { name, unitPrice, quantityWeight, description } = product;
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     getProductFunction();
@@ -74,21 +74,21 @@ export default function UpdateProduct() {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>unitPrice</Form.Label>
             <Form.Control
               type="number"
                 onChange={(e) => onValueChange(e)}
-              name="price"
-              value={price}
+              name="unitPrice"
+              value={unitPrice}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Quantity</Form.Label>
+            <Form.Label>quantityWeight</Form.Label>
             <Form.Control
               type="number"
                 onChange={(e) => onValueChange(e)}
-              name="quantity"
-              value={quantity}
+              name="quantityWeight"
+              value={quantityWeight}
             />
           </Form.Group>
           <Form.Group className="mb-3">

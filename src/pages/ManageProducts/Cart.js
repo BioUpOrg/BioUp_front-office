@@ -17,8 +17,8 @@ export default function Cart(props) {
   const Total = useSelector(selectTotal);
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
-  function TotalPrice(price, q) {
-    return Number(price * q).toString();
+  function TotalunitPrice(unitPrice, q) {
+    return Number(unitPrice * q).toString();
   }
   const addItemToCart = (p) => {
     dispatch(increment(p));
@@ -62,7 +62,7 @@ export default function Cart(props) {
                               
                               <div className="d-flex align-items-center">
                                 <p className="fw-bold mb-0 me-5 pe-3">
-                                  {item.price} DT
+                                  {item.unitPrice} DT
                                 </p>
 
                                 {/* <div className="def-number-input number-input safari_only"> */}
@@ -72,9 +72,9 @@ export default function Cart(props) {
                                   >-</button>
                                   
                                   <input
-                                    className="quantity fw-bold text-black def-number-input number-input safari_only"
+                                    className="quantityWeight fw-bold text-black def-number-input number-input safari_only"
                                     min={0}
-                                    value={item.quantity}
+                                    value={item.quantityWeight}
                                     type="number"
                                   />
                                   <button
@@ -82,7 +82,7 @@ export default function Cart(props) {
                                     onClick={() => addItemToCart(item)}
                                   >+</button>
                                   <p className="fw-bold mb-0 me-5 pe-3">
-                                  Total Price : {item.quantity*item.price} DT
+                                  Total unitPrice : {item.quantityWeight*item.unitPrice} DT
                                 </p>
                                 {/* </div> */}
                                 <button className="RemoveCart" onClick={()=>DeleteItem(item)}>X</button>

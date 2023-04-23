@@ -37,7 +37,7 @@ function Products () {
       console.log('====================================');
       console.log(product);
       console.log('====================================');
-        product.quantity--;
+        product.quantityWeight--;
         setVisible(true);
         setTimeout(()=>{setVisible(false)},2000)
     }
@@ -76,8 +76,8 @@ function Products () {
             <th>image</th>
             <th>name</th>
             <th>description</th>
-            <th>price</th>
-            <th>quantity</th>
+            <th>unitPrice</th>
+            <th>quantityWeight</th>
             <th>action</th>
           </tr>
         </thead>
