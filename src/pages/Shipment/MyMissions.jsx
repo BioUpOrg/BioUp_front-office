@@ -60,8 +60,7 @@ const MyMissions = () => {
     await getComposts().then((res)=>dispatch(populateComposts(res)));
   }
 
- 
- 
+
 const handleClickDetails = (product) => {
   console.log("product:", product);
   console.log("products:", products);
@@ -74,7 +73,6 @@ const handleClickDetails = (product) => {
       console.log(`Bioprod:`, biop);
       getUserById(biop.user).then((res) => {
         console.log("userd",res.data);
-       
         setUserDetailbio(res.data);
       }); 
       setbioprod(biop);
