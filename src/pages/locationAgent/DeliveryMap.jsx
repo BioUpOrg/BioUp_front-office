@@ -92,15 +92,15 @@ const Maps = () => {
         <Row>
 
           
-          <MyMissions/>
+          
           
           <Col>
           <MapContainer
               center={[33.886917, 9.537499]}
-              zoom={18}
+              zoom={13}
               scrollWheelZoom
               enableHighAccuracy
-              style={{ height: "58vh",width:"100%" }}
+              style={{ height: "90vh",width:"100%" }}
             >
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -112,7 +112,7 @@ const Maps = () => {
 
             </MapContainer>
           </Col>
-           
+          <MyMissions/>
 
           
         </Row>
