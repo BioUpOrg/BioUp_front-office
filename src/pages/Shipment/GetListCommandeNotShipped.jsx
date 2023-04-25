@@ -5,10 +5,11 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { setUserId } from "../../store/users";
 import { fetchProducts, selectProduct } from "../../store/slices/productSlice";
 import jwt_decode from "jwt-decode";
-import { set } from "date-fns";
 import { populateComposts } from "../../store/composts";
 import { getComposts } from "../../services/compostService";
 //
+import { getMyMission } from '../../services/shipmentService';
+
 function GetListCommandeNotShipped() {
   const dispatch = useDispatch();
  
@@ -37,21 +38,28 @@ function GetListCommandeNotShipped() {
   const handleCreateShipment = async () => {
     dispatch(setUserId(userId));
     console.log(userId);
-    try {
-      await dispatch(
-        addShipment({
-          shipment_agent: userId,
-          shipment_items: selectedOrders.map((orderId) => ({
-            commande_id: orderId,
-          })),
-        })
-      );
-      console.log("Shipment created successfully");
-      setSelectedOrders([]);
-      window.location.reload(); // add this line
-    } catch (error) {
-      console.log("Error creating shipment", error);
-    }
+    const mission=getMyMission(userId).then(async (res)=>{
+      if(!res){
+        try {
+          await dispatch(
+            addShipment({
+              shipment_agent: userId,
+              shipment_items: selectedOrders.map((orderId) => ({
+                commande_id: orderId,
+              })),
+            })
+          );
+          console.log("Shipment created successfully");
+          setSelectedOrders([]);
+          window.location.reload(); // add this line
+        } catch (error) {
+          console.log("Error creating shipment", error);
+        }
+      }else{
+        alert("you have already a shipment in progress");
+      }
+    })
+ 
   };
   return (
     <Container style={{ margin: "5%" }}>
