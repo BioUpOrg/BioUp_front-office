@@ -53,3 +53,17 @@ export const addCommand = async (command) => {
   debugger;
   return response.data;
 };
+export const updateMylocation =async (position,agent_id)=>{
+  agent_id=agent_id || ''
+  
+  return axios.put(`http://localhost:3000/shipment/updateMylocation/${agent_id}`,{position})
+  .then(response => {
+    console.log(response)
+      return response;
+  })
+  .catch(error => {
+    console.log(error);
+      return error;
+  })
+ 
+}

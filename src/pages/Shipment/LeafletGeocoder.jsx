@@ -5,6 +5,10 @@ import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
 import { useMap } from 'react-leaflet';
+import { updateMylocation } from '../../services/shipmentService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserId } from "../../store/users";
+import jwt_decode from "jwt-decode";
 
 L.Marker.prototype.options.icon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
@@ -17,7 +21,12 @@ const tabcord = [];
 function LeafletGeocoder({ onSearch, position }) {
   const [coordinates, setCoordinates] = useState(null);
   const map = useMap();
-  
+  const dispatch = useDispatch();
+
+  const token = localStorage.getItem("TOKEN_KEY");
+  const decoded = jwt_decode(token);
+  const userId = decoded._id;  
+
   function sortTabcordByNearestDistance(point) {
     tabcord.sort((a, b) => {
       const distanceA = point.distanceTo(a);
@@ -51,12 +60,15 @@ function LeafletGeocoder({ onSearch, position }) {
     if (coordinates) {
       onSearch(coordinates);
       console.log(coordinates);
-    
+      
       if (tabcord.length === 0 || tabcord[0] !== position) {
         tabcord.push(position);
+           
         console.log('initpos', position);
+
       }
-    
+     
+
       tabcord.push(coordinates);
       console.log('tabcord', tabcord);
     
@@ -70,7 +82,7 @@ function LeafletGeocoder({ onSearch, position }) {
     
       for (let i = 1; i < tabcord.length; i++) {
         const distance = tabcord[0].distanceTo(tabcord[i]);
-    
+     
         if (nearestDistance === null || distance < nearestDistance) {
           nearestDistance = distance;
           nearestPlace = tabcord[i];
@@ -98,17 +110,19 @@ function LeafletGeocoder({ onSearch, position }) {
           draggableWaypoints: false, // disable dragging of waypoints
         }), // Use OSRM router with Dijkstra's algorithm
         lineOptions: {  
-
+           
           styles: [
             { color: 'blue', opacity: 1, weight: 1.5 },
-
           ],
         },
       }).addTo(map);
     
       routing.setWaypoints(tabcord.map((c) => L.latLng(c)));
+
     }
-    
+    dispatch(setUserId(userId));
+
+    updateMylocation(position,userId);
   }, [coordinates, onSearch, position]);
 
   return null;
