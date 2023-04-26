@@ -17,6 +17,7 @@ const tabcord = [];
 function LeafletGeocoder({ onSearch, position }) {
   const [coordinates, setCoordinates] = useState(null);
   const map = useMap();
+  
   function sortTabcordByNearestDistance(point) {
     tabcord.sort((a, b) => {
       const distanceA = point.distanceTo(a);
