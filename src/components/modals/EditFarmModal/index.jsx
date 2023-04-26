@@ -40,14 +40,19 @@ export default function UpdateFarmModal({ element }) {
   function getSelectedPlants(plantData) {
     const selectedPlants = {};
     plantData.forEach((data) => {
+
       const plantId = data.plant._id; // Access the plant ID from the plant object
       if (!selectedPlants[plantId]) {
-        // Create a new plant object if it doesn't exist
-        selectedPlants[plantId] = { ...data.plant };
-        selectedPlants[plantId].quantity = 1;
+        // Create a new plant object with position if it doesn't exist
+        selectedPlants[plantId] = {
+          ...data.plant,
+          quantity: 1,
+          positions: [data.position]
+        };
       } else {
-        // Increment the quantity of an existing plant object
+        // Update the quantity and positions of an existing plant object
         selectedPlants[plantId].quantity += 1;
+        selectedPlants[plantId].positions.push(data.position);
       }
     });
     // Return an array of plants with the total quantity
@@ -62,11 +67,17 @@ export default function UpdateFarmModal({ element }) {
       const animalId = data.animal._id; // Access the animal ID from the animal object
       if (!selectedAnimals[animalId]) {
         // Create a new animal object if it doesn't exist
-        selectedAnimals[animalId] = { ...data.animal };
+        selectedAnimals[animalId] = {
+           ...data.animal ,
+          quantity: 1,
+          positions: [data.position]
+        };
         selectedAnimals[animalId].quantity = 1;
       } else {
         // Increment the quantity of an existing animal object
         selectedAnimals[animalId].quantity += 1;
+        selectedAnimals[animalId].positions.push(data.position);
+
       }
     });
     // Return an array of animals with the total quantity
@@ -121,22 +132,38 @@ export default function UpdateFarmModal({ element }) {
     onSubmit: async (data) => {
 
       const plantData = selectedPlants.reduce((plants, plant) => {
+        
+        if(plant.positions){
+        for (let i = 0; i < plant.quantity; i++) {
+          plants.push({ plant: plant._id , position:plant.positions[i] });
+        }
+      }else{
         for (let i = 0; i < plant.quantity; i++) {
           plants.push({ plant: plant._id });
         }
+      }
+
         return plants;
       }, []);
       data.plants = plantData;
 
 
       const animalData = selectedAnimals.reduce((animals, animal) => {
+        if(animal.positions){
+
         for (let i = 0; i < animal.quantity; i++) {
-          animals.push({ animal: animal._id });
+          animals.push({ animal: animal._id, position:animal.positions[i] });
         }
+      }
+      else{
+        for (let i = 0; i < animal.quantity; i++) {
+          animals.push({ animal: animal._id});
+        }
+      }
+
         return animals;
       }, []);
       data.animals = animalData;
-
 
 
       dispatch(updateFarm(data, element._id))
