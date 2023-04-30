@@ -67,3 +67,18 @@ export const updateMylocation =async (position,agent_id)=>{
   })
  
 }
+export const getMyOrderLocation = async (trackid) => {
+  trackid=trackid || ''
+  try {
+    const response = await axios.get(`http://localhost:3000/shipment/getMyOrderLocation/${trackid}`);
+    console.log("res",JSON.stringify(response.data));
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
+
+

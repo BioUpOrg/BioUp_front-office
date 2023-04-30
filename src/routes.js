@@ -65,6 +65,8 @@ import HeaderMiddle from "./components/navbars/headerMiddle";
 import WishList from "./pages/wishlist";
 import Checkout from "./pages/checkout";
 import ManageDeliveryAgentContracts from "./pages/ManageContractsForAdmin/manageDeliveryAgentContracts";
+import TrackMyOrder from "./pages/Shipment/TrackMyOrder";
+import OrderPosition from "./pages/Shipment/OrderPosition";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -144,6 +146,7 @@ const MyAppRoutes = () => {
         <Route path="/users/check/activate/account/:token" element={<><UserVerificationWithMail/></>}/>
         <Route path="/RecoverPassEmail" element={<RecoverPassEmail/>} />
         <Route path="delivery-agent-contract-form" element={<><PrivateRoute><ContractForm/></PrivateRoute></>}/>
+        <Route path="/order/:lat/:lng" element={<OrderPosition />} />
 
         <Route
           path="/verify-account-sms"
@@ -196,6 +199,7 @@ const MyAppRoutes = () => {
          <Route path="mylocation" element ={<ProtectedRoute><DeliveryMap /></ProtectedRoute>}/>
          <Route path="listorder" element={<ProtectedRoute><GetListCommandeNotShipped/></ProtectedRoute>}/>
           <Route path="user-dashboard" element={<UserDashbord />} />
+          <Route path="trackMyOrder" element={<TrackMyOrder/>}/>
           <Route
             path="mycontract"
             element={
