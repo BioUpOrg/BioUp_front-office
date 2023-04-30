@@ -37,7 +37,8 @@ const Maps = () => {
   function DeliveryMap() {
     const [position, setPosition] = useState(null);
     const [deliveryPosition, setDeliveryPosition] = useState(null);
-    
+    const [draggable, setDraggable] = useState(true);
+
 
     const map = useMap();
 
@@ -56,6 +57,8 @@ const Maps = () => {
       }
     }, [position]);
 
+
+    
     const markerIcon = L.icon({
       iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
       iconSize: [25, 41],
@@ -71,7 +74,12 @@ const Maps = () => {
 
     return position === null ? null : (
       <>
-        <Marker position={position} icon={markerIcon}>
+      <Marker position={position} icon={markerIcon} draggable={draggable} eventHandlers={{
+    dragend: (event) => {
+      setPosition(event.target.getLatLng());
+      console.log("new position", position)
+    },
+  }} >
           <Popup>You are here</Popup>
         </Marker>
         {searchCoordinates && <Marker position={searchCoordinates} />
@@ -79,7 +87,8 @@ const Maps = () => {
         
         <LeafletGeocoder  
         onSearch={handleSearch}
-     position={deliveryPosition}
+         position={position}
+     
 />
       </>
     );
