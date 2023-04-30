@@ -20,6 +20,8 @@ const tabcord = [];
 
 function LeafletGeocoder({ onSearch, position }) {
   const [coordinates, setCoordinates] = useState(null);
+  const [routingControl, setRoutingControl] = useState(null); // Add state variable for routing control
+  const [pos,setPos]=useState(null);
   const map = useMap();
   const dispatch = useDispatch();
 
@@ -37,6 +39,7 @@ function LeafletGeocoder({ onSearch, position }) {
 
   
   useEffect(() => {
+    
     const searchControl = L.Control.geocoder({
       defaultMarkGeocode: false,
     }).on('markgeocode', function (e) {
@@ -57,14 +60,20 @@ function LeafletGeocoder({ onSearch, position }) {
   }, [map]);
 
   useEffect(() => {
+    setPos(position);
+  }, [position]);
+
+  useEffect(() => {
     if (coordinates) {
       onSearch(coordinates);
       console.log(coordinates);
-      
-      if (tabcord.length === 0 || tabcord[0] !== position) {
-        tabcord.push(position);
-           
-        console.log('initpos', position);
+       
+   
+    
+      if (tabcord.length === 0 || tabcord[0] !== pos) {
+        tabcord.splice(0);
+           tabcord[0]=pos;
+        console.log('initpos', );
 
       }
      
@@ -94,14 +103,17 @@ function LeafletGeocoder({ onSearch, position }) {
       console.log('nearestPlace', nearestPlace);
       console.log('nearestDistance', nearestDistance);
       console.log('totalDistance', totalDistance);
-
+      if (routingControl !== null) {
+        map.removeControl(routingControl);
+      }
+      
       // Remove any existing routing control from the map
       map.eachLayer((layer) => {
         if (layer instanceof L.Routing.control) {
           map.removeControl(layer);
         }
       });
-    
+      
       // Create a new routing control using Dijkstra's algorithm to calculate the shortest path
       const routing = L.Routing.control({
         waypoints: tabcord.map((c) => L.latLng(c)),
@@ -109,21 +121,23 @@ function LeafletGeocoder({ onSearch, position }) {
         router: new L.Routing.osrmv1({
           draggableWaypoints: false, // disable dragging of waypoints
         }), // Use OSRM router with Dijkstra's algorithm
-        lineOptions: {  
-           
+        lineOptions: {
           styles: [
             { color: 'blue', opacity: 1, weight: 1.5 },
           ],
         },
       }).addTo(map);
-    
+      
       routing.setWaypoints(tabcord.map((c) => L.latLng(c)));
+      
+      // Set routingControl state variable to new routing control
+      setRoutingControl(routing);
 
     }
     dispatch(setUserId(userId));
 
-    updateMylocation(position,userId);
-  }, [coordinates, onSearch, position]);
+    updateMylocation(pos,userId);
+  }, [coordinates, onSearch, pos]);
 
   return null;
 }

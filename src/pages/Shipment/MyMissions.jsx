@@ -98,19 +98,19 @@ const handleClickDetails = (product) => {
   }
 };
   return (
-    <Container>
-      <h3 className='text-center my-3'>My Mission</h3>
-  
+    <div  className='product-info' style={{marginBottom:'6%'}}>
+<Container>
+      <h3 style={{color:'green', fontFamily:'revert'}}>My Mission</h3>
       {mission && mission.shipment_items && (// use parentheses to wrap multiple lines of code
         <Card>
-          <Card.Body>
+          <Card.Body >
             
             <Table bordered hover>
               <thead>
                 <tr>
-                  <th>Price</th>
-                  <th>Shipment Location</th>
-                  <th>Product Details</th>
+                  <td>Price</td>
+                  <td>Shipment Location</td>
+                  <td>Product Details</td>
                 </tr>
               </thead>
               <tbody>
@@ -166,6 +166,8 @@ const handleClickDetails = (product) => {
         </Card>
       )}
     </Container>
+    </div>
+    
   );
                             }
  export default MyMissions  
