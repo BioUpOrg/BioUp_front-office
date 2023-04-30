@@ -48,10 +48,8 @@ export const getUserById = async (id)=>{
 }
 
 export const addCommand = async (command) => {
-  debugger;
   const response = await axiosInstance.post(COMMANDS_ENDPOINT, command);
-  debugger;
-  return response.data;
+  return response;
 };
 export const updateMylocation =async (position,agent_id)=>{
   agent_id=agent_id || ''
