@@ -10,7 +10,8 @@ import { deleteProduct, getMyProducts } from "../../../src/services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { populateProducts } from "../../store/slices/productSlice";
 function Products () {
-    const products = useSelector((state)=>state.entities.products.products)
+   // const products = useSelector((state)=>state.entities.products.products)
+   const[products,setProducts]=useState([]);
     const userId = useSelector((state) => state.entities.users.userId);
 
     const dispatch= useDispatch();
@@ -18,6 +19,7 @@ function Products () {
     const [visible2,setVisible2]=useState(false)
     // const [currentUser] = useOutletContext();
     useEffect(() => {
+      
       // getProducts()
       // .then((res)=>{setProducts(res.data);console.log(res)})
       // .catch((error)=>console.log(error))
@@ -27,14 +29,15 @@ function Products () {
     
     const getAllProduct=async()=>{
         console.log(userId);
-      await getMyProducts(userId).then((res)=>dispatch(populateProducts(res.data)));
+      await getMyProducts(userId).then((res)=>setProducts(res.data));
+     
       // setProducts(res.data);
     }
     const buy=(product)=>{
       console.log('====================================');
       console.log(product);
       console.log('====================================');
-        product.quantity--;
+        product.quantityWeight--;
         setVisible(true);
         setTimeout(()=>{setVisible(false)},2000)
     }
@@ -73,8 +76,8 @@ function Products () {
             <th>image</th>
             <th>name</th>
             <th>description</th>
-            <th>price</th>
-            <th>quantity</th>
+            <th>unitPrice</th>
+            <th>quantityWeight</th>
             <th>action</th>
           </tr>
         </thead>

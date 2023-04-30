@@ -10,16 +10,19 @@ import { addProductReducer } from "../../store/slices/productSlice";
 import Row from "react-bootstrap/Row";
 import { Spinner } from "react-bootstrap";
 import { TextField } from '@mui/material';
+import Swal from 'sweetalert2'
+import { makeStyles } from '@mui/styles';
+
 
 
 function AddProduct() {
 
   const [product, setProduct] = useState({
     name: "",
-    price: 0,
+    unitPrice: 0,
     pic:'',
     like: 0,
-    quantity: 0,
+    quantityWeight: 0,
     description: "",
     categorie : "",
     user:""
@@ -68,7 +71,7 @@ function AddProduct() {
   }
 
 
-  const add = (e) => {
+  const add =async (e) => {
 
     e.preventDefault();
     setIsLoading(true);
@@ -76,21 +79,29 @@ function AddProduct() {
     const formData = new FormData();
 formData.append('file', product.pic);
 formData.append('name', product.name);
-formData.append('price', product.price);
+formData.append('unitPrice', product.unitPrice);
 formData.append('like', product.like);
-formData.append('quantity', product.quantity);
+formData.append('quantityWeight', product.quantityWeight);
 formData.append('description', product.description);
 formData.append('categorie', product.categorie);
 formData.append('user', product.user);
 const userData = formData;
+dispatch(addProductReducer(product));
 
-    addProduct(userData).then(() => {
+
+await addProduct(userData).then(() => {
       console.log("product in insertion",userData);
       setIsLoading(false);
       dispatch(addProductReducer(userData));
+      Swal.fire(
+        'Good job!',
+        'You added a new bio product!',
+        'success'
+      )
       navigate("/Dashboard/Products/myproducts");
     });
   };
+
   useEffect(() => {
     setProduct({ ...product, user: userId });
     console.log("product",product);
@@ -121,18 +132,18 @@ const userData = formData;
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Price</Form.Label>
+          <Form.Label>unitPrice</Form.Label>
           <Form.Control
             type="number"
-            name="price"
+            name="unitPrice"
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Quantity</Form.Label>
+          <Form.Label>quantityWeight</Form.Label>
           <Form.Control
             type="number"
-            name="quantity"
+            name="quantityWeight"
             onChange={(e) => handleChange(e)}
           />
         </Form.Group>

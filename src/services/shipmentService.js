@@ -51,3 +51,32 @@ export const addCommand = async (command) => {
   const response = await axiosInstance.post(COMMANDS_ENDPOINT, command);
   return response;
 };
+export const updateMylocation =async (position,agent_id)=>{
+  agent_id=agent_id || ''
+  
+  return axios.put(`http://localhost:3000/shipment/updateMylocation/${agent_id}`,{position})
+  .then(response => {
+    console.log(response)
+      return response;
+  })
+  .catch(error => {
+    console.log(error);
+      return error;
+  })
+ 
+}
+export const getMyOrderLocation = async (trackid) => {
+  trackid=trackid || ''
+  try {
+    const response = await axios.get(`http://localhost:3000/shipment/getMyOrderLocation/${trackid}`);
+    console.log("res",JSON.stringify(response.data));
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
+
+

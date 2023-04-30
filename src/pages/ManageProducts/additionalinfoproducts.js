@@ -64,17 +64,17 @@ function ProductDetails() {
       
             <Row>
             <Col md={12}>
-            <h5>Price :</h5>
+            <h5>unitPrice :</h5>
             </Col>
             <Col>
-            <p style={{ marginLeft: "50px"}}>{product.price} DT</p>
+            <p style={{ marginLeft: "50px"}}>{product.unitPrice} DT</p>
 
             </Col>
             <Col md={12}>
-            <h5>Quantity :</h5>
+            <h5>quantityWeight :</h5>
             </Col>
             <Col>
-            <p style={{ marginLeft: "50px"}}>{product.quantity}</p>
+            <p style={{ marginLeft: "50px"}}>{product.quantityWeight}</p>
 
             </Col>
             <Col>

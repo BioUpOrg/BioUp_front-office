@@ -154,10 +154,10 @@ export default function LandingPageNav() {
                       </Link>
                     </li>
                     <li>
-                      <a href="page-account">
+                      <Link to="/Dashboard/trackMyOrder">
                         <i className="fi fi-rs-location-alt mr-10"></i>Order
                         Tracking
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a href="page-account">

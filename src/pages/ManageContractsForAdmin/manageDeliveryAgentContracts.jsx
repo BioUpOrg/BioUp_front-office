@@ -1,9 +1,10 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { acceptContract, deleteContract, getContracts } from '../../store/contracts';
+import {   getContracts } from '../../store/contracts';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-
+import { set } from 'date-fns';
+import { acceptContract } from '../../store/contracts';
 const ManageDeliveryAgentContracts = () => {
   const contracts = useSelector((state) => state.entities.contracts);
 
@@ -11,12 +12,14 @@ const ManageDeliveryAgentContracts = () => {
   useEffect(() => {
     dispatch(getContracts());
   }, [dispatch]);
+
   const handleAcceptContract=(id)=>{
-    dispatch(acceptContract(id));
+dispatch(acceptContract(id)).then((res)=>{
+  window.location.reload()}) 
   }
-  const handleRefuseContract=(id)=>{
-    dispatch(deleteContract(id));
-  }
+
+
+
   return (
     <section className="mt-50 mb-50">
       <div className="container">
@@ -38,30 +41,29 @@ const ManageDeliveryAgentContracts = () => {
                     <th className="col">Vehicle Matricule</th>
                     <th className="col">User Full Name</th>
                     <th className="col">Salary Unit (100km)</th>
-                    <th className='col'>Status</th>
-                    <th className='col'>Action</th>
+                    <th className='col'>Status Contract</th>
+                    <th className="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {contracts &&
                     contracts.list.map((contract) => (
                       <tr key={contract._id}>
-                       
                         <td>{contract.typeContract}</td>
                         <td>{contract.vehicle.marque}</td>
                         <td>{contract.vehicle.matricule}</td>
                         <td>{contract.user.firstName} {contract.user.lastName}</td>
                         <td>{contract.salary}</td>
-                        <td>{contract.statuscontract}</td>
-                        <td><Container>
+                        <td>{contract.statuscontract ? "Accepted":"peending" }</td>
+                        <td>
+                        <Container>
                           <Row className="justify-content-center">
                             <Col sm={6}>
-                               <Button variant='#ff0055' onClick={handleAcceptContract(contract._id)}>Accept</Button>
-                            </Col>
-                            <Col><Button variant='#ff0055' onClick={handleRefuseContract(contract._id)}>Refuse</Button>
+                               <Button  onClick={()=>{handleAcceptContract(contract._id)}}>Accept</Button>
                             </Col>
                           </Row>
-                          </Container></td>
+                          </Container>
+                        </td>
                       </tr>
                     ))}
                 </tbody>

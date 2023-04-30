@@ -5,17 +5,24 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.js";
 import "./map.css";
 
 import L from 'leaflet';
-import { Col, Container, Row } from 'react-bootstrap';
+import {  Button, Col, Container, Row } from 'react-bootstrap';
 import MyMissions from '../Shipment/MyMissions';
 import LeafletGeocoder from '../Shipment/LeafletGeocoder';
+import Routing from '../Shipment/Routing';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Maps = () => {
+  const dispatch =useDispatch()
   const [searchCoordinates, setSearchCoordinates] = useState(null);
   const [route, setRoute] = useState(null);
+ 
+
+
 
   const handleSearch = (e) => {
     const result = e?.geocode?.features?.[0];
     if (result) {
+      console.log("result",result)
       const geometry = result.geometry;
       const latLng = L.latLng(geometry.coordinates[1], geometry.coordinates[0]);
       setSearchCoordinates(latLng);
@@ -23,11 +30,15 @@ const Maps = () => {
   };
 
   useEffect(() => {
+    
     console.log("searchCoordinates", searchCoordinates);
   }, [searchCoordinates]);
 
   function DeliveryMap() {
     const [position, setPosition] = useState(null);
+    const [deliveryPosition, setDeliveryPosition] = useState(null);
+    const [draggable, setDraggable] = useState(true);
+
 
     const map = useMap();
 
@@ -37,10 +48,17 @@ const Maps = () => {
       }).on("locationfound", function (e) {
         setPosition(e.latlng);
         console.log("pos",e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
+        map.flyTo(e.latlng, map.getZoom(13));
       });
     }, []);
+    useEffect(() => {
+      if (position) {
+        setDeliveryPosition(position);
+      }
+    }, [position]);
 
+
+    
     const markerIcon = L.icon({
       iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
       iconSize: [25, 41],
@@ -52,69 +70,70 @@ const Maps = () => {
       shadowAnchor: [12, 41]
     });
 
-    useEffect(() => {
-      if (searchCoordinates) {
-        const router = L.Routing.control({
-          waypoints: [
-            L.latLng(position.lat, position.lng),
-
-            searchCoordinates
-          ],
-          
-          routeWhileDragging: true,
-          showAlternatives: false,
-          lineOptions: {
-            styles: [{ color: '#007bff', weight: 6 }]
-          },
-          createMarker: function (i, waypoint, n) {
-            if (i === 0) {
-              return L.marker(waypoint.latLng, { icon: markerIcon, draggable: true }).bindPopup('Start').openPopup();
-            } else {
-              return L.marker(waypoint.latLng, { icon: markerIcon, draggable: true }).bindPopup('End').openPopup();
-            }
-          }
-        });
-
-        setRoute(router);
-        router.addTo(map);
-      }
-    }, [position, searchCoordinates]);
+   
 
     return position === null ? null : (
       <>
-        <Marker position={position} icon={markerIcon}>
+      <Marker position={position} icon={markerIcon} draggable={draggable} eventHandlers={{
+    dragend: (event) => {
+      setPosition(event.target.getLatLng());
+      console.log("new position", position)
+    },
+  }} >
           <Popup>You are here</Popup>
         </Marker>
-        {searchCoordinates && <Marker position={searchCoordinates} />}
+        {searchCoordinates && <Marker position={searchCoordinates} />
+        }
+        
+        <LeafletGeocoder  
+        onSearch={handleSearch}
+         position={position}
+     
+/>
       </>
     );
+
   }
 
   return (
     <>
       <Container>
         <Row>
+
+          
           <MyMissions/>
+          
+          <Col>
           <MapContainer
-            center={[33.886917, 9.537499]}
-            zoom={13}
-            scrollWheelZoom
-            enableHighAccuracy
-            style={{ height: "80em" }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <LeafletGeocoder 
-              onSearch={handleSearch}
-            />
-            
-            <DeliveryMap />
-          </MapContainer>
+              center={[33.886917, 9.537499]}
+              zoom={13}
+              scrollWheelZoom
+              enableHighAccuracy
+              style={{ height: "58vh",width:"100%",display:'flex' }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}@2x.png?key=8C2aiIdUf5jqf5kpbfKD"
+              />
+              
+              <DeliveryMap />
+
+
+            </MapContainer>
+          </Col>
+           
+
+          
+        </Row>
+        <Row className='justify-content-center'>
+          <Col className='offset-9' style={{marginTop:'1%'}}>
+          </Col>
+         
         </Row>
       </Container>
     </>
   );
+  
   }
+  
   export default Maps;  

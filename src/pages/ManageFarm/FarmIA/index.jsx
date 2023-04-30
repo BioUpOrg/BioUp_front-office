@@ -9,7 +9,7 @@ import { addAnimal } from '../../../store/animals';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import { animals } from '../AddAnimal/animals';
-
+import Alert from '@mui/material/Alert';
 
 export default function GoogleCloudVision() {
 
@@ -17,6 +17,7 @@ export default function GoogleCloudVision() {
   const [objects, setObjects] = useState([]);
   const [pic, setPic] = useState(null);
   const dispatch = useDispatch();
+  const [clickedObject, setClickedObject] = useState(null);
 
   const userId = useSelector((state) => state.entities.users.userId);
 
@@ -34,27 +35,38 @@ export default function GoogleCloudVision() {
     object.image = imageUrl;
     object.user = userId;
 
-    console.log(object)
+    console.log("test",object)
     dispatch(addAnimal(object));
   }
 
+  const handleClick = (object) => {
+    handleAdd(object);
+    setClickedObject(object);
+    setTimeout(() => setClickedObject(null), 2000);
+  };
 
+  const groupedObjects = objects.reduce((accumulator, currentObject) => {
+    const existingObject = accumulator.find((obj) => obj.name === currentObject.name);
+    if (existingObject) {
+      existingObject.quantity += 1;
+    } else {
+      accumulator.push({ ...currentObject, quantity: 1 });
+    }
+    return accumulator;
+  }, []);
 
   const formik = useFormik({
     initialValues: {
       pic:''
     },
     onSubmit: async (data) => {
-      console.log(data);
       const formData = new FormData();
       if (pic) {
-        console.log(pic)
         formData.append('file', pic);
       }
       const imageData = formData;
       const resultPromise = dispatch(getObjectFromPic(imageData));
       const result = await resultPromise;
-      console.log(result.payload);
       setObjects(result.payload);
       
     }
@@ -103,14 +115,21 @@ export default function GoogleCloudVision() {
 
           <h1>Objects</h1>
          
-          {objects.map((object) => (
-            <div key={object.name}>
-              <h1>{object.name}</h1>
-              <h1>{object.score.toFixed(2)}%</h1>
-
-              <Button onClick={() => handleAdd(object)} variant="contained" color="success">Add </Button>
-            </div>
-          ))}
+          {groupedObjects.map((object) => (
+        <div key={object.name}>
+          <h1>{object.name} (Quantity: {object.quantity})</h1>
+          <h1>{object.score.toFixed(2)}%</h1>
+          {clickedObject && clickedObject.name === object.name  ? (
+            <Alert severity="success" onClose={() => setClickedObject(null)}>
+              Item Added to Farm
+            </Alert>
+          ) : (
+            <Button onClick={() => handleClick(object)} variant="contained" color="success">
+              Add
+            </Button>
+          )}
+        </div>
+      ))}
      
         <LoadingButton
             fullWidth

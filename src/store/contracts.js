@@ -16,6 +16,9 @@ const slice = createSlice({
       contracts.loading = true;
     },
 
+    populateContracts(state, action) {
+      state.contracts = action.payload;
+    },
     ContractsReceived: (contracts, action) => {
       if (Array.isArray(action.payload)) {
         contracts.list = action.payload;
@@ -53,6 +56,7 @@ export const {
     contractAdded,
     ContractsReceived,
     contractsUpdated,
+    populateContracts,
     ContractsRequested,
     contractsRequestFailed,
     contractDeleted
@@ -79,17 +83,12 @@ export const acceptContract = (id) =>{
   return apiCallBegan({
     url: `/contract/acceptContract/${id}`,
     method: "put",
-    onSuccess: ContractsRequested.type,
+    onSuccess:contractsUpdated.type,   
     onError: contractsRequestFailed.type,
   });
 }
-  export const deleteContract = (id) =>
-  apiCallBegan({
-    url: `/contract/${id}`,
-    method: "delete",
-    onSuccess: contractDeleted.type,
-    onError: contractsRequestFailed.type,
-  });
+
+
 
 
 
