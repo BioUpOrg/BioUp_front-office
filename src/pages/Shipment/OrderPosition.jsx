@@ -41,8 +41,8 @@ const [estimtime,setestimeTime]=useState(null);
     useEffect(() => {
       if (mypos && orderPos) {
         const d = mypos.distanceTo(orderPos);
-        setDistance(d);
-        const estimatedtime=(d/80)/60;
+        setDistance(d/1000);;
+        const estimatedtime=((d/1000)/80).toFixed(2);
         setestimeTime(estimatedtime);
         const router = L.Routing.control({
           waypoints: [
@@ -109,7 +109,7 @@ const [estimtime,setestimeTime]=useState(null);
   
   return (
     <>
-      <Container>
+      <Container style={{display:"block"}}>
         <Row className='justify-content-center'>
           <Col style={{ marginTop: "3%", marginBottom: "3%" }}>
             <MapContainer
@@ -128,13 +128,21 @@ const [estimtime,setestimeTime]=useState(null);
              
 
             </MapContainer>
-              { 
-              distance&&estimtime&&
-              <div style={{margin:'2%'}}>
-                <h4> The Distance Between you and your Order Is : <h3 style={{color:"green",margin:'1%'}}>{distance} Km</h3></h4>
-                <hh4> Estimated Time : <h3 style={{color:"green",margin:'1%'}}>{estimtime} Min </h3></hh4>
-              </div>
-              }
+         {
+  distance && estimtime &&
+  <div style={{margin:'2%'}}>
+    {distance === 0 ?
+      <h4 style={{color:"green",margin:'1%'}}>Congratulations! Your order has arrived.</h4> :
+      <>
+        <h4>The Distance Between you and your Order Is:</h4>
+        <h3 style={{color:"green",margin:'1%'}}>{distance} Km</h3>
+        <h4>Estimated Time:</h4>
+        <h3 style={{color:"green",margin:'1%'}}>{estimtime} h</h3>
+      </>
+    }
+  </div>
+}
+
           </Col>
         </Row>
        </Container>
