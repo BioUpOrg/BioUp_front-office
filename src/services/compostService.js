@@ -107,3 +107,11 @@ export const getTopRatedComposts = async () => {
   debugger;
   return response.data;
 };
+
+
+export const getRecentlyAddedComposts = async () => {
+  debugger;
+  const response = await axios.get(COMPOSTS_ENDPOINT+"/recentlyAdded");
+  debugger;
+  return response.data;
+};
