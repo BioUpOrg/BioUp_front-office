@@ -1,12 +1,12 @@
 import React from "react";
-import { Container, Col } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import CompostCard from "../../components/cards/compostCard"
 import { getComposts } from "../../services/compostService";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Banner from "./banner";
 import { populateComposts } from "../../store/composts";
-
+import TopRated from "./topRated";
 function Composts() {
   const dispatch = useDispatch();
   
@@ -40,6 +40,13 @@ function Composts() {
           </div>
         </Col>
       </Container>
+      <section className="section-padding">
+        <Container>
+          <Row>
+            <TopRated />
+          </Row>
+        </Container>
+      </section>
     </>
   );
 }
