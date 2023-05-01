@@ -83,7 +83,7 @@ export const addShipment = shipment => apiCallBegan({
 });
 
 export const updateShipment = shipment => apiCallBegan({
-    url: `/shipment/${shipment._id}`,
+    url: `/shipment/makeEndOfMission/${shipment._id}`,
     method: "put",
     data: shipment,
     onSuccess: shipmentUpdated.type
