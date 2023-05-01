@@ -22,7 +22,7 @@ export function ErrorAlert(msg) {
 
 
 export const getComposts = async () => {
-  const response = await axios.get(COMPOSTS_ENDPOINT);
+  const response = await axios.get(COMPOSTS_ENDPOINT+"/all");
   return response.data;
 };
 
@@ -100,3 +100,10 @@ export const rateCompost = async(idCompost, ratingValue) => {
   debugger;
   return response.data;
 }
+
+export const getTopRatedComposts = async () => {
+  debugger;
+  const response = await axios.get(COMPOSTS_ENDPOINT+"/topRated");
+  debugger;
+  return response.data;
+};
