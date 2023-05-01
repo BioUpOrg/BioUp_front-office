@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { setCompostDetails } from "../../store/composts";
 import { addItemToCart } from "../../store/cart";
 import { addItemToWishList } from "../../store/wishlist";
+import { Rating } from "@mui/material";
 
 export default function CompostCard({ compost }) {
   //
@@ -80,12 +81,13 @@ export default function CompostCard({ compost }) {
               {compost.name}
             </a>
           </h2>
-          <div className="product-rate-cover">
-            <div className="product-rate d-inline-block">
-              <div className="product-rating" style={{ width: "90%" }}></div>
-            </div>
-            <span className="font-small ml-5 text-muted"> (90)</span>
-          </div>
+          <Rating
+            value={compost.rating}
+            readOnly
+            sx={{
+              fontSize: 18,
+            }} 
+          />
           <div>
             {compost.brandName ? (
               <span className="font-small text-muted">

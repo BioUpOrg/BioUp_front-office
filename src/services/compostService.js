@@ -1,5 +1,5 @@
 import axios from "axios";
-import { COMPOSTS_ENDPOINT } from "../endpoints";
+import { COMPOSTS_ENDPOINT, RATINGS_ENDPOINT } from "../endpoints";
 import Swal from "sweetalert2";
 import axiosInstance from "../utils/auth.interceptor";
 
@@ -93,3 +93,10 @@ export const deleteCompost = async (id) => {
   const response = await axios.delete(`${COMPOSTS_ENDPOINT}/${id}`);
   return response.data;
 };
+
+export const rateCompost = async(idCompost, ratingValue) => {
+  debugger;
+  const response = await axiosInstance.post(`${RATINGS_ENDPOINT}/${idCompost}/${ratingValue}`)
+  debugger;
+  return response.data;
+}

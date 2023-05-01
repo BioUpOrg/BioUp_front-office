@@ -6,6 +6,9 @@ import {
   getCompostQuantityInCart,
   increment,
 } from "../../store/cart";
+import { rateCompost } from "../../services/compostService";
+import { Rating } from "@mui/material";
+import { useState } from "react";
 
 export default function CompostDetails() {
   const compostDetails = useSelector(
@@ -28,6 +31,14 @@ export default function CompostDetails() {
 
   const quantity = useSelector(getCompostQuantityInCart);
 
+
+  //add rating to compost  
+  const addRating = async (e)=>{
+    const idCompost = compostDetails._id 
+    console.log("e.target.value: ", e.target.value);
+    await rateCompost(idCompost, e.target.value);
+  } 
+
   return (
     <div className="container">
       <section className="mt-50 mb-50">
@@ -47,7 +58,7 @@ export default function CompostDetails() {
                       >
                         <h2 className="title-detail">{compostDetails.name}</h2>
                         <div className="product-detail-rating">
-                          <div className="product-rate-cover text-end">
+                          {/* <div className="product-rate-cover text-end">
                             <div className="product-rate d-inline-block">
                               <div
                                 className="product-rating"
@@ -58,7 +69,14 @@ export default function CompostDetails() {
                               {" "}
                               (32 reviews)
                             </span>
-                          </div>
+                          </div> */}
+                          <Rating
+                            name="simple-controlled"
+                            value={compostDetails.rating}
+                            onChange={(e) => {
+                              addRating(e);                              
+                            }}
+                          />
                         </div>
                         <div className="clearfix product-price-cover">
                           <div className="product-price primary-color float-left">
