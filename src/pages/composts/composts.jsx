@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Banner from "./banner";
 import { populateComposts } from "../../store/composts";
 import TopRated from "./topRated";
+import RecentlyAdded from "./recentlyAdded";
 function Composts() {
   const dispatch = useDispatch();
   
@@ -44,6 +45,7 @@ function Composts() {
         <Container>
           <Row>
             <TopRated />
+            <RecentlyAdded />
           </Row>
         </Container>
       </section>
