@@ -8,6 +8,8 @@ import Banner from "./banner";
 import { populateComposts } from "../../store/composts";
 import TopRated from "./topRated";
 import RecentlyAdded from "./recentlyAdded";
+import TopSelled from "./topSelling";
+
 function Composts() {
   const dispatch = useDispatch();
   
@@ -44,8 +46,9 @@ function Composts() {
       <section className="section-padding">
         <Container>
           <Row>
-            <TopRated />
             <RecentlyAdded />
+            <TopRated />
+            <TopSelled />
           </Row>
         </Container>
       </section>

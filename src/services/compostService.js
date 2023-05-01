@@ -115,3 +115,11 @@ export const getRecentlyAddedComposts = async () => {
   debugger;
   return response.data;
 };
+
+
+export const getTopSelledComposts = async () => {
+  debugger;
+  const response = await axios.get(COMPOSTS_ENDPOINT+"/topSelled");
+  debugger;
+  return response.data;
+};
