@@ -56,13 +56,22 @@ function TrackMyOrder() {
                       onChange={handleTrackidChange}
                     />
                   </div>
-
-                 <Button onClick={handleGetMyOrderPosition}>Track</Button>
-                 {agentposition && agentposition.lat && agentposition.lng && (
-          <Link   to={`/order/${agentposition.lat}/${agentposition.lng}`}>
-          View Order Position
-         </Link>
-)}
+                  <div className="container">
+      <div className="row ">
+        <div className="col-md-4 col-sm-4" style={{marginBottom:'2%'}}>
+          <Button block onClick={handleGetMyOrderPosition}>Track</Button>
+        </div>
+        <div className="col-md-8 col-sm-8" style={{margin:"2%"}}>
+          {agentposition && agentposition.lat && agentposition.lng && (
+            <Link  style={{ fontFamily: "sans-serif" }} to={`/order/${agentposition.lat}/${agentposition.lng}`}>
+              View Live position of your Order on Map
+            </Link>
+          )}
+          
+        </div>
+      </div>
+    </div>
+                 
 
                   {error && (
                     <p style={{color: 'red'}}>{error}</p>

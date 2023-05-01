@@ -5,6 +5,7 @@ import { Document, Page ,Text,Image,StyleSheet, PDFDownloadLink, View} from '@re
  import {getMyContract} from '../../services/contractService';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const MyContract = () => {
@@ -114,15 +115,20 @@ useEffect(()=>{
       marginTop: 10,
     },
   })
-  const signhandle=async ()=>{
-   
-    if(contractData.signature===""||null){
+  const signhandle = async () => {
+    if (contractData.signature === "" || null) {
       navigate('/dashboard/popSignature');
+    } else {
+      Swal.fire({
+        title: "Confirmation",
+        text: "You have already signed your contract or you don't have a contract to sign.",
+        icon: "warning",
+        timer: 2000, // 2 seconds
+        showConfirmButton: false
+      });
+    }
+  };
 
-    }else{
-      alert('You have already sign Your contract or you dont have contract to Sign'); 
-       }
-  }
 
 
   return (

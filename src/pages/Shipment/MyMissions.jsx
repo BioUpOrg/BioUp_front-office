@@ -9,6 +9,8 @@ import { fetchProducts } from '../../store/slices/productSlice';
 import { getUserById } from '../../services/shipmentService';
 import { getComposts } from '../../services/compostService';
 import { populateComposts } from '../../store/composts';
+import { updateShipment } from '../../store/shipment';
+import Swal from 'sweetalert2';
 
 const MyMissions = () => {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const MyMissions = () => {
   const userId = decoded._id; 
   const { products } = useSelector((state) => state.entities.products); // get products from store
   const composts = useSelector((state) => state.entities.composts.list);
-
+  
   const [bioprod,setbioprod]=useState({});
   const [compostDetails,setCompostDetails]=useState({});
   
@@ -97,6 +99,25 @@ const handleClickDetails = (product) => {
     console.log("Unknown product type:", product.type);
   }
 };
+const MakeendOfShipment = async () => {
+  const updatedMission = { ...mission, /* any properties you want to update */ };
+
+  await Swal.fire({
+    title: 'Are you sure?',
+    text: 'You will lose your current mission!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, end my mission!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      dispatch(updateShipment(updatedMission));
+      window.location.reload();
+    }
+  });
+};
+
   return (
     <div  className='product-info' style={{marginBottom:'6%'}}>
 <Container>
@@ -162,6 +183,7 @@ const handleClickDetails = (product) => {
                 ))}
               </tbody>
             </Table>
+            <Button onClick={MakeendOfShipment}>Make End Of This Mission</Button>
           </Card.Body>
         </Card>
       )}

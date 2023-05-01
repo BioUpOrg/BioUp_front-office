@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {   getContracts } from '../../store/contracts';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { set } from 'date-fns';
 import { acceptContract } from '../../store/contracts';
 const ManageDeliveryAgentContracts = () => {
   const contracts = useSelector((state) => state.entities.contracts);
@@ -46,13 +45,17 @@ dispatch(acceptContract(id)).then((res)=>{
                   </tr>
                 </thead>
                 <tbody>
-                  {contracts &&
+                  {contracts && 
                     contracts.list.map((contract) => (
                       <tr key={contract._id}>
                         <td>{contract.typeContract}</td>
                         <td>{contract.vehicle.marque}</td>
                         <td>{contract.vehicle.matricule}</td>
-                        <td>{contract.user.firstName} {contract.user.lastName}</td>
+                      <td>
+                        {contract.user && contract.user.firstName
+                          ? `${contract.user.firstName} ${contract.user.lastName}`
+                          : 'Deleted agent'}
+                      </td>
                         <td>{contract.salary}</td>
                         <td>{contract.statuscontract ? "Accepted":"peending" }</td>
                         <td>
