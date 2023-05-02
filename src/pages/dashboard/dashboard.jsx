@@ -4,26 +4,41 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
+import { getMyContract } from "../../services/contractService";
 export default function Dashboard() {
   const location = useLocation();
   const message = new URLSearchParams(location.search).get("message");
   const [statusRole,setStatusRole]=useState('true');
   const [isadmin ,setisAdmin]=useState(false);
-
+  const  [signedtransport,setsignedtransport]=useState(true);
   const token =  localStorage.getItem("TOKEN_KEY");
   const decoded = jwt_decode(token);
   const userId=decoded.role;
+  const userIde=decoded;
 
   useEffect(()=>{
+   
         if(userId==="transporter"){
-          setStatusRole(false)
+          setStatusRole(false);
+          console.log("iduser",userIde._id);
+          getMyContract(userIde._id).then(res=>{
+           
+             if(res){
+                console.log("contractsig",res.signature);
+                if(res.signature!==""){
+                  setsignedtransport(false);
+                }
+ 
+           }
+          })
         }
         else if (userId==="admin"){
           setisAdmin(true);
         }
+
     console.log(statusRole)
 
-  },[])
+  },[statusRole,isadmin,signedtransport])
  
 
   return (
@@ -47,8 +62,7 @@ export default function Dashboard() {
                       <i className="fi-rs-settings-sliders mr-10"></i>Dashboard
                     </NavLink>
                   </li>
-                  
-                     
+                
                 
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/compost-Form">
@@ -66,13 +80,13 @@ export default function Dashboard() {
                       bio-product
                     </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink   hidden={statusRole} className="nav-link" to="/Dashboard/mylocation">
+                  <li className="nav-item" hidden={signedtransport}>
+                    <NavLink    className="nav-link" to="/Dashboard/mylocation">
                       <i className="fi-rs-marker mr-10"></i>My Mission
                     </NavLink>
                     </li>
-                    <li className="nav-item">
-                    <NavLink   hidden={statusRole} className="nav-link" to="/Dashboard/listorder">
+                    <li className="nav-item"hidden={signedtransport}>
+                    <NavLink   className="nav-link" to="/Dashboard/listorder">
                       <i className="fi-rs-marker mr-10"></i>Oders Not Shipped
                     </NavLink>
                     </li>
@@ -82,8 +96,8 @@ export default function Dashboard() {
                      User Details
                     </NavLink>
                     </li>
-                    <li className="nav-item">
-                    <NavLink hidden={statusRole} className="nav-link" to="/Dashboard/mycontract">
+                    <li className="nav-item" hidden={statusRole} >
+                    <NavLink className="nav-link" to="/Dashboard/mycontract">
                       <i className="fi-rs-shopping-cart-check mr-10"></i>
                      My Contract
                     </NavLink>

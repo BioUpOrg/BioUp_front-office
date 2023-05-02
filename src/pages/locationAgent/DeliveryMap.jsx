@@ -15,6 +15,7 @@ const Maps = () => {
   const dispatch =useDispatch()
   const [searchCoordinates, setSearchCoordinates] = useState(null);
   const [route, setRoute] = useState(null);
+  const tabcordFromLocalStorage = JSON.parse(localStorage.getItem('tabcord'));
  
 
 
@@ -43,6 +44,7 @@ const Maps = () => {
     const map = useMap();
 
     useEffect(() => {
+     console.log("tabc",tabcordFromLocalStorage)
       map.locate({
         enableHighAccuracy:true
       }).on("locationfound", function (e) {
@@ -86,7 +88,7 @@ const Maps = () => {
         }
         
         <LeafletGeocoder  
-        onSearch={handleSearch}
+        onSearch={handleSearch} 
          position={position}
      
 />
@@ -94,29 +96,31 @@ const Maps = () => {
     );
 
   }
-
+const seeViewFullScreen=()=>{
+var mapId=document.getElementById('map');
+mapId.requestFullscreen();
+}
   return (
     <>
-      <Container>
+        <MyMissions/>
+
+      <Container id='map'>
         <Row>
 
-          
-          <MyMissions/>
-          
           <Col>
-          <MapContainer
+          <MapContainer  
               center={[33.886917, 9.537499]}
               zoom={13}
               scrollWheelZoom
               enableHighAccuracy
-              style={{ height: "58vh",width:"100%",display:'flex' }}
+              style={{ height: "100vh",width:"100%",display:'flex' }}
             >
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}@2x.png?key=8C2aiIdUf5jqf5kpbfKD"
               />
-              
-              <DeliveryMap />
+              <DeliveryMap  />
+
 
 
             </MapContainer>
@@ -127,6 +131,7 @@ const Maps = () => {
         </Row>
         <Row className='justify-content-center'>
           <Col className='offset-9' style={{marginTop:'1%'}}>
+            <Button onClick={seeViewFullScreen}>see On Full Screen</Button>
           </Col>
          
         </Row>

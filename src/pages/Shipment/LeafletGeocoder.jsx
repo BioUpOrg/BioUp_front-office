@@ -16,15 +16,15 @@ L.Marker.prototype.options.icon = L.icon({
 
 
 
-const tabcord = [];
+const tabcord =  [];
 
 function LeafletGeocoder({ onSearch, position }) {
+  
   const [coordinates, setCoordinates] = useState(null);
   const [routingControl, setRoutingControl] = useState(null); // Add state variable for routing control
   const [pos,setPos]=useState(null);
   const map = useMap();
   const dispatch = useDispatch();
-
   const token = localStorage.getItem("TOKEN_KEY");
   const decoded = jwt_decode(token);
   const userId = decoded._id;  
@@ -76,7 +76,7 @@ function LeafletGeocoder({ onSearch, position }) {
         console.log('initpos', );
 
       }
-     
+  
 
       tabcord.push(coordinates);
       console.log('tabcord', tabcord);
@@ -98,6 +98,7 @@ function LeafletGeocoder({ onSearch, position }) {
         }
     
         totalDistance += distance;
+
       }
     
       console.log('nearestPlace', nearestPlace);
@@ -116,7 +117,9 @@ function LeafletGeocoder({ onSearch, position }) {
       
       // Create a new routing control using Dijkstra's algorithm to calculate the shortest path
       const routing = L.Routing.control({
+
         waypoints: tabcord.map((c) => L.latLng(c)),
+        
         createMarker: () => null, // Do not create markers for start and end waypoints
         router: new L.Routing.osrmv1({
           draggableWaypoints: false, // disable dragging of waypoints
@@ -132,13 +135,16 @@ function LeafletGeocoder({ onSearch, position }) {
       
       // Set routingControl state variable to new routing control
       setRoutingControl(routing);
-
+   
     }
     dispatch(setUserId(userId));
 
     updateMylocation(pos,userId);
+
   }, [coordinates, onSearch, pos]);
 
+
+  
   return null;
 }
 

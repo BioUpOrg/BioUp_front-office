@@ -17,10 +17,7 @@ function Services() {
     <p>
     what you waiting for , click the button and fill the form to be one of us 
       </p>
-      <p>
-      make money from each 100 km you passed 
-
-      </p>
+    
       <Link to={"/delivery-agent-contract-form"}> click To visit delivery agent form</Link>
   </div>
 </div>
