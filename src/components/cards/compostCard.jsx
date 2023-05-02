@@ -27,7 +27,7 @@ export default function CompostCard({ compost }) {
   };
 
   return (
-    <div className="col-lg-1-5 col-md-4 col-12 col-sm-6">
+    <div className="col-md-3">
       <div className="product-cart-wrap mb-30">
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
