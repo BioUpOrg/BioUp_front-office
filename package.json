@@ -71,6 +71,7 @@
     ]
   },
   "devDependencies": {
-    "@iconify/react": "^4.1.0"
+    "@iconify/react": "^4.1.0",
+    "cypress": "^12.11.0"
   }
 }

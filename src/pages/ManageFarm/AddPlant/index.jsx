@@ -10,6 +10,9 @@ import useStyles from "./style";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { plants } from './plants.js';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+import Stack from '@mui/material/Stack';
 
 export default function AddPlant() {
   const classes = useStyles();
@@ -86,6 +89,7 @@ export default function AddPlant() {
             <Grid container spacing={4} className={classes.root}>
               <Grid item sm={6} xs={12}>
                 <TextField
+                  data-testid="PlantNameInput"
                   name="name"
                   fullWidth
                   type="text"
@@ -98,6 +102,7 @@ export default function AddPlant() {
 
               <Grid item sm={6} xs={12}>
                 <TextField
+                  data-testid="PlantscientificNameInput"
                   name="scientificName"
                   fullWidth
                   type="text"
@@ -238,6 +243,7 @@ export default function AddPlant() {
               </Grid>
               <Grid item sm={4} xs={12}>
                 <TextField
+                  data-testid="PlantQtInput"
                   name="quantity"
                   fullWidth
                   type="text"
@@ -247,10 +253,21 @@ export default function AddPlant() {
                   helperText={touched.quantity && errors.quantity}
                 />
               </Grid>
+                <Stack direction="row" spacing={4} style={{paddingTop:"50px", paddingLeft:"50px"}}>
+                  <Link to={"/ManageMyFarm/FarmAI"}>
+                          <Button variant="outlined" color="error" style={{ whiteSpace: 'nowrap' }}>
+
+                            ADD Plant with IA Model
+                          </Button>
+                          </Link>
+
+                    
+                  </Stack>
 
               <Grid item xs={12} className={classes.grid}>
                 <Grid item sm={3} xs={12}>
                   <LoadingButton
+                    data-testid="AddPlantSubmitButton"
                     fullWidth
                     size="large"
                     type="submit"

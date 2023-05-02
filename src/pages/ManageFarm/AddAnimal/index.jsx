@@ -11,7 +11,10 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { createApi } from "unsplash-js";
 import { addAnimal } from "../../..//store/animals";
 import { animals } from './animals.js';
+import { Button } from '@mui/material';
+import Stack from '@mui/material/Stack';
 
+import { Link } from 'react-router-dom';
 
 
 
@@ -225,6 +228,17 @@ export default function AddAnimal() {
                     helperText={touched.quantity && errors.quantity}
                   />
                 </Grid>
+                  <Stack direction="row" spacing={4} style={{paddingTop:"50px", paddingLeft:"50px"}}>
+                  <Link to={"/ManageMyFarm/FarmAI"}>
+                          <Button variant="outlined" color="error" style={{ whiteSpace: 'nowrap' }}>
+
+                            Add Animal with IA Model
+                          </Button>
+                          </Link>
+
+                    
+                  </Stack>
+         
   
                 <Grid item xs={12} className={classes.grid}>
                   <Grid item sm={3} xs={12}>

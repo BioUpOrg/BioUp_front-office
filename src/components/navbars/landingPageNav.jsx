@@ -36,7 +36,9 @@ export default function LandingPageNav() {
     loginBtn = (
       <div className="header-action-icon-2">
         <Link to={"/Login"}>
-          <button className="bioup-btn-radius">login</button>
+          <button className="bioup-btn-radius"
+          data-testid="LoginButton"
+          >login</button>
         </Link>
       </div>
     );
@@ -122,7 +124,9 @@ export default function LandingPageNav() {
                     <Link to={"/Composts"}>Composts</Link>
                   </li>
                   <li>
-                    <Link to={"/ManageMyFarm"}>My Farm</Link>
+                    <Link 
+                    data-testid="MyFarmNavButton"
+                    to={"/ManageMyFarm"}>My Farm</Link>
                   </li>
                   <li>
                     <Link to={"/Blog"}>Our Blog</Link>

@@ -49,6 +49,7 @@ export default function LoginForm() {
       <div className="form-group">
         <label htmlFor="email">Email:</label>
         <input
+          data-testid="LoginEmailInput"
           placeholder="Enter Email"
           type="email"
           id="email"
@@ -75,6 +76,7 @@ export default function LoginForm() {
       <div className="form-group">
         <label htmlFor="password">Password:</label>
         <input
+          data-testid="LoginPassInput"
           placeholder="Enter password"
           type="password"
           id="password"
@@ -84,6 +86,7 @@ export default function LoginForm() {
       </div>
       <div className="form-group">
         <button
+          data-testid="LoginButton2"
           type="submit"
           className="btn btn-heading btn-block hover-up"
           name="login"
