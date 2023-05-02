@@ -9,6 +9,7 @@ import { updateMylocation } from '../../services/shipmentService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserId } from "../../store/users";
 import jwt_decode from "jwt-decode";
+import Swal from 'sweetalert2';
 
 L.Marker.prototype.options.icon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
@@ -38,26 +39,46 @@ function LeafletGeocoder({ onSearch, position }) {
   }
 
   
-  useEffect(() => {
-    
-    const searchControl = L.Control.geocoder({
-      defaultMarkGeocode: false,
-    }).on('markgeocode', function (e) {
-      const latlng = e.geocode.center;
-      setCoordinates(latlng);
-      L.marker(latlng)
-        .addTo(map)
-        .bindPopup(e.geocode.name)
-        .openPopup();
-      map.fitBounds(e.geocode.bbox);
+useEffect(() => {
+  const searchControl = L.Control.geocoder({
+    defaultMarkGeocode: false,
+  }).on('markgeocode', function (e) {
+    const latlng = e.geocode.center;
+    setCoordinates(latlng);
+    const marker = L.marker(latlng)
+      .addTo(map)
+      .bindPopup(e.geocode.name)
+      .openPopup();
+    map.fitBounds(e.geocode.bbox);
+    marker.on('click', function() {
+      Swal.fire({
+        title: 'Do you want to remove this marker?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          map.removeLayer(marker);
+          const index = tabcord.indexOf(latlng);
+          if (index > -1) {
+            tabcord.splice(index, 1);
+             window.location.reload();
+          }
+        }
+      });
     });
+  });
 
-    searchControl.addTo(map);
+  searchControl.addTo(map);
 
-    return () => {
-      map.removeControl(searchControl);
-    };
-  }, [map]);
+  return () => {
+    map.removeControl(searchControl);
+  };
+}, [map]);
+
 
   useEffect(() => {
     setPos(position);

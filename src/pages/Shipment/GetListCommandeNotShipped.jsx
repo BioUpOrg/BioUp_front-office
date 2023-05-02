@@ -7,7 +7,7 @@ import { fetchProducts, selectProduct } from "../../store/slices/productSlice";
 import jwt_decode from "jwt-decode";
 import { populateComposts } from "../../store/composts";
 import { getComposts } from "../../services/compostService";
-//
+import Swal from 'sweetalert2';
 import { getMyMission } from '../../services/shipmentService';
 
 function GetListCommandeNotShipped() {
@@ -56,8 +56,14 @@ function GetListCommandeNotShipped() {
           console.log("Error creating shipment", error);
         }
       }else{
-        alert("you have already a shipment in progress");
-      }
+        Swal.fire({
+          title: "Confirmation",
+          text: "You have already Create a shipment , You Must end it Befor create another one",
+          icon: "info",
+          timer: 3000, // 2 seconds
+          showConfirmButton: false
+        });   
+        }
     })
  
   };

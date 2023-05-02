@@ -1,8 +1,32 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
+import React, { useEffect } from 'react'
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
+import { getMyContract } from "../services/contractService";
+import Swal from 'sweetalert2';
 function Services() {
+  const token =  localStorage.getItem("TOKEN_KEY");
+  const decoded = jwt_decode(token);
+  const userId=decoded;
+  const navigate=useNavigate();
+const hanleClickform=()=>{
+  getMyContract(userId._id).then(res=>{   
+    if(res){
+
+      Swal.fire({
+        title: "Confirmation",
+        text: "You have already Fill this form",
+        icon: "warning",
+        timer: 3000, // 2 seconds
+        showConfirmButton: false
+      }); 
+      navigate('/');     
+
+  }else{
+    navigate('/delivery-agent-contract-form');
+  }
+ })
+}
   return (
 <Container>
  <Row className='justify-content-center'>
@@ -18,7 +42,7 @@ function Services() {
     what you waiting for , click the button and fill the form to be one of us 
       </p>
     
-      <Link to={"/delivery-agent-contract-form"}> click To visit delivery agent form</Link>
+      <Button  onClick={hanleClickform}> click To visit delivery agent form</Button>
   </div>
 </div>
 

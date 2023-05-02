@@ -18,7 +18,8 @@ function ContractForm() {
   const [vehicleType, setvehicleType] = useState('cars');
   const [salary, setSalary] = useState(20);
   const [acceptedRules, setAcceptedRules] = useState(false);
-  const [typeContract, setTypeContract]=useState('Trimestrial'); 
+  const [typeContract, setTypeContract]=useState('3 Month'); 
+  const [cin,setCin]=useState(null);
   const [vehicleMarque, setvehicleMarque]=useState(null);
   const[capacite,setcapacite]=useState(null); 
   const [vehicleModel,setvehicleModel]=useState(null);
@@ -129,7 +130,7 @@ console.log(user.id);
 const vehicle={
   typeVehicle:vehicleType,marque:vehicleMarque,Capacite:capacite,model:vehicleModel,matricule:matricule,dateCirculation:selectedDate
 }
-    const data = {typeContract,user:user.id,vehicle,salary};
+    const data = {typeContract,user:user.id,cin,vehicle,salary};
     console.log(data);
      addContract(data).then(response=>{
         console.log(response);
@@ -176,14 +177,31 @@ const vehicle={
                 value={typeContract}
                 onChange={(event) => setTypeContract(event.target.value)}
               >
-                <option value="Trimestrial">3 Month</option>
-                <option value="semestrial">6 Month</option>
-                <option value="12 month">12 month</option>
+                
+                <option value="3 Month">3 Month</option>
+                <option value="6 Month">6 Month</option>
+                <option value="12 Month">12 month</option>
 
                       
               </Form.Select>
                 </Col>
                 </Form.Group>
+          
+          <Form.Group>
+            <Form.Label>
+              Cin:
+            </Form.Label>
+            <Form.Control
+              type='number'
+              value={cin}
+              placeholder='Please Enter Your Cin '
+              required
+              onChange={(event) => setCin(event.target.value)}
+              isInvalid={cin === ''}
+              isValid={cin !== ''}
+            />
+
+          </Form.Group>
           
         <h3 style={{marginTop:'5%',marginBottom:'5%'}}>Vehicle Information</h3>
         <Row>
