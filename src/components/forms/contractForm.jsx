@@ -65,20 +65,18 @@ function ContractForm() {
     if (vehicleType === 'cars') {
       setVehicleBrandsList(vehicleBrands.carBrands);
        setvcList(vc.payload_capacities.cars);
-       setSalary(20);
+       setSalary(1200);
     } else if (vehicleType === 'trucks') {
       setVehicleBrandsList(vehicleBrands.truckBrands);
       setvcList(vc.payload_capacities.trucks);
-      setSalary(25);
+      setSalary(1250);
      } else if (vehicleType === 'vans') {
       setVehicleBrandsList(vehicleBrands.vanBrands);
       setvcList(vc.payload_capacities.vans);
-      setSalary(30);
+      setSalary(1300);
     }
   }, [vehicleType]);
-const fetchModel = ()=>{
-  
-}
+
   useEffect(() => {
     if (vehicleMarque === 'Audi') {
       setModelList(vm.Audi);
@@ -178,8 +176,8 @@ const vehicle={
                 value={typeContract}
                 onChange={(event) => setTypeContract(event.target.value)}
               >
-                <option value="Trimestrial">Trimestrial</option>
-                <option value="semestrial">semestrial</option>
+                <option value="Trimestrial">3 Month</option>
+                <option value="semestrial">6 Month</option>
                 <option value="12 month">12 month</option>
 
                       

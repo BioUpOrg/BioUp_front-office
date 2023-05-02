@@ -160,7 +160,7 @@ useEffect(()=>{
        <Text  style={styles.text} >your payment is based on your vehicle Type provided previously.
        </Text>
        <Text style={styles.text}>
-       In consideration of the services listed above, Our Company shall pay ,  {user&&contractData&&<Text> {contractData.salary}  dinar each 100Km , </Text> } as described in The previous Application Form.
+       In consideration of the services listed above, Our Company shall pay ,  {user&&contractData&&<Text> {contractData.salary}  dinar , </Text> } as described in The previous Application Form.
        </Text>
        <Text style={styles.text}>
        This service delivery agreement shall be governed by the laws of {user.firstName} {user.lastName}
@@ -202,7 +202,7 @@ useEffect(()=>{
            <Text  style={styles.text} >your payment is based on your vehicle Type provided previously.
            </Text>
            <Text style={styles.text}>
-           In consideration of the services listed above, Our Company shall pay ,  {user&&contractData&&<Text> {contractData.salary}  dinar each 100Km , </Text> } as described in The previous Application Form.
+           In consideration of the services listed above, Our Company shall pay ,  {user&&contractData&&<Text> {contractData.salary}  dinar , </Text> } as described in The previous Application Form.
            </Text>
            <Text style={styles.text}>
            This service delivery agreement shall be governed by the laws of {user.firstName} {user.lastName}
