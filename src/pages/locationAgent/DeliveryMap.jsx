@@ -89,7 +89,7 @@ const Maps = () => {
         
         <LeafletGeocoder  
         onSearch={handleSearch} 
-         position={position}
+         position={deliveryPosition}
      
 />
       </>

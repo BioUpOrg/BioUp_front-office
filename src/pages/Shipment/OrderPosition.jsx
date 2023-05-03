@@ -40,7 +40,7 @@ const [estimtime,setestimeTime]=useState(null);
 
     useEffect(() => {
       if (mypos && orderPos) {
-        const d = mypos.distanceTo(orderPos);
+        const d = mypos.distanceTo(orderPos).toFixed(0);
         setDistance(d/1000);;
         const estimatedtime=((d/1000)/80).toFixed(2);
         setestimeTime(estimatedtime);
