@@ -6,6 +6,9 @@ import {
   sortCompostsByName_Zz_To_Aa,
 } from "../../store/composts";
 
+import {AiOutlineCamera} from "react-icons/ai";
+import { NavLink } from "react-router-dom";
+
 export default function TopFilter() {
   const dispatch = useDispatch();
 
@@ -37,6 +40,15 @@ export default function TopFilter() {
           </p>
         </div>
         <div class="sort-by-product-area">
+        <div class="sort-by-cover mr-10">
+            <div class="sort-by-product-wrap">
+              <div class="sort-by">
+              <NavLink to={"/AIWebCam"}>
+                <AiOutlineCamera style={{ fontSize: "1.5rem" }}/>
+              </NavLink>
+              </div>
+            </div>
+          </div>
           <div class="sort-by-cover mr-10">
             <div class="sort-by-product-wrap">
               <div class="sort-by">

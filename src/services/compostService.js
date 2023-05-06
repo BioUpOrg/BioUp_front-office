@@ -123,3 +123,15 @@ export const getTopSelledComposts = async () => {
   debugger;
   return response.data;
 };
+
+export const getRecommendedCompostsBySoilType = async (soilType) => {
+  debugger;
+  if (soilType && soilType.predicted_class==="Black Soil") soilType ="Black_Soil"
+  if (soilType && soilType.predicted_class==="Cinder soil") soilType ="Cinder_Soil"
+  if (soilType && soilType.predicted_class==="Laterite Soil") soilType ="Laterite_Soil"
+  if (soilType && soilType.predicted_class==="Peat Soil") soilType ="Peat_Soil"
+  if (soilType && soilType.predicted_class==="Yellow Soil") soilType ="Yellow_Soil"
+
+  const response = await axios.get(`${COMPOSTS_ENDPOINT}/recommend/${soilType}`);
+  return response.data;
+};
