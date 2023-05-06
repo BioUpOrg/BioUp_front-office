@@ -69,6 +69,7 @@ import TrackMyOrder from "./pages/Shipment/TrackMyOrder";
 import OrderPosition from "./pages/Shipment/OrderPosition";
 import WebCam from "./components/forms/webCam";
 import RecommendedList from "./pages/composts/recommendedList";
+import Manageshipment from "./pages/ManageShipmentsForAdmin/manageshipment";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -198,6 +199,7 @@ const MyAppRoutes = () => {
         >
          <Route path="user-dashboard" element={<UserDashbord/>}/>
          <Route path="manageContracts" element={<ManageDeliveryAgentContracts/>}/>
+         <Route path="manageShipments" element={<Manageshipment/>}/>
          <Route path="mycontract" element={<ProtectedRoute><MyContract/></ProtectedRoute>}/>
          <Route path="popSignature" element={<ProtectedRoute><PopSignature/></ProtectedRoute>}/>
          <Route path="mylocation" element ={<ProtectedRoute><DeliveryMap /></ProtectedRoute>}/>

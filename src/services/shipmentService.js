@@ -75,6 +75,16 @@ export const getMyOrderLocation = async (trackid) => {
     return error;
   }
 };
+export const getAllshipments =async()=>{
+  try{
+    const res=await axios.get(`http://localhost:3000/shipment/getAllShipment`);
+    return res;
+  }catch(e){
+    console.log(e);
+    return e;
+  }
+
+}
 
 
 

@@ -57,6 +57,11 @@ export default function Dashboard() {
                       <i className="fi-rs-settings-sliders mr-10"></i>Manage Contracts
                     </NavLink>
                   </li>
+                  <li hidden={!isadmin} className="nav-item">
+                    <NavLink className="nav-link" to="/Dashboard/manageShipments">
+                      <i className="fi-rs-settings-sliders mr-10"></i>Manage Shipments
+                    </NavLink>
+                  </li>
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/Dashboard/stats">
                       <i className="fi-rs-settings-sliders mr-10"></i>Dashboard
