@@ -42,7 +42,7 @@ export default function Dashboard() {
  
 
   return (
-    <div class="container" style={{marginBlock:"50px"}}>
+    <div class="container" style={{margin:"2%"}}>
       <div class="row">
         <div class="col-lg-12 m-auto">
           <div class="row">
@@ -113,8 +113,8 @@ export default function Dashboard() {
                 </ul>
               </div>
             </div>
-            <div className="col-md-9">
-              <div className="tab-content account dashboard-content pl-50">
+            <div className="col-sm-9">
+              <div className="tab-content account dashboard-content">
                 <Outlet/>
               </div>
             </div>

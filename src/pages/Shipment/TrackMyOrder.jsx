@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { getMyOrderLocation } from '../../services/shipmentService';
 import { Button } from 'react-bootstrap';
-import OrderPosition from './OrderPosition';
 import { Link } from 'react-router-dom';
+import  {map} from './map.css'
+import Swal from 'sweetalert2';
 
 function TrackMyOrder() {
   const [trackid, setTrackid] = useState("");
   const [agentposition, setAgentPosition] = useState(null);
-  const [error, setError] = useState(null);
   const handleTrackidChange = (event) => {
     const { value } = event.target;
     setTrackid(value);
@@ -16,18 +16,22 @@ function TrackMyOrder() {
   const handleGetMyOrderPosition = async () => {
     try {
       const res = await getMyOrderLocation(trackid);
-      if (res && res.data) {
-      await  setAgentPosition({ lat: res.data.lat, lng: res.data.lng });
-        setError(null);
+      if (res.data && res.data.lat && res.data.lng) {
+        setAgentPosition({ lat: res.data.lat, lng: res.data.lng });
       } else {
-        setAgentPosition(null);
-        setError("Please verify your tracking ID");
-      }
+        Swal.fire({
+          title: "Try Again",
+          text: "This is not a valid tracking Id, please verified again",
+          icon: "error",
+          timer: 3000, // 2 seconds
+          showConfirmButton: true
+
+        });       }
     } catch (error) {
-      setAgentPosition(null);
-      setError(error.message);
+      console.log(error);
     }
   }
+  
   
 
   return (
@@ -68,14 +72,13 @@ function TrackMyOrder() {
             </Link>
           )}
           
+          
         </div>
       </div>
     </div>
                  
 
-                  {error && (
-                    <p style={{color: 'red'}}>{error}</p>
-                  )}
+               
                 </form>
               </div>
             </div>

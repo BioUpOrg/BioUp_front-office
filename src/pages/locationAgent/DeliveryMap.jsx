@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.js";
-import "./map.css";
+import {map} from './map.css';
 
 import L from 'leaflet';
 import {  Button, Col, Container, Row } from 'react-bootstrap';
@@ -102,9 +102,10 @@ mapId.requestFullscreen();
 }
   return (
     <>
-        <MyMissions/>
 
       <Container id='map'>
+      <MyMissions/>
+
         <Row>
 
           <Col>
@@ -113,15 +114,14 @@ mapId.requestFullscreen();
               zoom={13}
               scrollWheelZoom
               enableHighAccuracy
-              style={{ height: "100vh",width:"100%",display:'flex' }}
+              className='map-container'
+              style={{ height: "70vh",width:"100%",display:'flex' }}
             >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}@2x.png?key=8C2aiIdUf5jqf5kpbfKD"
-              />
+            <TileLayer
+  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  attribution="Map data © <a href='https://openstreetmap.org'>OpenStreetMap</a> contributors"
+/>
               <DeliveryMap  />
-
-
 
             </MapContainer>
           </Col>

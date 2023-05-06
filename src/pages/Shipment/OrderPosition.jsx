@@ -10,7 +10,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 function OrderPosition() {
   const pathname = window.location.pathname;
   const [orderPos, setOrderPos] = useState(null);
-  const [distance, setDistance] = useState(null);
+  const [distance, setDistance] = useState(0);
 const [estimtime,setestimeTime]=useState(null);
   useEffect(() => {
     if (pathname) {
@@ -60,7 +60,6 @@ const [estimtime,setestimeTime]=useState(null);
         
         });
         router.addTo(map);
-        setRoute(router);
       }
     }, [mypos, orderPos]);
   
@@ -117,6 +116,8 @@ const [estimtime,setestimeTime]=useState(null);
               zoom={8}
               scrollWheelZoom
               enableHighAccuracy
+               className="map-container"
+              
               style={{ height: "60vh", width: "100%", display: 'flex' }}
             >
               <TileLayer
@@ -128,11 +129,10 @@ const [estimtime,setestimeTime]=useState(null);
              
 
             </MapContainer>
-         {
-  distance && estimtime &&
+            {distance && estimtime &&
   <div style={{margin:'2%'}}>
-    {distance === 0 ?
-      <h4 style={{color:"green",margin:'1%'}}>Congratulations! Your order has arrived.</h4> :
+    {distance === null || distance === undefined || distance === 0  ?
+      <h4 style={{color:"green",margin:'1%'}}>Congratulations! Your order will soon arrive.</h4> :
       <>
         <h4>The Distance Between you and your Order Is:</h4>
         <h3 style={{color:"green",margin:'1%'}}>{distance} Km</h3>
@@ -142,6 +142,7 @@ const [estimtime,setestimeTime]=useState(null);
     }
   </div>
 }
+
 
           </Col>
         </Row>

@@ -121,19 +121,12 @@ const MakeendOfShipment = async () => {
   return (
     <div  className='product-info' style={{marginBottom:'6%'}}>
 <Container>
-      <h3 style={{color:'green', fontFamily:'revert'}}>My Mission</h3>
       {mission && mission.shipment_items && (// use parentheses to wrap multiple lines of code
         <Card>
           <Card.Body >
             
             <Table bordered hover>
-              <thead>
-                <tr>
-                  <td>Price</td>
-                  <td>Shipment Location</td>
-                  <td>Product Details</td>
-                </tr>
-              </thead>
+         
               <tbody>
                 {mission.shipment_items.map((item) => (
                   <tr key={item._id}>
