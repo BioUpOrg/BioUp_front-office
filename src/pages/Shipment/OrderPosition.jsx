@@ -129,10 +129,10 @@ const [estimtime,setestimeTime]=useState(null);
              
 
             </MapContainer>
-            {distance && estimtime &&
+         
   <div style={{margin:'2%'}}>
-    {distance === null || distance === undefined || distance === 0  ?
-      <h4 style={{color:"green",margin:'1%'}}>Congratulations! Your order will soon arrive.</h4> :
+    { distance === 0 && estimtime ?
+      (<h4 style={{color:"green",margin:'1%'}}>Congratulations! Your order will soon arrive.</h4>) :
       <>
         <h4>The Distance Between you and your Order Is:</h4>
         <h3 style={{color:"green",margin:'1%'}}>{distance} Km</h3>
@@ -141,7 +141,7 @@ const [estimtime,setestimeTime]=useState(null);
       </>
     }
   </div>
-}
+
 
 
           </Col>
