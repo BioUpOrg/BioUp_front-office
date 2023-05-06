@@ -67,6 +67,8 @@ import Checkout from "./pages/checkout";
 import ManageDeliveryAgentContracts from "./pages/ManageContractsForAdmin/manageDeliveryAgentContracts";
 import TrackMyOrder from "./pages/Shipment/TrackMyOrder";
 import OrderPosition from "./pages/Shipment/OrderPosition";
+import WebCam from "./components/forms/webCam";
+import RecommendedList from "./pages/composts/recommendedList";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -132,6 +134,8 @@ const MyAppRoutes = () => {
         <Route path="/ManageMyFarm/AnimalsDetail" element={<AnimalDetails />} />
         <Route path="/ManageMyFarm/FarmAI" element={<GoogleCloudVision />} />
         <Route path="/Composts" element={<Composts />} />
+        <Route path="/AIWebCam" element={<WebCam />} />
+        <Route path="/RecommendedComposts" element={<RecommendedList />} />
         <Route path="compost-details" element={<CompostDetails />}>
           <Route path="Description" element={<Description />} />
           <Route path="Additional-Info" element={<AdditionalInfo />} />

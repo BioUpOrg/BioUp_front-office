@@ -9,11 +9,15 @@ const slice = createSlice({
     compostToUpdate: {},
     compostDetails: {},
     loading: false,
+    recommendedComposts: []
   },
   reducers: {
     populateComposts(composts, action) {
       composts.list = action.payload;
       composts.permanentList = action.payload;
+    },
+    populateRecommendedComposts(state, action) {
+      state.recommendedComposts = action.payload;
     },
     populateSellerComposts(composts, action) {
       composts.sellerComposts = action.payload;
@@ -83,6 +87,7 @@ const slice = createSlice({
 
 export const {
   populateComposts,
+  populateRecommendedComposts,
   populateSellerComposts,
   setCompostToUpdate,
   setCompostDetails,
