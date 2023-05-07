@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actions from "../api";
+import { BASE_URL } from "../../endpoints";
 
 const api = ({ dispatch }) => next => async action => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
@@ -12,7 +13,7 @@ const api = ({ dispatch }) => next => async action => {
 
   try {
     const response = await axios.request({
-      baseURL: "http://localhost:3000",
+      baseURL: BASE_URL,
       url,
       method,
       data

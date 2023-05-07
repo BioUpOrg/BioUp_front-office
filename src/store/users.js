@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
-import { BASE_URL } from "../endpoints";
 
 //import moment from "moment";
 
@@ -53,7 +52,7 @@ export const {
 export default slice.reducer;
 
 // Action Creators
-const url = BASE_URL+"/users/auth/";
+const url = "/users/auth/";
 /*
 export const loadUsers = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.users;
