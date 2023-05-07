@@ -7,6 +7,7 @@ import { saveSignature } from '../../services/contractService';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../endpoints';
 
 function PopSignature() {
   const signaturePadRef = useRef(null);
@@ -16,7 +17,7 @@ function PopSignature() {
 
   const fetchUser = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/users/auth/me', {
+      const res = await axios.get(BASE_URL+'users/auth/me', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
