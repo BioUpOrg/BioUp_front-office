@@ -218,21 +218,25 @@ const vehicle={
                 </Col>
                 </Form.Group>
           
-          <Form.Group>
-            <Form.Label>
-              Cin:
-            </Form.Label>
-            <Form.Control
-              type='number'
-              value={cin}
-              placeholder='Please Enter Your Cin '
-              required
-              onChange={(event) => setCin(event.target.value)}
-              isInvalid={cin === ''}
-              isValid={cin !== ''}
-            />
+                <Form.Group>
+  <Form.Label>
+    Cin:
+  </Form.Label>
+  <Form.Control
+    type='number'
+    value={cin}
+    placeholder='Please Enter Your Cin'
+    required
+    onChange={(event) => setCin(event.target.value)}
+    pattern='^[0-9]{8}$'
+    isInvalid={cin === '' || !/^[0-9]{8}$/.test(cin)}
+    isValid={!cin === '' && /^[0-9]{8}$/.test(cin)}
+  />
+  <Form.Control.Feedback type='invalid'>
+    Please enter a valid Cin that consists of exactly 8 digits.
+  </Form.Control.Feedback>
+</Form.Group>
 
-          </Form.Group>
           
         <h3 style={{marginTop:'5%',marginBottom:'5%'}}>Vehicle Information</h3>
         <Row>
@@ -332,22 +336,20 @@ const vehicle={
       
                 </Col>
                 </Form.Group>
-
                 <Form.Group>
   <Form.Label>
     Vehicle Matricule:
   </Form.Label>
   <Col>
-  <Form.Control
-  type='text'
-  value={matricule}
-  placeholder='Enter the vehicle matricule number'
-  onChange={(event) => setmatricule(event.target.value)}
-  pattern='/^\d{4}-[a-zA-Z]{3,}-\d{4}$/'
-  required
-  isValid={matricule !== '' && /^\d{4}-[a-zA-Z]{3,}-\d{4}$/.test(matricule)}
-  isInvalid={matricule !== '' && !/^\d{4}-[a-zA-Z]{3,}-\d{4}$/.test(matricule)}
-/>
+    <Form.Control
+      type='text'
+      value={matricule}
+      placeholder='Enter the vehicle matricule number'
+      onChange={(event) => setmatricule(event.target.value)}
+      pattern='^\d{2,4}-[a-zA-Z]+-\d{1,4}$'
+      isValid={matricule !== '' && /^\d{2,4}-[a-zA-Z]+-\d{1,4}$/.test(matricule)}
+      isInvalid={matricule === '' || !/^\d{2,4}-[a-zA-Z]+-\d{1,4}$/.test(matricule)}
+    />
     <Form.Control.Feedback type='invalid'>
       Please enter a valid vehicle matricule number in the format 1587-[letters]-1811.
     </Form.Control.Feedback>
