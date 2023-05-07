@@ -2,9 +2,9 @@
 import axios from "axios";
 import instance from '../utils/auth.interceptor'
 import { CONTRACT_ENDPOINT } from "../endpoints";
-const urladdContrat=CONTRACT_ENDPOINT+"addnewContract/";
-const urlgetUserContract=CONTRACT_ENDPOINT+"getUserContract/"
-const urlsaveSignature=CONTRACT_ENDPOINT+"saveUserSignature/"
+const urladdContrat=CONTRACT_ENDPOINT+"/addnewContract/";
+const urlgetUserContract=CONTRACT_ENDPOINT+"/getUserContract/"
+const urlsaveSignature=CONTRACT_ENDPOINT+"/saveUserSignature/"
  export const addContract = async (data)=>{
     return axios.post(`${urladdContrat}`,{data})
     .then(response => {
