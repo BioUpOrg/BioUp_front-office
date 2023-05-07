@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { format } from 'date-fns';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import axios from 'axios';
+import { BASE_URL } from '../../../endpoints';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 16
@@ -88,7 +89,7 @@ function UserDashbord() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(' http://localhost:3000/users/auth/me', {
+        const res = await axios.get(BASE_URL+'users/auth/me', {
             headers: {
               'Authorization': `Bearer ${token}`
             }
