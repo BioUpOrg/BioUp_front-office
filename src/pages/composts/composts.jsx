@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
-// import CompostCard from "../../components/cards/compostCard";
+import CompostCard from "../../components/cards/compostCard";
 import { getComposts } from "../../services/compostService";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,9 +39,9 @@ function Composts() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = composts.slice(indexOfFirstItem, indexOfLastItem);
 
-  // const renderCompostCards = currentItems.map((compost) => (
-  //   <CompostCard key={compost._id} compost={compost} />
-  // ));
+  const renderCompostCards = currentItems.map((compost) => (
+    <CompostCard key={compost._id} compost={compost} />
+  ));
 
   const renderPageNumbers = pageNumbers.map((number) => (
     <li
@@ -62,7 +62,7 @@ function Composts() {
           <div className="row flex-row-reverse">
             <div className="col-lg-4-5">
               <TopFilter />
-              {/* <div className="row product-grid">{renderCompostCards}</div> */}
+              <div className="row product-grid">{renderCompostCards}</div>
               <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-start">
