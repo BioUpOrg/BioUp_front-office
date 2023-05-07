@@ -7,7 +7,7 @@ import { getAnimals } from "../../../store/animals";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
-// import AnimalCard from "../../../components/cards/AnimalCard"
+import AnimalCard from "../../../components/cards/AnimalCard"
 
 
 export default function AnimalDetails() {
@@ -52,7 +52,7 @@ export default function AnimalDetails() {
           <Grid container spacing={2}>
             {currentAnimals.map((animal) => (
               <Grid key={animal._id} item xs={12} sm={6} md={3}>
-                {/* <AnimalCard animal={animal} /> */}
+                <AnimalCard animal={animal} />
               </Grid>
             ))}
           </Grid>
