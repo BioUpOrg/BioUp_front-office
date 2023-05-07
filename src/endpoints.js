@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://bio-up-backend-chi.vercel.app/';
+export const BASE_URL = 'http://localhost:3000/';
 export const AUTH_ENDPOINT = BASE_URL+'auth';
 export const COMPOSTS_ENDPOINT = BASE_URL+'composts';
 export const PRODUCTS_ENDPOINT = BASE_URL+'products';
