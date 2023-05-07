@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import CompostListItem from "../../components/cards/compostListItem";
+// import CompostListItem from "../../components/cards/compostListItem";
 
 export default function RecommendedList() {
   const recommendedList = useSelector(
@@ -14,9 +14,9 @@ export default function RecommendedList() {
           <div className="col-lg-4-5">
             <div className="shop-product-filter"></div>
             <div className="row product-grid-3">
-              {recommendedList.map((compost) => (
+              {/* {recommendedList.map((compost) => (
                 <CompostListItem key={compost._id} compost={compost} />
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
