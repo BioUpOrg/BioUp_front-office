@@ -1,8 +1,8 @@
 
 import axios from "axios";
-import { COMMANDS_ENDPOINT } from "../endpoints";
+import { BASE_URL, COMMANDS_ENDPOINT, SHIPMENT_ENDPOINT } from "../endpoints";
 import axiosInstance from "../utils/auth.interceptor";
-const urlmyshipment="http://localhost:3000/shipment/MyMission/";
+const urlmyshipment=SHIPMENT_ENDPOINT+"/MyMission/";
 
 
 export const getMyMission = async (userid)=>{
@@ -19,7 +19,7 @@ export const getMyMission = async (userid)=>{
  }
  export const getMymissionCommands =async(commandId)=>{
   commandId=commandId||'' 
-  return axios.get(`http://localhost:3000/commands/${commandId}`)
+  return axios.get(BASE_URL+`commands/${commandId}`)
   .then(
     response=>{
       console.log(response.data)
@@ -36,7 +36,7 @@ export const getMyMission = async (userid)=>{
  
 export const getUserById = async (id)=>{
   id=id || ''
- return axios.get(`http://localhost:3000/users/getById/${id}`)
+ return axios.get(BASE_URL+`users/getById/${id}`)
  .then(response => {
    console.log(response)
      return response;
@@ -54,7 +54,7 @@ export const addCommand = async (command) => {
 export const updateMylocation =async (position,agent_id)=>{
   agent_id=agent_id || ''
   
-  return axios.put(`http://localhost:3000/shipment/updateMylocation/${agent_id}`,{position})
+  return axios.put(SHIPMENT_ENDPOINT+`/updateMylocation/${agent_id}`,{position})
   .then(response => {
     console.log(response)
       return response;
@@ -68,7 +68,7 @@ export const updateMylocation =async (position,agent_id)=>{
 export const getMyOrderLocation = async (trackid) => {
   trackid=trackid || ''
   try {
-    const response = await axios.get(`http://localhost:3000/shipment/getMyOrderLocation/${trackid}`);
+    const response = await axios.get(SHIPMENT_ENDPOINT+`/getMyOrderLocation/${trackid}`);
     return response;
   } catch (error) {
     console.log(error);
@@ -77,7 +77,7 @@ export const getMyOrderLocation = async (trackid) => {
 };
 export const getAllshipments =async()=>{
   try{
-    const res=await axios.get(`http://localhost:3000/shipment/getAllShipment`);
+    const res=await axios.get(SHIPMENT_ENDPOINT+`/getAllShipment`);
     return res;
   }catch(e){
     console.log(e);
@@ -88,7 +88,7 @@ export const getAllshipments =async()=>{
 export const deleteshipment =async (idshipment)=>{
   idshipment =idshipment || '';
   try{
-    const res=await axios.delete(`http://localhost:3000/shipment/deleteShipment/${idshipment}`);
+    const res=await axios.delete(SHIPMENT_ENDPOINT+`/deleteShipment/${idshipment}`);
     return res;
   }catch(e){
     console.log(e);
