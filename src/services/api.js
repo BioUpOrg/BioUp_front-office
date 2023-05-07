@@ -1,6 +1,6 @@
 import axios from 'axios';
-const apiUrl = "http://localhost:3000/products"
-const apiUrlRating = "http://localhost:3000/rating"
+const apiUrl = "https://bio-up-backend-chi.vercel.app/products"
+const apiUrlRating = "https://bio-up-backend-chi.vercel.app/rating"
 export async function getProducts(){
     return await axios.get(apiUrl);
 }
