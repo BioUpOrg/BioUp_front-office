@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { CONTRACT_ENDPOINT } from "../endpoints";
 
-const url = "/contract/getAllContracts";
+const url = CONTRACT_ENDPOINT+"/getAllContracts";
 const slice = createSlice({
   name: "contracts",
   initialState: {

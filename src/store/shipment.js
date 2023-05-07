@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
+import { SHIPMENT_ENDPOINT } from "../endpoints";
+
 const slice = createSlice({
     name: "shipment",
     initialState: {
@@ -51,7 +53,7 @@ export const {
 export const loadShipment = () => (dispatch, getState) => {
     dispatch(
         apiCallBegan({
-            url:'/shipment/listnotDelivred', // backend API url
+            url:SHIPMENT_ENDPOINT+'/listnotDelivred', // backend API url
             onStart: shipmentRequested.type,
             onSuccess: shipmentReceived.type,
             onError: shipmentRequestFailed.type
@@ -67,7 +69,7 @@ const handleMyMissionResponse = (response, dispatch) => {
   export const getMyMission = id => dispatch => {
     dispatch(
       apiCallBegan({
-        url: `/shipment/MyMission/${id}`,
+        url: SHIPMENT_ENDPOINT+`/MyMission/${id}`,
         onStart: shipmentRequested.type,
         onSuccess: response => handleMyMissionResponse(response, dispatch), // Pass dispatch as a parameter
         onError: shipmentRequestFailed.type
@@ -76,21 +78,21 @@ const handleMyMissionResponse = (response, dispatch) => {
   };
 
 export const addShipment = shipment => apiCallBegan({
-    url: '/shipment/addnewShipment',
+    url: SHIPMENT_ENDPOINT+'/addnewShipment',
     method: "post",
     data: shipment,
     onSuccess: shipmentAdded.type
 });
 
 export const updateShipment = shipment => apiCallBegan({
-    url: `/shipment/makeEndOfMission/${shipment._id}`,
+    url: SHIPMENT_ENDPOINT+`/makeEndOfMission/${shipment._id}`,
     method: "put",
     data: shipment,
     onSuccess: shipmentUpdated.type
 });
 
 export const deleteShipment = shipment => apiCallBegan({
-    url: `/shipment/${shipment._id}`,
+    url:SHIPMENT_ENDPOINT+ `/${shipment._id}`,
     method: "delete",
     data: shipment,
     onSuccess: shipmentDeleted.type
