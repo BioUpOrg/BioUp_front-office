@@ -3,10 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { Col, Container, Row } from 'react-bootstrap';
+import { BASE_URL } from '../endpoints';
 const UserVerificationWithMail = () => {
 const [msg,setMsg]=useState('');
 const {token}= useParams();
-const urlverifMail ="http://localhost:3000/users/check/activate/account/";
+
+const urlverifMail =BASE_URL+"users/check/activate/account/";
  const verifyToken= async (token)=>{
     token = token || ''
     return axios.get(`${urlverifMail}${token}`)

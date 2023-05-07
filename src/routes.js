@@ -70,6 +70,7 @@ import OrderPosition from "./pages/Shipment/OrderPosition";
 import WebCam from "./components/forms/webCam";
 import RecommendedList from "./pages/composts/recommendedList";
 import Manageshipment from "./pages/ManageShipmentsForAdmin/manageshipment";
+import { BASE_URL } from "./endpoints";
 const MyAppRoutes = () => {
   const [isDeliveryAgent, setIsDeliveryAgent] = useState(false);
   const PrivateRoute = ({ children }) => {
@@ -81,7 +82,7 @@ const MyAppRoutes = () => {
     const fetchUser = async () => {
       try {
         const res = await axios
-          .get("http://localhost:3000/users/auth/me", {
+          .get(BASE_URL+"users/auth/me", {
             headers: {
               Authorization: `Bearer ${token}`,
             },

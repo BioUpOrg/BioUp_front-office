@@ -82,7 +82,7 @@ export const getContracts = () =>
 
 export const acceptContract = (id) =>{
   return apiCallBegan({
-    url: `/contract/acceptContract/${id}`,
+    url: CONTRACT_ENDPOINT+`/acceptContract/${id}`,
     method: "put",
     onSuccess:contractsUpdated.type,   
     onError: contractsRequestFailed.type,

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { BASE_URL } from '../../endpoints';
 
 const RecuperePasswordWithPhone = () => {
   const [showInput, setShowInput] = useState('input1');
@@ -10,10 +11,10 @@ const RecuperePasswordWithPhone = () => {
   const [p,setP]=useState('');
   const [cc,setcc]=useState('');
   const navigate =useNavigate();
-  const urlverifphoneexist="http://localhost:3000/users/existphone/";
-  const urlcheckcode="http://localhost:3000/users/check/activate/codeRecupPassBySms/";
-  const urlsendCode="http://localhost:3000/users/updateCodeRecupPassBySms/"
-  const urlchangepass="http://localhost:3000/users/changepassword/"
+  const urlverifphoneexist=BASE_URL+"users/existphone/";
+  const urlcheckcode=BASE_URL+"users/check/activate/codeRecupPassBySms/";
+  const urlsendCode=BASE_URL+"users/updateCodeRecupPassBySms/"
+  const urlchangepass=BASE_URL+"users/changepassword/"
   const verifUserExistByPhone = async(phone) =>{
     phone = phone || '';
     return axios.get(`${urlverifphoneexist}${phone}`)

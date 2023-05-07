@@ -3,10 +3,11 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { Label } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../endpoints';
 
-const url = "http://localhost:3000/users/check/activate/accountsms/";
-const urlupdate="http://localhost:3000/users/updateactivationcodesms/";
-const urlverifphoneexist="http://localhost:3000/users/existphone/";
+const url = BASE_URL+"users/check/activate/accountsms/";
+const urlupdate=BASE_URL+"users/updateactivationcodesms/";
+const urlverifphoneexist=BASE_URL+"users/existphone/";
 
 export const verifyAccountSms = (smscode) => {
     smscode = smscode || '';

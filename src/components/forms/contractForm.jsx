@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {  useNavigate } from 'react-router-dom';
 import { green } from '@mui/material/colors';
 import { color } from '@mui/system';
+import { BASE_URL } from '../../endpoints';
 
 function ContractForm() {
 
@@ -37,7 +38,7 @@ function ContractForm() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(' http://localhost:3000/users/auth/me', {
+        const res = await axios.get(BASE_URL+'users/auth/me', {
             headers: {
               'Authorization': `Bearer ${token}`
             }
