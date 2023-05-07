@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import CompostListItem from "../../components/cards/compostListItem";
+import CompostListItem from "./compostListItem";
 
 export default function RecommendedList() {
   const recommendedList = useSelector(
