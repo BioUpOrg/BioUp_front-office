@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Grid, Paper } from "@material-ui/core";
 
-import FarmCard from "../../../components/cards/FarmCard"
+// import FarmCard from "../../../components/cards/FarmCard"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFarms } from "../../..//store/farms";
@@ -41,7 +41,7 @@ export default function FarmDetails() {
           <Grid container spacing={2}>
             {userFarms.map((farm) => (
               <Grid key={farm._id} item xs={12} sm={6} md={4}>
-                <FarmCard farm={farm} />
+                {/* <FarmCard farm={farm} /> */}
               </Grid>
             ))}
           </Grid>
