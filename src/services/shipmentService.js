@@ -85,6 +85,18 @@ export const getAllshipments =async()=>{
   }
 
 }
+export const deleteshipment =async (idshipment)=>{
+  idshipment =idshipment || '';
+  try{
+    const res=await axios.delete(`http://localhost:3000/shipment/deleteShipment/${idshipment}`);
+    return res;
+  }catch(e){
+    console.log(e);
+    return e;
+  }
+
+
+}
 
 
 

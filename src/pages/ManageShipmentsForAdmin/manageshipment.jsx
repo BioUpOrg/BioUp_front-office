@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { getAllshipments } from '../../services/shipmentService'
+import { deleteshipment, getAllshipments } from '../../services/shipmentService'
 import { Button } from 'react-bootstrap';
-
+import Swal from 'sweetalert2';
 function Manageshipment() {
    const [shipments,setShipments]=useState([]);
 
@@ -16,10 +16,34 @@ function Manageshipment() {
 
 
     },[]);
-const removeShipment=(s)=>{
 
-    alert("for delet" +s);
-}
+    const removeShipment = (id) => {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deleteshipment(id).then(res => {
+            if (res) {
+              console.log(res.data);
+              window.location.reload();
+            }
+          }).catch(err => {
+            console.log(err);
+          })
+          Swal.fire(
+            'Deleted!',
+            'Your shipment has been deleted.',
+            'success'
+          )
+        }
+      })
+    }
   return (
     <section className="mt-50 mb-50">
     <div className="container">
