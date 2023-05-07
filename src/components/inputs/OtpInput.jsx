@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { Label } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const url = "http://localhost:3000/users/check/activate/accountsms/";
 const urlupdate="http://localhost:3000/users/updateactivationcodesms/";
@@ -46,7 +47,7 @@ const VerifyAccount = () => {
   const [Msgphone,setMsgphone]=useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
-
+  const navigate=useNavigate('');
   function handlePhoneNumberChange(event) {
     const { value } = event.target.value;
     setPhoneNumber(value);
@@ -117,6 +118,7 @@ const VerifyAccount = () => {
         setMsg(response);
         if(JSON.stringify(response)===JSON.stringify('activation avec succées')){
           setColor('#00920f');
+          navigate('/Login');
         }
         else{
           setColor('#cf0000');

@@ -38,16 +38,11 @@
       { "label": "GMC", "value": "GMC" },
       { "label": "Ram", "value": "Ram" },
       { "label": "Jeep", "value": "Jeep" },
-      { "label": "Fiat Professional", "value": "Fiat Professional" },
       { "label": "Iveco", "value": "Iveco" },
-      { "label": "MAN", "value": "MAN" },
-      { "label": "Scania", "value": "Scania" },
       { "label": "Volvo", "value": "Volvo" },
-      { "label": "DAF", "value": "DAF" },
       { "label": "Isuzu", "value": "Isuzu" },
       { "label": "Mitsubishi", "value": "Mitsubishi" },
-      { "label": "Suzuki", "value": "Suzuki" },
-      { "label": "Opel", "value": "Opel" }
+      { "label": "Suzuki", "value": "Suzuki" }
 
     ]
   
