@@ -6,6 +6,7 @@ import { Document, Page ,Text,Image,StyleSheet, PDFDownloadLink, View} from '@re
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { BASE_URL } from '../../endpoints';
 
 
 const MyContract = () => {
@@ -19,7 +20,7 @@ const MyContract = () => {
 
 useEffect(()=>{
   const fetchUser = async () => {
-    const res = await axios.get('http://localhost:3000/users/auth/me', {
+    const res = await axios.get(BASE_URL+'users/auth/me', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
