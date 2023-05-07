@@ -93,6 +93,24 @@
       "Sportage",
       "Stinger"
     ],
+    "Isuzu":[
+      "D-Max",
+      "MU-X",
+      "N-Series",
+      "F-Series"
+
+
+    ],
+    "Suzuki":[
+      "Celerio",
+      "Ciaz",
+      "Ertiga",
+      "Jimny",
+      "S-Presso",
+      "Swift",
+      "Vitara"
+    ],
+    
     "BMW": [
       "2 Series",
       "3 Series",

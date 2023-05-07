@@ -25,7 +25,7 @@ function ContractForm() {
   const [vehicleModel,setvehicleModel]=useState(null);
   const [user,setUser]=useState({});
   const [vehicleBrandsList, setVehicleBrandsList] = useState([]);
-   const [modelList, setModelList] = useState([]);
+   const [modelList, setModelList] = useState(vm.Toyota);
  const [vcList,setvcList]=useState([]);
  const [matricule,setmatricule]=useState('');
  const [selectedDate, setSelectedDate] = useState(null);
@@ -79,44 +79,74 @@ function ContractForm() {
   }, [vehicleType]);
 
   useEffect(() => {
-    if (vehicleMarque === 'Audi') {
+    if (vehicleMarque === 'Audi' && vehicleBrandsList) {
       setModelList(vm.Audi);
-    } else if (vehicleMarque === 'BMW') {
+    } else if (vehicleMarque === 'BMW'&& vehicleBrandsList) {
       setModelList(vm.BMW);
-    } else if (vehicleMarque === 'Citroen') {
+    } else if (vehicleMarque === 'Citroen'&& vehicleBrandsList) {
       setModelList(vm.Citroen);
-    } else if (vehicleMarque === 'Dacia') {
+    } else if (vehicleMarque === 'Dacia'&& vehicleBrandsList) {
       setModelList(vm.Dacia);
-    } else if (vehicleMarque === 'Fiat') {
+    } else if (vehicleMarque === 'Fiat'&& vehicleBrandsList) {
       setModelList(vm.Fiat);
-    } else if (vehicleMarque === 'Ford') {
+    } else if (vehicleMarque === 'Ford'&& vehicleBrandsList) {
       setModelList(vm.Ford);
-    } else if (vehicleMarque === 'Honda') {
+    } else if (vehicleMarque === 'Honda'&& vehicleBrandsList) {
       setModelList(vm.Honda);
-    } else if (vehicleMarque === 'Hyundai') {
+    } else if (vehicleMarque === 'Hyundai'&& vehicleBrandsList) {
       setModelList(vm.Hyundai);
-    } else if (vehicleMarque === 'Kia') {
+    } else if (vehicleMarque === 'Kia'&& vehicleBrandsList) {
       setModelList(vm.Kia);
-    } else if (vehicleMarque === 'Mercedes') {
+    } else if (vehicleMarque === 'Mercedes'&& vehicleBrandsList) {
       setModelList(vm.Mercedes);
-    } else if (vehicleMarque === 'Nissan') {
+    } else if (vehicleMarque === 'Nissan'&& vehicleBrandsList) {
       setModelList(vm.Nissan);
-    } else if (vehicleMarque === 'Opel') {
+    } else if (vehicleMarque === 'Opel'&& vehicleBrandsList) {
       setModelList(vm.Opel);
-    } else if (vehicleMarque === 'Peugeot') {
+    } else if (vehicleMarque === 'Peugeot'&& vehicleBrandsList) {
       setModelList(vm.Peugeot);
-    } else if (vehicleMarque === 'Renault') {
+    } else if (vehicleMarque === 'Renault'&& vehicleBrandsList) {
       setModelList(vm.Renault);
-    } else if (vehicleMarque === 'Skoda') {
+    } else if (vehicleMarque === 'Skoda'&& vehicleBrandsList) {
       setModelList(vm.Skoda);
-    } else if (vehicleMarque === 'Toyota') {
+    } else if (vehicleMarque === 'Toyota'&& vehicleBrandsList) {
       setModelList(vm.Toyota);
-    } else if (vehicleMarque === 'Volkswagen') {
+    } else if (vehicleMarque === 'Volkswagen'&& vehicleBrandsList) {
       setModelList(vm.Volkswagen);
-    } else if (vehicleMarque === 'Volvo') {
+    } else if (vehicleMarque === 'Volvo'&& vehicleBrandsList) {
       setModelList(vm.Volvo);
+    }else if (vehicleMarque === 'Chevrolet'&& vehicleBrandsList) {
+      setModelList(vm.Chevrolet);
     }
-  }, [vehicleMarque]);
+    else if (vehicleMarque === 'Dodge'&& vehicleBrandsList) {
+      setModelList(vm.Dodge);
+    } else if (vehicleMarque === 'GMC'&& vehicleBrandsList) {
+      setModelList(vm.GMC);
+    }
+    else if (vehicleMarque === 'Mercedes-Benz'&& vehicleBrandsList) {
+      setModelList(vm['Mercedes-Benz']);
+    }
+    else if (vehicleMarque === 'Ram'&& vehicleBrandsList) {
+      setModelList(vm.Ram);
+    }else if (vehicleMarque === 'Jeep'&& vehicleBrandsList) {
+      setModelList(vm.Jeep);
+    }else if (vehicleMarque === 'Iveco'&& vehicleBrandsList) {
+      setModelList(vm.Iveco);
+    }
+    else if (vehicleMarque === 'Isuzu'&& vehicleBrandsList) {
+      setModelList(vm.Isuzu);
+    }
+    else if(vehicleMarque==="Mitsubishi"&&vehicleBrandsList){
+        setModelList(vm.Mitsubishi)
+    }
+    else if(vehicleMarque==="Suzuki"&&vehicleBrandsList){
+    setModelList(vm.Suzuki);}
+    
+
+    
+    
+    
+  }, [vehicleMarque,vehicleBrandsList]);
 
   console.log(vehicleType);
     console.log(vehicleMarque);
@@ -145,6 +175,7 @@ const vehicle={
     setAcceptedRules(event.target.checked);
   };
 
+ 
   return (
     
     <>
@@ -302,23 +333,27 @@ const vehicle={
                 </Col>
                 </Form.Group>
 
-                <Form.Group >
-                <Form.Label>
-                  Vehicle Matricule:
-                </Form.Label>
-                <Col>
-                  <Form.Control
-                  type='text'
-                    value={matricule}
-                    placeholder='Enter the vehicle matricule number'
-                    onChange={(event) => setmatricule(event.target.value)}
-                    required
-                    isValid={matricule !== ''}
-                    isInvalid={matricule === ''}
-                />
+                <Form.Group>
+  <Form.Label>
+    Vehicle Matricule:
+  </Form.Label>
+  <Col>
+  <Form.Control
+  type='text'
+  value={matricule}
+  placeholder='Enter the vehicle matricule number'
+  onChange={(event) => setmatricule(event.target.value)}
+  pattern='/^\d{4}-[a-zA-Z]{3,}-\d{4}$/'
+  required
+  isValid={matricule !== '' && /^\d{4}-[a-zA-Z]{3,}-\d{4}$/.test(matricule)}
+  isInvalid={matricule !== '' && !/^\d{4}-[a-zA-Z]{3,}-\d{4}$/.test(matricule)}
+/>
+    <Form.Control.Feedback type='invalid'>
+      Please enter a valid vehicle matricule number in the format 1587-[letters]-1811.
+    </Form.Control.Feedback>
+  </Col>
+</Form.Group>
 
-                      </Col>
-                      </Form.Group>
                      
                </Row>
                     <Form.Group style={{marginTop:'3%'}}>
@@ -351,7 +386,7 @@ const vehicle={
                 <br/>
                 <h3  style={{marginTop:'5%',marginBottom:'3%'}}>Service Delivery Agreement</h3>
                  <p>
-                 <h4> Based on thoes information provided we can offer you a {salary} Dinar per 100Km </h4>
+                 <h4> Based on thoes information provided we can offer you a {salary} Dinar  </h4>
                     {
                       email==='' ? (
                      <h5 style={{color:'red'}}>If you want to receive your contract by mail in case of accept , you must add an email to your account</h5>

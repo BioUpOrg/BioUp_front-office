@@ -39,7 +39,7 @@ dispatch(acceptContract(id)).then((res)=>{
                     <th className="col">Vehicle Brand</th>
                     <th className="col">Vehicle Matricule</th>
                     <th className="col">User Full Name</th>
-                    <th className="col">Salary Unit (100km)</th>
+                    <th className="col">Salary </th>
                     <th className='col'>Status Contract</th>
                     <th className="col">Action</th>
                   </tr>
