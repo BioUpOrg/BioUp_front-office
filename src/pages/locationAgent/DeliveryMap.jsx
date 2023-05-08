@@ -102,20 +102,20 @@ mapId.requestFullscreen();
 }
   return (
     <>
+        <MyMissions/>
 
       <Container id='map'>
-      <MyMissions/>
-
         <Row>
 
           <Col>
+
           <MapContainer  
               center={[33.886917, 9.537499]}
               zoom={13}
               scrollWheelZoom
               enableHighAccuracy
               className='map-container'
-              style={{ height: "70vh",width:"100%",display:'flex' }}
+              style={{ height: "100vh",width:"100%",display:'flex' }}
             >
             <TileLayer
   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -124,13 +124,14 @@ mapId.requestFullscreen();
               <DeliveryMap  />
 
             </MapContainer>
+
           </Col>
            
 
           
         </Row>
-        <Row className='justify-content-center'>
-          <Col className='offset-9' style={{marginTop:'1%'}}>
+        <Row  className='col-sm-3 ' style={ {marginTop:'2%'}} >
+          <Col >
             <Button onClick={seeViewFullScreen}>see On Full Screen</Button>
           </Col>
          

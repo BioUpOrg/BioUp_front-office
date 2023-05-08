@@ -46,7 +46,7 @@ navigate('/Dashboard/manageShipments') ;
   return (
     <div class="container" style={{margin:"2%"}}>
       <div class="row">
-        <div class="col-lg-12 m-auto">
+        <div class="col-sm-12 m-auto">
           <div class="row">
             <div class="col-md-3">
               <div class="dashboard-menu">

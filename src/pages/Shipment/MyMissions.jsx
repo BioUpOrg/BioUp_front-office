@@ -11,7 +11,7 @@ import { getComposts } from '../../services/compostService';
 import { populateComposts } from '../../store/composts';
 import { updateShipment } from '../../store/shipment';
 import Swal from 'sweetalert2';
-
+import {DeliveryMap} from '../locationAgent/DeliveryMap';
 const MyMissions = () => {
   const dispatch = useDispatch();
   const [mission, setMission] = useState({});
@@ -113,20 +113,25 @@ const MakeendOfShipment = async () => {
   }).then((result) => {
     if (result.isConfirmed) {
       dispatch(updateShipment(updatedMission));
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   });
 };
 
   return (
-    <div  className='product-info' style={{marginBottom:'6%'}}>
-<Container>
-      {mission && mission.shipment_items && (// use parentheses to wrap multiple lines of code
+    <div className='product-info' style={{marginBottom:'2%'}}>
+ <Container fluid>
+      {mission && mission.shipment_items && (
         <Card>
-          <Card.Body >
-            
-            <Table bordered hover>
-         
+          <Card.Body>
+            <Table bordered hover responsive>
+             <tr striped bordered hover responsive> 
+             <th><h5 style={{color:'green'}}>Total Price</h5></th>
+              <th><h5 style={{color:'green'}}> Shipment Location</h5></th>
+              <th><h5 style={{color:'green'}}>Command Details</h5></th>
+             </tr>
               <tbody>
                 {mission.shipment_items.map((item) => (
                   <tr key={item._id}>
@@ -134,7 +139,7 @@ const MakeendOfShipment = async () => {
                     <td>{commands[item.commande_id] ? commands[item.commande_id].deliveryPlace : "-"}</td>
                     <td>
                       {commands[item.commande_id] ? (
-                        <Table striped bordered hover>
+                        <Table striped bordered hover responsive>
                           <thead>
                             <tr>
                               <th hidden={showDetails}>Name</th>
@@ -148,43 +153,63 @@ const MakeendOfShipment = async () => {
                             </tr>
                           </thead>
                           <tbody>
-                       {commands[item.commande_id].products.map((product) => (
-                          <tr key={product.product} >
-                            <td hidden={showDetails}> {product.type === "bioprod" && product.product === bioprod._id ? bioprod.name : (product.type === "compost" && product.product === compostDetails._id ? compostDetails.name : "-")}</td>
-                            <td hidden={showDetails}>{product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.firstName + " " + userDetailbio.lastName : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.firstName+""+userDetailcomposte.lastName : "-")}</td>
-                            <td hidden={showDetails}>
-  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? 
-    (userDetailbio.email ? userDetailbio.email : userDetailbio.phone)
-    : (product.type === "compost" && product.product === compostDetails._id ? 
-        (userDetailcomposte.email ? userDetailcomposte.email : userDetailcomposte.phone) 
-        : "-")
-  }
-</td>                            <td hidden={showDetails}>{product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.adress : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.adress : "-")}</td>
-                            <td hidden={showDetails}>{product.type === "bioprod" && product.product === bioprod._id ? <img style={{ width: '100%' }} src={bioprod.pic} alt={bioprod.name} /> : (product.type === "compost" && product.product === compostDetails._id ? <img src={compostDetails.image}/> : "-")}</td>
-                            <td>{product.type}</td>
-                            <td>{product.quantity}</td>
-                            <td>
-                              <Button onClick={() => handleClickDetails(product)} variant="info">Details</Button>
-                            </td>
-                          </tr>
-                        ))}
+                            {commands[item.commande_id].products.map((product) => (
+                              <tr key={product.product}>
+                                <td hidden={showDetails}>
+                                  {product.type === "bioprod" && product.product === bioprod._id ? bioprod.name : (product.type === "compost" && product.product === compostDetails._id ? compostDetails.name : "-")}
+                                </td>
+                                <td hidden={showDetails}>
+                                  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.firstName + " " + userDetailbio.lastName : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.firstName + "" + userDetailcomposte.lastName : "-")}
+                                </td>
+                                <td hidden={showDetails}>
+                                  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ?
+                                    (userDetailbio.email ? userDetailbio.email : userDetailbio.phone)
+                                    : (product.type === "compost" && product.product === compostDetails._id ?
+                                      (userDetailcomposte.email ? userDetailcomposte.email : userDetailcomposte.phone)
+                                      : "-")
+                                  }
+                                </td>
+                                <td hidden={showDetails}>
+                                  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.adress : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.adress : "-")}
+                                </td>
+                                <td hidden={showDetails}>
+                                  {product.type === "bioprod" && product.product === bioprod._id ? <img style={{ width: '100%' }} src={bioprod.pic} alt={bioprod.name} /> : (product.type === "compost" && product.product === compostDetails._id ? <img src={compostDetails.image} alt={compostDetails.name} /> : "-")}
+                                </td>
+                                <td>{product.type}</td>
+                                <td>{product.quantity}</td>
+                                <td>
+                                  <Button onClick={() => handleClickDetails(product)} variant="info">Details</Button>
+                                </td>
+                              </tr>
+                            ))}
                           </tbody>
                         </Table>
-                      ) : "-"}
+                      ) : (
+                        "-"
+                      )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            <Button onClick={MakeendOfShipment}>Make End Of This Mission</Button>
           </Card.Body>
         </Card>
       )}
+      <Row>
+        <Col>
+          <Button hidden={!mission} onClick={()=>MakeendOfShipment()} variant="danger">End Mission</Button>
+          <h5 hidden={mission} style={{color:'green'}}>You Dont Have any Mission To Do ! Create a New One</h5>
+        </Col>
+      </Row>
+     
     </Container>
     </div>
-    
+   
   );
-                            }
+} 
+
+
+                            
  export default MyMissions  
 
 

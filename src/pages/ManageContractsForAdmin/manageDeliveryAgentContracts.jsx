@@ -21,65 +21,65 @@ dispatch(acceptContract(id)).then((res)=>{
 
   return (
     <section className="mt-50 mb-50">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12 mb-40">
-            <h1 className="heading-2 mb-10">List Of Contracts</h1>
-            <div className="d-flex justify-content-between"></div>
-          </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12 mb-40">
+          <h1 className="heading-2 mb-10">List Of Contracts</h1>
+          <div className="d-flex justify-content-between"></div>
         </div>
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="table-responsive shopping-summery">
-              <table className="table table-wislist">
-                <thead>
-                  <tr className="main-heading">
-                    
-                    <th className="col">Type Contract</th>
-                    <th className="col">Vehicle Brand</th>
-                    <th className="col">Vehicle Matricule</th>
-                    <th className="col">User Full Name</th>
-                    <th className="col">Salary </th>
-                    <th className='col'>Status Contract</th>
-                    <th className="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {contracts && 
-                    contracts.list.map((contract) => (
-                      <tr key={contract._id}>
-                        <td>{contract.typeContract}</td>
-                        <td>{contract.vehicle.marque}</td>
-                        <td>{contract.vehicle.matricule}</td>
+      </div>
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="table-responsive shopping-summery">
+            <table className="table table-wislist">
+              <thead>
+                <tr className="main-heading">
+                  <th className="col">Type Contract</th>
+                  <th className="col">Vehicle Brand</th>
+                  <th className="col">Vehicle Matricule</th>
+                  <th className="col">User Full Name</th>
+                  <th className="col">Salary </th>
+                  <th className='col'>Status Contract</th>
+                  <th className="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {contracts && 
+                  contracts.list.map((contract) => (
+                    <tr key={contract._id}>
+                      <td>{contract.typeContract}</td>
+                      <td>{contract.vehicle.marque}</td>
+                      <td>{contract.vehicle.matricule}</td>
                       <td>
                         {contract.user && contract.user.firstName
                           ? `${contract.user.firstName} ${contract.user.lastName}`
                           : 'Deleted agent'}
                       </td>
-                        <td>{contract.salary}</td>
-                        <td>{contract.statuscontract ? "Accepted":"peending" }</td>
-                        <td>
+                      <td>{contract.salary}</td>
+                      <td>{contract.statuscontract ? "Accepted":"pending" }</td>
+                      <td>
                         <Container>
                           <Row className="justify-content-center">
                             <Col sm={6}>
-                               <Button  onClick={()=>{handleAcceptContract(contract._id)}}>Accept</Button>
+                              <Button onClick={() => {handleAcceptContract(contract._id)}}>Accept</Button>
                             </Col>
                           </Row>
-                          </Container>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
+                        </Container>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </div>
         </div>
-        <div className="divider center_icon mt-50 mb-50">
-          <i className="fi-rs-fingerprint"></i>
-        </div>
-        <div className="row"></div>
       </div>
-    </section>
+      <div className="divider center_icon mt-50 mb-50">
+        <i className="fi-rs-fingerprint"></i>
+      </div>
+      <div className="row"></div>
+    </div>
+  </section>
+  
   );
   
 }
