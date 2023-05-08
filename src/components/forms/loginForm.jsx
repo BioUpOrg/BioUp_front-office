@@ -94,16 +94,16 @@ export default function LoginForm() {
           Log in
         </button>
         <Row>
-          <Col md={6}></Col>
-          <Col md={6}>
+          <Col sm={6}></Col>
+          <Col sm={6}>
             <Link to={"/recover-pass-sms"} className="m-2">
               recover password with phone
             </Link>
           </Col>
         </Row>
         <Row>
-          <Col md={6}></Col>
-          <Col md={6}>
+          <Col sm={6}></Col>
+          <Col sm={6}>
             <Link to={"/RecoverPassEmail"} className="m-2">
               recover password with Email
             </Link>

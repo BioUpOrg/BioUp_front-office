@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Nav } from "react-bootstrap";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
@@ -15,6 +15,7 @@ export default function Dashboard() {
   const decoded = jwt_decode(token);
   const userId=decoded.role;
   const userIde=decoded;
+  const navigate=useNavigate();
 
   useEffect(()=>{
    
@@ -27,14 +28,15 @@ export default function Dashboard() {
                 console.log("contractsig",res.signature);
                 if(res.signature!==""){
                   setsignedtransport(false);
+                  navigate('/dashboard/mylocation')
                 }
- 
            }
           })
         }
         else if (userId==="admin"){
           setisAdmin(true);
-        }
+navigate('/Dashboard/manageShipments') ;
+       }
 
     console.log(statusRole)
 
@@ -62,24 +64,24 @@ export default function Dashboard() {
                       <i className="fi-rs-settings-sliders mr-10"></i>Manage Shipments
                     </NavLink>
                   </li>
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/Dashboard/stats">
+                <li className="nav-item" hidden={!statusRole}>
+                    <NavLink  className="nav-link" to="/Dashboard/stats">
                       <i className="fi-rs-settings-sliders mr-10"></i>Dashboard
                     </NavLink>
                   </li>
                 
                 
-                  <li className="nav-item">
+                  <li className="nav-item" hidden={!statusRole}>
                     <NavLink className="nav-link" to="/Dashboard/compost-Form">
                       <i className="fi-rs-shopping-bag mr-10"></i>sell compost
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item"hidden={!statusRole}>
                     <NavLink className="nav-link" to="/Dashboard/Products/myproducts">
                       <i className="fi-rs-shopping-bag mr-10"></i>My products
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item" hidden={!statusRole}>
                     <NavLink className="nav-link" to="/Dashboard/product-Form">
                       <i className="fi-rs-shopping-cart-check mr-10"></i>sell
                       bio-product
