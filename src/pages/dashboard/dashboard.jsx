@@ -120,7 +120,7 @@ navigate('/Dashboard/manageShipments') ;
                 </ul>
               </div>
             </div>
-            <div className="col-sm-9">
+            <div className="col-sm-9" style={{padding:'3%'}}>
               <div className="tab-content account dashboard-content">
                 <Outlet/>
               </div>
