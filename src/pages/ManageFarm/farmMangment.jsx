@@ -136,7 +136,7 @@ export default function FarmMangment() {
                 </Grid>
                 <Grid xs>
                    <Item> 
-                   <Image src="https://treedefi.com/images/seed.png" style={{width:"200px",height:"250px"}}></Image>
+                   <Image src="https://cdn-icons-png.flaticon.com/512/7963/7963920.png" style={{width:"200px",height:"250px"}}></Image>
                           <Button 
                           data-testid="AddPlantButton"
                           variant="outlined" onClick={handleClickOpenPlant} style={{ width:"100px", whiteSpace: 'nowrap' }}>
