@@ -131,7 +131,8 @@ function GetListCommandeNotShipped() {
                                 console.log("p",products);
                                 console.log("compostttttttttttttttttttttttttt",composts);
                                 // Find the product with the matching ID in the `products` list
-                                if(product.type==="bioprod"){
+                                //change bioprod with product
+                                if(product.type==="product"||product.type==="bioprod"){
                                   const pr = products.find(
                                     (p) => p._id === product.product
                                   );
