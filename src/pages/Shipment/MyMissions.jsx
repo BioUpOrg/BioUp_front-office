@@ -69,7 +69,7 @@ const handleClickDetails = (product) => {
   console.log(`Product clicked is !`,product);
   setShowDetails(false);
 
-  if (product.type === "bioprod") {
+  if (product.type === "product") {
     const biop = products.find((p) => p._id === product.product);
     if (biop) {
       console.log(`Bioprod:`, biop);
@@ -156,13 +156,13 @@ const MakeendOfShipment = async () => {
                             {commands[item.commande_id].products.map((product) => (
                               <tr key={product.product}>
                                 <td hidden={showDetails}>
-                                  {product.type === "bioprod" && product.product === bioprod._id ? bioprod.name : (product.type === "compost" && product.product === compostDetails._id ? compostDetails.name : "-")}
+                                  {product.type === "product" && product.product === bioprod._id ? bioprod.name : (product.type === "compost" && product.product === compostDetails._id ? compostDetails.name : "-")}
                                 </td>
                                 <td hidden={showDetails}>
-                                  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.firstName + " " + userDetailbio.lastName : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.firstName + "" + userDetailcomposte.lastName : "-")}
+                                  {product.type === "product" && product.product === bioprod._id && userDetailbio ? userDetailbio.firstName + " " + userDetailbio.lastName : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.firstName + "" + userDetailcomposte.lastName : "-")}
                                 </td>
                                 <td hidden={showDetails}>
-                                  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ?
+                                  {product.type === "product" && product.product === bioprod._id && userDetailbio ?
                                     (userDetailbio.email ? userDetailbio.email : userDetailbio.phone)
                                     : (product.type === "compost" && product.product === compostDetails._id ?
                                       (userDetailcomposte.email ? userDetailcomposte.email : userDetailcomposte.phone)
@@ -170,10 +170,10 @@ const MakeendOfShipment = async () => {
                                   }
                                 </td>
                                 <td hidden={showDetails}>
-                                  {product.type === "bioprod" && product.product === bioprod._id && userDetailbio ? userDetailbio.adress : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.adress : "-")}
+                                  {product.type === "product" && product.product === bioprod._id && userDetailbio ? userDetailbio.adress : (product.type === "compost" && product.product === compostDetails._id ? userDetailcomposte.adress : "-")}
                                 </td>
                                 <td hidden={showDetails}>
-                                  {product.type === "bioprod" && product.product === bioprod._id ? <img style={{ width: '100%' }} src={bioprod.pic} alt={bioprod.name} /> : (product.type === "compost" && product.product === compostDetails._id ? <img src={compostDetails.image} alt={compostDetails.name} /> : "-")}
+                                  {product.type === "product" && product.product === bioprod._id ? <img style={{ width: '100%' }} src={bioprod.pic} alt={bioprod.name} /> : (product.type === "compost" && product.product === compostDetails._id ? <img src={compostDetails.image} alt={compostDetails.name} /> : "-")}
                                 </td>
                                 <td>{product.type}</td>
                                 <td>{product.quantity}</td>
