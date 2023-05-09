@@ -12,14 +12,8 @@ export default function CompostListItem({ compost }) {
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
             <div className="product-img-inner">
-              <a href="/1" />
               <img
                 className="default-img"
-                src={compost.image}
-                alt=""
-              />
-              <img
-                className="hover-img"
                 src={compost.image}
                 alt=""
               />

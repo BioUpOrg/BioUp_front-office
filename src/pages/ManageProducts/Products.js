@@ -54,14 +54,14 @@ function Products () {
             <Container>
             <Row>
             {/* {currentUser} */}
-           {visible2 &&  <Alert variant="success">
+           {/* {visible2 &&  <Alert variant="success">
             <Alert.Heading>Hey, Welcome To Our Shop <strong> MyStore </strong>    </Alert.Heading>
             <p>
             Thank you for choosing our store, we hope you enjoy your shopping experience!
             </p>
             <hr />
           </Alert>
-        }
+        } */}
           <div className="tab-content wow fadeIn animated">
             <div className="tab-pane fade show active">
               <div className="compost-grid-4 row">

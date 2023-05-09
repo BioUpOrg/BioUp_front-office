@@ -1,12 +1,14 @@
 import Card from "react-bootstrap/Card";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { increment } from "../../store/slices/cartSlice";
 import { deleteProduct, getProducts } from "../../../src/services/api";
 import { Icon } from '@iconify/react';
+import { addItemToWishList } from "../../store/wishlist";
+import { addItemToCart } from "../../store/cart";
 
 function Product(props) {
   const [product,] = useState(props.product);
@@ -29,6 +31,18 @@ function Product(props) {
     console.log("Likes Update");
   }, []);
   const className = likes > 5 ?"bestProduct mx-auto my-2":"mx-auto my-2" ;
+  
+  //add to cart and wishlist
+  const handleAddToWishListOnClick = (product) => {
+    dispatch(addItemToWishList(product));
+  };
+
+  const addToCartOnClick = (product) => {
+    const cartItem = { cartItem: { ...product }, quantity: 0, type: "product" };
+    console.log("cartItem: ", cartItem);
+    dispatch(addItemToCart(cartItem));
+  };
+
   return (
     <div className="col-lg-1-5 col-md-4 col-12 col-sm-6"  >
       <div className="product-cart-wrap mb-30">
@@ -40,16 +54,23 @@ function Product(props) {
             {/* </a> */}
           </div>
           <div className="product-action-1">
-            <a
+            <NavLink to={`/products/${product._id}`}
               aria-label="Quick view"
               className="action-btn hover-up"
               data-bs-toggle="modal"
             >
               <i className="fi-rs-eye"></i>
-            </a>
-            <a aria-label="Add To Wishlist" className="action-btn hover-up">
+            </NavLink>
+            <NavLink
+            to={"/wishlist"}
+            onClick={() => {
+              handleAddToWishListOnClick(product);
+            }}
+              aria-label="Add To Wishlist"
+              className="action-btn hover-up"
+            >
               <i className="fi-rs-heart"></i>
-            </a>
+            </NavLink>             
             <a aria-label="Compare" className="action-btn hover-up">
               <i className="fi-rs-shuffle"></i>
             </a>
@@ -104,10 +125,15 @@ function Product(props) {
                 </span>
               )}
             </div>
-            <div className="add-cart">
-              <a className="add" href="/">
+            <div
+              className="add-cart"
+              onClick={() => {
+                addToCartOnClick(product);
+              }}
+            >
+              <NavLink className="add" to={"/cart"}>
                 <i className="fi-rs-shopping-cart mr-5"> </i> Add
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>
