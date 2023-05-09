@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useRef } from "react";
 import {
@@ -25,7 +26,7 @@ export default function CompostForm() {
     totalPrice: 0,
     discountOffered: "",
     type: "compost",
-    nutrientContent: "",
+    nutrientContent: [],
     brandName: "",
     manufacturer: "",
     certification: "",
@@ -81,6 +82,27 @@ export default function CompostForm() {
     }));
   };
 
+
+  const [selectedNutrients, setSelectedNutrients] = useState([]);
+  const handleNutrientSelection = (event) => {
+    const selectedNutrient = event.target.value;
+    setSelectedNutrients((prevSelectedNutrients) => {
+      if (prevSelectedNutrients.includes(selectedNutrient)) {
+        return prevSelectedNutrients.filter((nutrient) => nutrient !== selectedNutrient);
+      } else {
+        return [...prevSelectedNutrients, selectedNutrient];
+      }
+    });
+  };
+
+  useEffect(() => {
+    // update nutrientContent of compost whenever selectedNutrients changes
+    setCompost((prevCompost) => ({
+      ...prevCompost,
+      nutrientContent: selectedNutrients,
+    }));
+  }, [selectedNutrients]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("compost form ", compost);
@@ -93,7 +115,6 @@ export default function CompostForm() {
       SuccessAlert("Your compost has been successfully saved");
       navigate("/Dashboard/stats");
     }
-    
   };
 
   return (
@@ -225,15 +246,271 @@ export default function CompostForm() {
               </div>
             </div>
           </div>
-          <div className="form-group">
-            <label>Nutrient Content:</label>
-            <input
-              type="text"
-              name="nutrientContent"
-              value={compost.nutrientContent}
-              onChange={handleChange}
-            />
+          {/* <div className="form-group"> */}
+          <div class="list-group">
+            <div class="list-group-item mb-10 mt-10">
+              <label class="fw-900">Nutrients</label>
+              <div className="custom-checkbox">
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="nitrogen"
+                    value="nitrogen"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="nitrogen"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Nitrogen (N)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="phosphorus"
+                    value="phosphorus"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="phosphorus"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Phosphorus (P)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="potassium"
+                    value="potassium"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="potassium"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Potassium (K)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="calcium"
+                    value="calcium"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="calcium"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Calcium (Ca)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="magnesium"
+                    value="magnesium"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="magnesium"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Magnesium (Mg)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="sulfur"
+                    value="sulfur"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="sulfur"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Sulfur (S)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="iron"
+                    value="iron"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="iron"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Iron (Fe)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="manganese"
+                    value="manganese"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="manganese"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    Manganese (Mn)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Zinc"
+                    value="Zinc"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="Zinc"
+                    style={{ "text-transform": "capitalize" }}
+                  >
+                    Zinc (Zn)
+                  </label>
+                  <br />
+                </div>
+
+                <div>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Copper"
+                    value="Copper"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="Copper"
+                    style={{ "text-transform": "capitalize" }}
+                  >
+                    Copper (Cu)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Boron"
+                    value="Boron"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="Boron"
+                    style={{ "text-transform": "capitalize" }}
+                  >
+                    Boron (B)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Molybdenum"
+                    value="Molybdenum"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="Molybdenum"
+                    style={{ "text-transform": "capitalize" }}
+                  >
+                    Molybdenum (Mo)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Chlorine"
+                    value="Chlorine"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="Chlorine"
+                    style={{ "text-transform": "capitalize" }}
+                  >
+                    Chlorine (Cl)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Nickel"
+                    value="Nickel"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="Nickel"
+                    style={{ "text-transform": "capitalize" }}
+                  >
+                    Nickel (Ni)
+                  </label>
+                  <br />
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Other"
+                    value="Other"
+                    onChange={handleNutrientSelection}
+                  />
+                  <label
+                    class="form-check-label"
+                    for="Other"
+                    style={{ "text-transform": "capitalize" }}
+                  >
+                    Other
+                  </label>
+                  <br />
+                </div>
+              </div>
+            </div>
           </div>
+          {/* </div> */}
 
           <div className="row">
             <div className="col-md-6">
