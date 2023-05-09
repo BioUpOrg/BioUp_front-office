@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { getProduct } from "../../../src/services/api";
 import Rating from '@mui/material/Rating';
 import { addRating , getRating } from "../../../src/services/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import RecomendationCard from './recomendationCard';
 import data from '../../data.json';
+import { addItemToCart, decrement, increment } from '../../store/cart';
+import { addItemToWishList } from '../../store/wishlist';
 
 export default function ProductDetails() {
  // const product = useSelector((state)=>state.entities.products.products)
@@ -66,6 +68,30 @@ export default function ProductDetails() {
     return productsInSameCluster;
   }
 
+  //cart code 
+  const dispatch = useDispatch();
+
+  const handleIncrementOnClick = (product) => {
+    const cartItem = { cartItem: { ...product }, quantity: 0, type: "product" };
+    dispatch(increment(cartItem));
+
+  };
+  const handleDecrementOnClick = (product) => {
+    const cartItem = { cartItem: { ...product }, quantity: 0, type: "product" };
+    dispatch(decrement(cartItem));
+
+  };
+  const addToCartOnClick = (product) => {
+    const cartItem = { cartItem: { ...product }, quantity: 0, type: "product" };
+    dispatch(addItemToCart(cartItem));
+  };
+
+  const handleAddToWishListOnClick = (compost) => {
+    dispatch(addItemToWishList(compost));
+  };
+
+
+
   return (
     <Container style={{ marginTop: "30px" }}>
       {product._id !== undefined ? (
@@ -98,6 +124,53 @@ export default function ProductDetails() {
             />
 
             <p>rating :{product.rating}</p>
+            <div className="detail-extralink">
+                          <div className="detail-qty border radius">
+                            <NavLink
+                              className="qty-down"
+                              onClick={() => {
+                                handleDecrementOnClick(product);
+                              }}
+                            >
+                              <i className="fi-rs-angle-small-down"></i>
+                            </NavLink>
+                            <div className="qty-val">{0}</div>
+                            <NavLink
+                              className="qty-up"
+                              onClick={() => {
+                                handleIncrementOnClick(product);
+                              }}
+                            >
+                              <i className="fi-rs-angle-small-up"></i>
+                            </NavLink>
+                          </div>
+                          <div className="product-extra-link2">
+                            <button
+                              className="button button-add-to-cart"
+                              onClick={() => {
+                                addToCartOnClick(product);
+                              }}
+                            >
+                              Add to cart
+                            </button>
+                            <NavLink
+            to={"/wishlist"}
+            onClick={() => {
+              handleAddToWishListOnClick(product);
+            }}
+              aria-label="Add To Wishlist"
+              className="action-btn hover-up"
+            >
+                              <i className="fi-rs-heart"></i>
+                              </NavLink>
+                            <NavLink
+                              aria-label="Compare"
+                              className="action-btn hover-up"
+                            >
+                              <i className="fi-rs-shuffle"></i>
+                            </NavLink>
+                          </div>
+                        </div>
           </Col>
         </Row>
       ) : (

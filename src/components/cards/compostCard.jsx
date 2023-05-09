@@ -77,9 +77,13 @@ export default function CompostCard({ compost }) {
             <a href="#">armani</a>
           </div>
           <h2>
-            <a href="/products/seeds-of-change-organic-quinoe">
+            <NavLink
+              to={"/compost-details/Description"}
+              onClick={() => {
+                handleDetailsOnClick(compost);
+              }}>
               {compost.name}
-            </a>
+            </NavLink>
           </h2>
           <Rating
             value={compost.rating}
