@@ -3,7 +3,6 @@ import React from 'react';
 export default function Home() {
   return (
     <div>
-      <HeadScript />
       <header className="header"></header>
       <main className="main">
         <div className="page-header breadcrumb-wrap d-none">
@@ -519,18 +518,4 @@ export default function Home() {
       </main>
     </div>
   );
-}
-
-
-
-// Outside of the component, directly in the script tag
-const mcScript = `
-  !function(c,h,i,m,p){
-    m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)
-  }(document,"script","https://chimpstatic.com/mcjs-connected/js/users/ff7ff316474f859ec2ece2990/cd75466397b84fa0d83b399cc.js");
-`;
-
-export function HeadScript() {
-  console.log('HeadScript');
-  return <script id="mcjs" dangerouslySetInnerHTML={{ __html: mcScript }} />;
 }
