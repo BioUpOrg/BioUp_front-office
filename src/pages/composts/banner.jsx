@@ -3,6 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+
+
 export default function Banner() {
   const settings = {
     dots: true,
@@ -15,6 +17,7 @@ export default function Banner() {
   };
 
   return (
+
     <div className="home-slider position-relative mb-65 mt-65">
       <div className="container">
         <div className="home-slide-cover mt-30">

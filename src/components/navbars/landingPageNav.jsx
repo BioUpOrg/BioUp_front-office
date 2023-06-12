@@ -129,8 +129,11 @@ export default function LandingPageNav() {
                     to={"/ManageMyFarm"}>My Farm</Link>
                   </li>
                   <li>
-                    <Link to={"/Blog"}>Our Blog</Link>
+                    <Link 
+                    data-testid="MyBookmarkNavButton"
+                    to={"/bookmarks"}>My BookMarks</Link>
                   </li>
+
                   <li>
                     <Link to={"/Contact"}>Contact</Link>
                   </li>

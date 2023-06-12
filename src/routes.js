@@ -22,6 +22,8 @@ import Page500 from "./pages/errorsPages/500";
 import Dashboard from "./pages/dashboard/dashboard";
 import Farm from "./pages/farm";
 import FarmMangment from "./pages/ManageFarm/farmMangment";
+import BookMarkMangment from "./pages/ManageBookMarks/bookMarkMangment";
+
 import MyContract from "./pages/ContractDelivery/MyContract";
 import AddFarm from "./pages/ManageFarm/AddFarm";
 import FarmDetails from "./pages/ManageFarm/FarmDetails";
@@ -143,6 +145,8 @@ const MyAppRoutes = () => {
           <Route path="Additional-Info" element={<AdditionalInfo />} />
           <Route path="Reviews" element={<Reviews />} />
         </Route>
+        <Route path="/bookmarks" element={<BookMarkMangment />} />
+
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Register" element={<Register />} />
