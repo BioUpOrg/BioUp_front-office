@@ -1,5 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+
 export default function Home() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.id = 'mcjs';
+    script.innerHTML = `!function(c,h,i,m,p){
+      m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)
+    }(document,"script","https://chimpstatic.com/mcjs-connected/js/users/ff7ff316474f859ec2ece2990/cd75466397b84fa0d83b399cc.js");`;
+
+    document.head.appendChild(script);
+
+    return () => {
+      // Clean up the script when the component unmounts
+      document.head.removeChild(script);
+    };
+  }, []);
+
+  return (
+  
+    <div>
+          <header className="header">
+
+        </header>
+      <main className="main">
+        <div className="page-header breadcrumb-wrap d-none">
+          <div className="container">
+            <div className="breadcrumb">
+              <a href="index.html"></a>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <section className="home-slider position-relative mb-30">
+
+        </section>
+      </main>
+    </div>
+  );
+
+
   return (
     <div>
       <main className="main">
@@ -516,4 +556,5 @@ export default function Home() {
       </main>
     </div>
   );
-}
+
+  }
